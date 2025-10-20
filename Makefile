@@ -17,7 +17,7 @@ libft:
 
 $(NAME): $(OBJ)
 	@echo "compiling ${NAME}"
-	@$(CC) $(CFLAGS) $(OBJ) $(HEADERS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(HEADERS) -o $(NAME) -lreadline
 
 obj/%.o: src/%.c
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ && printf "Compiling: $(notdir $<)\n"
