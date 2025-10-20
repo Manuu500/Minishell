@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/10/16 20:10:26 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2024/10/16 21:25:53 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (argc != 0)
-	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
-	}
-	else
-		return(1);
+	if (lst == NULL)
+		return ;
+	(*del)(lst->content);
+	free (lst);
 }

@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/09/24 17:17:36 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2024/10/05 17:12:59 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strdup(const char *s)
 {
-	if (argc != 0)
-	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
-	}
-	else
-		return(1);
+	char	*str;
+
+	str = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!str)
+		return (0);
+	ft_memcpy(str, s, ft_strlen(s) + 1);
+	return (str);
 }

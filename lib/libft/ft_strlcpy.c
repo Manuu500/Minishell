@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/09/16 13:19:59 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2024/10/08 16:01:24 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	if (argc != 0)
+	size_t	i;
+
+	i = 0;
+	if (size == 0)
+		return (ft_strlen(src));
+	while (src[i] && i < size - 1)
 	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
+		dest[i] = src[i];
+		i++;
 	}
-	else
-		return(1);
+	dest[i] = '\0';
+	return (ft_strlen(src));
 }

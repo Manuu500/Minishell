@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/09/30 17:22:14 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2025/03/10 13:39:05 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_putnbr_fd(int n, int fd)
 {
-	if (argc != 0)
+	char	c;
+	int		counter;
+
+	counter = 0;
+	if (n == -2147483648)
+		return (write (fd, "-2147483648", 11));
+	if (n < 0)
 	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
+		write(fd, "-", 1);
+		counter++;
+		n = -n;
 	}
-	else
-		return(1);
+	if (n >= 10)
+	{
+		counter += ft_putnbr_fd(n / 10, fd);
+	}
+	c = n % 10 + '0';
+	write (fd, &c, 1);
+	counter++;
+	return (counter);
 }
+

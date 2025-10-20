@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/09/30 17:08:57 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2025/03/10 13:37:50 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_putstr_fd(char *s, int fd)
 {
-	if (argc != 0)
-	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
-	}
+	int	str_long;
+
+	if (s == NULL)
+		return (ft_putstr_fd("(null)", 1));
 	else
-		return(1);
+	{
+		str_long = ft_strlen(s);
+		write(fd, s, str_long);
+	}
+	return (str_long);
 }

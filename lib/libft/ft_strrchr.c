@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/10/01 22:34:42 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2024/10/05 14:14:29 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strrchr(const char *s, int c)
 {
-	if (argc != 0)
+	int	i;
+
+	i = ft_strlen(s);
+	if (c == '\0')
+		return ((char *)&s[i]);
+	while (i >= 0)
 	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i--;
 	}
-	else
-		return(1);
+	return (NULL);
 }

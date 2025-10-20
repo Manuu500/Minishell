@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/09/18 18:38:21 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2024/10/18 14:14:01 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	if (argc != 0)
+	size_t			i;
+	unsigned char	*a;
+	unsigned char	*b;
+
+	a = (unsigned char *)s1;
+	b = (unsigned char *)s2;
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (i < n)
 	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
+		if (a[i] != b[i])
+			return (a[i] - b[i]);
+		i++;
 	}
-	else
-		return(1);
+	return (0);
 }

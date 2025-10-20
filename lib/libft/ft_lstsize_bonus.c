@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/10/16 17:59:50 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2024/10/16 21:26:48 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_lstsize(t_list *lst)
 {
-	if (argc != 0)
+	size_t	i;
+
+	i = 0;
+	while (lst != NULL)
 	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
+		lst = lst->next;
+		i++;
 	}
-	else
-		return(1);
+	return (i);
 }

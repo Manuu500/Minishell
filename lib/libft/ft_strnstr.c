@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/09/20 20:55:38 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2024/10/18 14:16:15 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	if (argc != 0)
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	if (little[i] == '\0')
+		return ((char *)big);
+	while (big[i] != '\0' && i < len)
 	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
+		j = 0;
+		while (big[i + j] == little[j] && (i + j < len))
+		{
+			if (little[j + 1] == '\0')
+				return ((char *)&big[i]);
+			j++;
+		}
+		i++;
 	}
-	else
-		return(1);
+	return (0);
 }

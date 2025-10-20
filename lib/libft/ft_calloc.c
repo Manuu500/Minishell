@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/09/24 15:44:51 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2024/10/18 14:13:16 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+//num * size == cantidad total de memoria que te asigna
+//void* (nombre de variable) asignación temporal
+
+void	*ft_calloc(size_t num, size_t size)
 {
-	if (argc != 0)
+	void	*mem;
+
+	if (size == 0 || num == 0)
 	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
+		num = 1;
+		size = 1;
 	}
+	mem = malloc(num * size);
+	if (!mem)
+		return (0);
 	else
-		return(1);
+		ft_bzero(mem, (num * size));
+	return (mem);
 }

@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/20 15:59:45 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2024/09/16 12:46:33 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2024/10/18 14:17:02 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	if (argc != 0)
+	char	*a_dest;
+	char	*b_src;
+
+	b_src = (char *)src;
+	a_dest = (char *)dest;
+	if (a_dest == b_src)
+		return (dest);
+	if ((a_dest > b_src) && (b_src + n) > a_dest)
 	{
-		char	*r1;
-		r1 = readline(argv[2]);
-		printf("%s\n", r1);
+		while (n--)
+			a_dest[n] = b_src[n];
+		return (dest);
 	}
-	else
-		return(1);
+	return (ft_memcpy(dest, src, n));
 }
