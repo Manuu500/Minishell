@@ -6,18 +6,21 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:13:22 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/03/10 13:43:54 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:28:48 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
+# ifndef BUFFER_SIZE
 # define LIBFT_H
+# define BUFFER_SIZE 120
 # include <stddef.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
 # include <stdarg.h>
+
 
 void	*ft_memcpy(void *dest, const void *src, unsigned int n);
 
@@ -74,4 +77,5 @@ int	ft_putnbrsign(unsigned int num);
 int	ft_putnbrlong(unsigned int n, int fd);
 char	*ft_get_next_line(int fd);
 
+#endif
 #endif

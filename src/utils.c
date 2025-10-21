@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/21 18:02:53 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2025/10/21 18:02:30 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+# include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	init_vars(t_minishell *minishell)
 {
-	t_minishell minishell;
-	(void) argv;
-	char	*r1;
-	
-	if (argc != 0)
-	{
-		init_vars(&minishell);
-		r1 = readline("Prompt: ");
-		printf("%s\n", r1);
-		minishell.envp = copy_matrix(envp);
-		debug_matrix_copy();
-		free(r1);
-	}
-	else
-		return(1);
+	minishell->envp = NULL;
+	minishell->user_input = NULL;
 }

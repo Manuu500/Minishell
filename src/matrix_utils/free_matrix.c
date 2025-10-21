@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/21 18:02:53 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2025/10/21 17:46:39 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2025/10/21 17:52:01 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+# include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	free_matrix(char **matrix)
 {
-	t_minishell minishell;
-	(void) argv;
-	char	*r1;
+	int	i;
 	
-	if (argc != 0)
+	i = 0;
+	while (matrix[i])
 	{
-		init_vars(&minishell);
-		r1 = readline("Prompt: ");
-		printf("%s\n", r1);
-		minishell.envp = copy_matrix(envp);
-		debug_matrix_copy();
-		free(r1);
+		free(matrix[i]);
+		i++;
 	}
-	else
-		return(1);
+	free(matrix);
 }
