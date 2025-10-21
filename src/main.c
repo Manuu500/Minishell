@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/21 18:02:53 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/21 18:14:03 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_minishell minishell;
 	(void) argv;
-	char	*r1;
 	
 	if (argc != 0)
 	{
 		init_vars(&minishell);
-		r1 = readline("Prompt: ");
-		printf("%s\n", r1);
 		minishell.envp = copy_matrix(envp);
 		debug_matrix_copy();
-		free(r1);
+		safe_free(&minishell);
 	}
 	else
 		return(1);

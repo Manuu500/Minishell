@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/21 18:05:10 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2025/10/21 18:13:11 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-void	init_vars(t_minishell *minishell)
+void	safe_free(t_minishell *minishell)
 {
-	minishell->envp = NULL;
-	minishell->user_input = NULL;
-}
+	int	i;
 
+	i = 0;
+	free_matrix(minishell->envp);
+}

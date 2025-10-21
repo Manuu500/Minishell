@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/21 18:02:42 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/21 18:09:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum {
 char	**copy_matrix(char **envp);
 void	free_matrix(char **matrix);
 void	debug_matrix_copy();
+void	safe_free(t_minishell *minishell);
 
 //----------------------------------------------//
 
