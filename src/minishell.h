@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/21 18:09:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/27 15:32:33 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 # include <readline/history.h>
 # include "../libs/libft/libft.h"
 
-typedef struct {
+typedef struct minishell {
 	char 	*user_input;
 	char	**envp;
 }			t_minishell;
 
-typedef enum {
+typedef enum token_type {
 	TOKEN_WORD,
 	TOKEN_PIPE,
 	TOKEN_REDIR_IN,
@@ -33,15 +33,23 @@ typedef enum {
 	TOKEN_EOF	
 }			t_token_type;
 
+typedef struct s_token {
+	t_token_type 	type;
+	char			*value;
+	struct s_token 	*next;
+}			t_token;
+
 //---------------MATRIX_FUNCTIONS---------------//
 
 char	**copy_matrix(char **envp);
 void	free_matrix(char **matrix);
-void	debug_matrix_copy();
-void	safe_free(t_minishell *minishell);
+void	debug_matrix_copy(t_minishell *minishell);
 
 //----------------------------------------------//
 
 void	init_vars(t_minishell *minishell);
+void	safe_free(t_minishell *minishell);
+t_token	*tokenize(char *input);
+void	debug_token(t_token *head);
 
 #endif

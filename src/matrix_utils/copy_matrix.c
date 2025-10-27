@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:16:16 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/21 18:14:14 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/27 15:10:58 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ char	**copy_matrix(char **envp)
 	return(envp_copy);
 }
 
-void	debug_matrix_copy()
+void	debug_matrix_copy(t_minishell *minishell)
 {
-	t_minishell	minishell;
 	int	i;
 
 	i = 0;
-	while (minishell.envp[i])
+	if (!minishell->envp)
+		return ;
+	while (minishell->envp[i])
 	{
-		printf("Linea de envp: %s\n", minishell.envp[i]);
+		printf("Linea de envp: %s\n", minishell->envp[i]);
 		i++;
 	}
 }

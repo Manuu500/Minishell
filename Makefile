@@ -14,6 +14,7 @@ LIBS := $(LIBFT)/libft.a
 SRC :=	src/main.c \
 		src/utils.c \
 		src/free.c \
+		src/tokens.c \
 		src/matrix_utils/copy_matrix.c \
 		src/matrix_utils/free_matrix.c
 
