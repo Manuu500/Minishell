@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/27 15:32:33 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:57:42 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ void	init_vars(t_minishell *minishell);
 void	safe_free(t_minishell *minishell);
 t_token	*tokenize(char *input);
 void	debug_token(t_token *head);
+void	check_if_pipes(char *input, int i, t_token *head, t_token *current);
+int		check_if_number(char *input, int i, t_token *head, t_token *current);
+void	add_token(t_token **head, t_token **current, t_token_type type, char *value);
 
 #endif
