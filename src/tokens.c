@@ -6,24 +6,24 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/28 17:59:00 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:18:16 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-static char	*substr_remove_quotes(char *input, int len)
+static char	*substr_remove_quotes(char *input, int start, int len)
 {
 	char		*str;
 	int			i;
 	int			j;
 	
-	i = 0;
+	i = start;
 	str = malloc(sizeof(char) * len + 1);
 	if (!str)
 		return (0);
 	j = 0;
-	while (i < len)
+	while (i < start + len)
 	{
 		if (input[i] != '\"')
 		{
@@ -133,10 +133,6 @@ t_token	*tokenize(char *input)
 			{
 				if (input[i] == '\'' || input[i] == '\"')
 				{
-					if (input[i] == '\"')
-					{
-						
-					}
 					quote = input[i];
 					i++;
 					while (input[i] && input[i] != quote)
@@ -156,7 +152,7 @@ t_token	*tokenize(char *input)
 			}
 			if (i > start)
 			{
-				word = substr_remove_quotes(input, i - start);
+				word = substr_remove_quotes(input, start, i - start);
 				add_token(&head, &current, TOKEN_WORD, word);
 				free(word);
 			}
