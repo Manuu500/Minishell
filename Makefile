@@ -14,9 +14,10 @@ LIBS := $(LIBFT)/libft.a
 SRC :=	src/main.c \
 		src/utils.c \
 		src/free.c \
-		src/tokens.c \
 		src/debug.c \
-		src/tokens_extra.c \
+		src/syntax.c \
+		src/tokens_functions/tokens.c \
+		src/tokens_functions/tokens_extra.c \
 		src/matrix_utils/copy_matrix.c \
 		src/matrix_utils/free_matrix.c
 
@@ -40,6 +41,7 @@ obj/%.o: bonus/%.c
 obj:
 	@mkdir -p obj
 	@mkdir -p obj/matrix_utils
+	@mkdir -p obj/tokens_functions
 
 clean:
 	@rm -rf obj

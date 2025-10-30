@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/27 17:57:42 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/30 18:08:53 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_token {
 	t_token_type 	type;
 	char			*value;
 	struct s_token 	*next;
+	struct s_token	*prev;
 }			t_token;
 
 //---------------MATRIX_FUNCTIONS---------------//
@@ -54,5 +55,6 @@ void	debug_token(t_token *head);
 void	check_if_pipes(char *input, int i, t_token *head, t_token *current);
 int		check_if_number(char *input, int i, t_token *head, t_token *current);
 void	add_token(t_token **head, t_token **current, t_token_type type, char *value);
+void	syntax_check(t_minishell *minishell, t_token *tokens);
 
 #endif
