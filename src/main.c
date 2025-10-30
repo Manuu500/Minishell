@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/27 17:48:00 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:26:19 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	
 	init_vars(&minishell);
 	minishell.user_input = readline("Prompt: ");
+	setup_signal_hanslers();
 	printf("Linea: %s\n", minishell.user_input);
 	minishell.envp = copy_matrix(envp);
 	tokens = tokenize(minishell.user_input);
