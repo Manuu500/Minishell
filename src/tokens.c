@@ -6,13 +6,13 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/28 18:18:16 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:44:54 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-static char	*substr_remove_quotes(char *input, int start, int len)
+static char	*substr_remove_quotes(char *input, int start, int len, char quote_type)
 {
 	char		*str;
 	int			i;
@@ -25,14 +25,14 @@ static char	*substr_remove_quotes(char *input, int start, int len)
 	j = 0;
 	while (i < start + len)
 	{
-		if (input[i] != '\"')
+		if (input[i] != quote_type)
 		{
 			str[j] = input[i];
 			j++;
 		}
 		i++;
 	}
-	str[i] = '\0';
+	str[j] = '\0';
 	return (str);
 }
 
@@ -144,15 +144,15 @@ t_token	*tokenize(char *input)
 					}
 					i++;
 				}
-				else if ((input[i] == ' ' && input[i] == '\t' && input[i] == '<'
-					&& input[i] == '>' && input[i] == '|' && input[i] == '\'' && input[i] == '\"'))
+				else if ((input[i] == ' ' || input[i] == '\t' || input[i] == '<'
+					|| input[i] == '>' || input[i] == '|'))
 					break;
 				else
 					i++;
 			}
 			if (i > start)
 			{
-				word = substr_remove_quotes(input, start, i - start);
+				word = substr_remove_quotes(input, start, i - start, quote);
 				add_token(&head, &current, TOKEN_WORD, word);
 				free(word);
 			}
