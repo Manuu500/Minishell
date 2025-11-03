@@ -6,13 +6,12 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/03 11:08:56 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/03 11:56:00 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "exe.h"
-
 #include <unistd.h>
 #include <sys/wait.h>
 

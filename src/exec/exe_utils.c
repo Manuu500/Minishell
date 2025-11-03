@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/03 11:11:13 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/03 11:35:58 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ static char	*get_env_value(char **envp, const char *key)
 static char	*join_path_cmd(const char *dir, const char *cmd)
 {
 	size_t	len;
-	char	*p;
+	char	*full_path;
 
 	if (!dir || !cmd)
 		return (NULL);
 	len = ft_strlen(dir) + 1 + ft_strlen(cmd) + 1;
-	p = (char *)malloc(len);
-	if (!p)
+	full_path = (char *)malloc(len);
+	if (!full_path)
 		return (NULL);
-	p[0] = '\0';
-	ft_strlcpy(p, dir, len);
-	ft_strlcat(p, "/", len);
-	ft_strlcat(p, cmd, len);
-	return (p);
+	full_path[0] = '\0';
+	ft_strlcpy(full_path, dir, len);
+	ft_strlcat(full_path, "/", len);
+	ft_strlcat(full_path, cmd, len);
+	return (full_path);
 }
 
 static void	free_strv(char **parts)
@@ -65,13 +65,13 @@ static void	free_strv(char **parts)
 
 static void	try_exec_dir(const char *dir, char **argv, char **envp)
 {
-	char	*p;
+	char	*full_path;
 
-	p = join_path_cmd(dir, argv[0]);
-	if (p)
+	full_path = join_path_cmd(dir, argv[0]);
+	if (full_path)
 	{
-		execve(p, argv, envp);
-		free(p);
+		execve(full_path, argv, envp);
+		free(full_path);
 	}
 }
 

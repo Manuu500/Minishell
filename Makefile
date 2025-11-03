@@ -18,7 +18,14 @@ SRC :=	src/main.c \
 		src/tokens_extra.c \
 		src/matrix_utils/copy_matrix.c \
 		src/matrix_utils/free_matrix.c \
-		src/builtings/builtings.c \
+	src/builtings/builtings.c \
+	src/builtings/echo.c \
+	src/builtings/env.c \
+	src/builtings/pwd.c \
+	src/builtings/cd.c \
+	src/builtings/export.c \
+	src/builtings/unset.c \
+	src/builtings/exit.c \
 		src/exec/command_dispatcher.c \
 		src/exec/exe_utils.c \
 		src/exec/exe_runner.c \
