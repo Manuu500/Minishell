@@ -15,10 +15,14 @@ SRC :=	src/main.c \
 		src/utils.c \
 		src/free.c \
 		src/tokens.c \
-		src/debug.c \
 		src/tokens_extra.c \
 		src/matrix_utils/copy_matrix.c \
-		src/matrix_utils/free_matrix.c
+		src/matrix_utils/free_matrix.c \
+		src/builtings/builtings.c \
+		src/exec/command_dispatcher.c \
+		src/exec/exe_utils.c \
+		src/exec/exe_runner.c \
+		src/exec/argv_builder.c
 
 OBJ	= $(patsubst src%, obj%, $(SRC:.c=.o))
 
@@ -40,6 +44,8 @@ obj/%.o: bonus/%.c
 obj:
 	@mkdir -p obj
 	@mkdir -p obj/matrix_utils
+	@mkdir -p obj/builtings
+	@mkdir -p obj/exec
 
 clean:
 	@rm -rf obj

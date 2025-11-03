@@ -6,65 +6,44 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:04:53 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/10/30 18:56:09 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/03 10:39:04 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+// Builtins API minimal: detección y dispatcher con argv completo
+#include "builtings.h"
 
-int strcmp(char *str1, char *str2)
+int	is_builtin(const char *name)
 {
-    int len1;
-    int len2;
-    int i;
-    
-    i = 0;
-    if(len1 == len2)
-    {
-		while(str1[i] && str2[i] && str1[i] == str2[i])
-			i++;
-		if(str1[i] == '\0')
-			return (1);
-    }
+	if (!name)
+		return (0);
+	if (ft_strncmp(name, "echo", 5) == 0)
+		return (1);
+	if (ft_strncmp(name, "cd", 3) == 0)
+		return (1);
+	if (ft_strncmp(name, "pwd", 4) == 0)
+		return (1);
+	if (ft_strncmp(name, "export", 7) == 0)
+		return (1);
+	if (ft_strncmp(name, "unset", 6) == 0)
+		return (1);
+	if (ft_strncmp(name, "env", 4) == 0)
+		return (1);
+	if (ft_strncmp(name, "exit", 5) == 0)
+		return (1);
 	return (0);
 }
 
-int is_builtin(t_token name)
+// Nota: Implementaciones reales de builtins no están aún.
+// Devolvemos 0 para éxito por defecto; sustituir por llamadas reales.
+int	builtin_dispatch(char **argv, t_minishell *ms)
 {
-    if(strcmp(name.value, "echo"))
-		return(1);
-	else if(strcmp(name.value, "cd"))
-		return(1);
-	else if(strcmp(name.value, "pwd"))
-		return(1);
-	else if(strcmp(name.value, "export"))
+	(void)ms;
+	if (!argv || !argv[0])
 		return (1);
-	else if(strcmp(name.value, "unset"))
-		return (1);
-	else if(strcmp(name.value, "env"))
-		return (1);
-	else if(strcmp(name.value, "exit"))
-		return (1);
-	else
-		return (0);
-}
-
-void	builting_dispatcher(t_token name)
-{
-	if(strcmp(name.value, "echo"))
-		builtin_echo(t_token name);
-	else if(strcmp(name.value, "cd"))
-		builtin_cd(t_token cd);
-	else if(strcmp(name.value, "pwd"))
-		builtin_pwd(t_token name);
-	else if(strcmp(name.value, "export"))
-		builtin_export(t_token name);
-	else if(strcmp(name.value, "unset"))
-		builtin_unset(t_token name)
-	else if(strcmp(name.value, "env"))
-		builtin_env(t_token name);
-	else if(strcmp(name.value, "exit"))
-		builtin_exit(t_token name);
-	else
-		return (0);
+	// Ejemplo de esqueleto (descomenta e implementa cuando estén listos):
+	// if (ft_strncmp(argv[0], "echo", 5) == 0) return (builtin_echo(argv));
+	// else if (ft_strncmp(argv[0], "cd", 3) == 0) return (builtin_cd(argv, ms));
+	// ...
+	return (0);
 }
