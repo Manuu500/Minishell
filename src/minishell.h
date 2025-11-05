@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/04 17:33:28 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/05 12:18:23 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct	s_redirect {
 typedef struct s_command {
 	char	**arg;
 	char	**input;
-	t_token	*token;
 }			t_command;
 
 //---------------MATRIX_FUNCTIONS---------------//

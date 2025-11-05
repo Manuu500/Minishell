@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/04 18:14:02 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/05 13:11:54 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,15 @@ void	syntax_check(t_command *command, t_token *token, t_redirect *redirect)
 		*/
 		if (token->type == TOKEN_WORD)
 		{
-			// if (token->type == TOKEN_REDIR_IN || token->type == TOKEN_REDIR_APPEND)
-			// {
-			// 	if (token->next->type)
-			// 	redirect->value[i_redir] = token->next->value;
-			// 	redirect->type = token->next->type;
-			// 	i_redir++;
-			// }
-			if (command->input[0] && token->prev && 
-				(token->prev->type != TOKEN_REDIR_OUT && 
-				token->prev->type != TOKEN_REDIR_IN && 
-				token->prev->type != TOKEN_REDIR_APPEND))
-			{
-				command->arg[j_arg] = token->value;
-				j_arg++;
-			}
-			else if (!command->input[0])
+			if (!command->input[0])
 			{
 				command->input[k_input] = token->value;
 				k_input++;
+			}
+			else if (command->input[0] && token->prev)
+			{
+				command->arg[j_arg] = token->value;
+				j_arg++;
 			}
 		}
 		else if (token->type == TOKEN_PIPE)
