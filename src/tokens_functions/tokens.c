@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/30 16:44:54 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/05 13:24:13 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,13 @@ void	add_token(t_token **head, t_token **current, t_token_type type, char *value
 	{
 		*head = new_token;
 		*current = new_token;
+		new_token->prev = NULL;
 	}
 	else
 	{
 		(*current)->next = new_token;
-		*current = new_token;	
+		new_token->prev = *current;
+		*current = new_token;
 	}
 }
 
