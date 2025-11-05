@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:04:53 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/03 12:24:08 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/05 10:31:33 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	builtin_dispatch(char **argv, t_minishell *ms)
 		return (builtin_cd(argv, ms));
 	if (ft_strncmp(argv[0], "pwd", 4) == 0)
 		return (builtin_pwd(argv));
-	if (ft_strncmp(argv[0], "export", 7) == 0)
+	/*if (ft_strncmp(argv[0], "export", 7) == 0)
 		return (builtin_export(argv, ms));
 	if (ft_strncmp(argv[0], "unset", 6) == 0)
-		return (builtin_unset(argv, ms));
+		return (builtin_unset(argv, ms));*/
 	if (ft_strncmp(argv[0], "env", 4) == 0)
 		return (builtin_env(argv, ms));
 	if (ft_strncmp(argv[0], "exit", 5) == 0)

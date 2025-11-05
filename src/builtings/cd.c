@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:45 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/03 12:25:47 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/05 11:43:05 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 static char *get_env_value_local(char **envp, const char *key)
 {
     int i;
-    size_t klen;
+    size_t key_len;
 
     if (!envp || !key)
         return (NULL);
-    klen = ft_strlen(key);
+    key_len = ft_strlen(key);
     i = 0;
     while (envp[i])
     {
-        if (ft_strncmp(envp[i], key, klen) == 0 && envp[i][klen] == '=')
-            return (envp[i] + klen + 1);
+        if (ft_strncmp(envp[i], key, key_len) == 0 && envp[i][key_len] == '=')
+            return (envp[i] + key_len + 1);
         i++;
     }
     return (NULL);

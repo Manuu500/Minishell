@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/03 11:12:22 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/05 10:19:38 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	command_dispatcher(t_token *token, t_minishell *ms)
 		return (1);
 	if (token->type != TOKEN_WORD)
 		return (0);
+	/* PIPELINE ???? */
 	argv = make_argv_view_from_tokens(token);
 	if (!argv)
 		return (1);
