@@ -6,11 +6,35 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/10/27 18:22:19 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/05 13:24:13 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
+
+static char	*substr_remove_quotes(char *input, int start, int len, char quote_type)
+{
+	char		*str;
+	int			i;
+	int			j;
+	
+	i = start;
+	str = malloc(sizeof(char) * len + 1);
+	if (!str)
+		return (0);
+	j = 0;
+	while (i < start + len)
+	{
+		if (input[i] != quote_type)
+		{
+			str[j] = input[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
+}
 
 static	t_token	*create_token(t_token_type type, char *value)
 {
@@ -43,11 +67,13 @@ void	add_token(t_token **head, t_token **current, t_token_type type, char *value
 	{
 		*head = new_token;
 		*current = new_token;
+		new_token->prev = NULL;
 	}
 	else
 	{
 		(*current)->next = new_token;
-		*current = new_token;	
+		new_token->prev = *current;
+		*current = new_token;
 	}
 }
 
@@ -105,41 +131,34 @@ t_token	*tokenize(char *input)
 		else
 		{
 			start = i;
-			if (input[i] == 34 || input[i] == 39)
+			while (input[i])
 			{
-				quote = input[i];
-				i++;
-				start++;
-				while (input[i] && input[i] != quote)
+				if (input[i] == '\'' || input[i] == '\"')
+				{
+					quote = input[i];
 					i++;
-				if (!input[i])
-				{
-					printf("Error\n");
-					return (NULL);
+					while (input[i] && input[i] != quote)
+						i++;
+					if (!input[i])
+					{
+						printf("ERROR");
+						return(NULL);
+					}
+					i++;
 				}
-				if (i > start)
-				{
-					word = ft_substr(input, start, i - start);
-					add_token(&head, &current, TOKEN_WORD, word);
-					free(word);
-				}
-				i++;
+				else if ((input[i] == ' ' || input[i] == '\t' || input[i] == '<'
+					|| input[i] == '>' || input[i] == '|'))
+					break;
+				else
+					i++;
 			}
-			else
+			if (i > start)
 			{
-				while (input [i] && input[i] != ' ' && input[i] != '\t' && input[i] != '<'
-				&& input[i] != '>' && input[i] != '|' && input[i] != 39 && input[i] != 34)
-					i++;
-				if (i > start)
-				{
-					word = ft_substr(input, start, i - start);
-					add_token(&head, &current, TOKEN_WORD, word);
-					free(word);
-				}
+				word = substr_remove_quotes(input, start, i - start, quote);
+				add_token(&head, &current, TOKEN_WORD, word);
+				free(word);
 			}
 		}
 	}
 	return (head);
 }
-
-

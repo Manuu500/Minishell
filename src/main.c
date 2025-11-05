@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/03 12:33:10 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:56:00 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_command command;
 	t_minishell minishell;
+	t_redirect	redirect;
 	t_token	*tokens;
 	(void) argv;
 	(void) argc;
 	
 	init_vars(&minishell);
 	minishell.user_input = readline("Prompt: ");
-	// setup_signal_handlers(); // pendiente de implementar
+	printf("Linea: %s\n", minishell.user_input);
 	minishell.envp = copy_matrix(envp);
 	tokens = tokenize(minishell.user_input);
-	// ejecutar comando/pipeline simple
-	command_dispatcher(tokens, &minishell);
+	// debug_matrix_copy(&minishell);
+	debug_token(tokens);
 	safe_free(&minishell);
 	return(1);
 }
