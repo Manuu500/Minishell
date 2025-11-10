@@ -6,11 +6,19 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/05 13:24:13 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/10 16:27:17 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
+
+static	char	*check_var_token(t_minishell *minishell, char *str)
+{
+	char		*word;
+
+	word = find_var_in_matrix(str, minishell);
+	return (word);
+}
 
 static char	*substr_remove_quotes(char *input, int start, int len, char quote_type)
 {
@@ -35,6 +43,35 @@ static char	*substr_remove_quotes(char *input, int start, int len, char quote_ty
 	str[j] = '\0';
 	return (str);
 }
+
+static void	save_var(char *input, t_token **head, t_token **current, t_minishell *minishell)
+{
+	int		count;
+	char	*str;
+	char	*result;
+	int		i;
+
+	i = 0;
+	(void) current;
+	str = NULL;
+	result = NULL;
+	count = 0;
+	while (input[i])
+	{
+		if (input[i] == '$')
+		{
+			i++;
+			while (input[i] >= 'A' && input[i] <= 'Z')
+				i++;	
+			str = ft_substr(input, 1, i - 0);
+			result = check_var_token(minishell, str);
+			add_token(head, current, TOKEN_VAR, result);
+			free(str);
+		}
+		i++;
+	}
+}
+
 
 static	t_token	*create_token(t_token_type type, char *value)
 {
@@ -77,7 +114,7 @@ void	add_token(t_token **head, t_token **current, t_token_type type, char *value
 	}
 }
 
-t_token	*tokenize(char *input)
+t_token	*tokenize(char *input, t_minishell *minishell)
 {
 	t_token *head;
 	t_token	*current;
@@ -127,6 +164,11 @@ t_token	*tokenize(char *input)
 				add_token(&head, &current, TOKEN_REDIR_OUT, ">");
 				i++;
 			}
+		}
+		else if (input[i] == '$')
+		{
+			save_var(input, &head, &current, minishell);
+			i++;
 		}
 		else
 		{

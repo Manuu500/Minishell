@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/05 12:18:23 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/10 16:22:30 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,37 @@ typedef struct minishell {
 typedef enum token_type {
 	TOKEN_WORD,
 	TOKEN_PIPE,
-	TOKEN_REDIR_IN,
-	TOKEN_REDIR_OUT,
+	TOKEN_REDIR_IN, // <
+	TOKEN_REDIR_OUT, // >
 	TOKEN_REDIR_APPEND,
 	TOKEN_HEREDOC,
-	TOKEN_EOF	
+	TOKEN_EOF,
+	TOKEN_VAR
 }			t_token_type;
 
 typedef struct s_token {
 	t_token_type 	type;
 	char			*value;
+	char			*var_name;
 	struct s_token 	*next;
 	struct s_token	*prev;
 }			t_token;
 
 typedef struct	s_redirect {
-	char			**value;
-	t_token_type	type;
+	char				*filename;
+	int					fd;
+	struct s_redirect 	*next;
+	t_token_type		type;
 }			t_redirect;
 
 typedef struct s_command {
-	char	**arg;
-	char	**input;
+	char				**argv;
+	// char				**input;
+	t_redirect    		*redirs;  // lista enlazada de redirecciones para este comando
+    int         		in_fd;      // init -1, ADRI lo rellena
+    int         		out_fd;     // init -1
+    int         		is_builtin; // init 0. Adri lo rellena
+    struct s_command 	*next; // para pipeline
 }			t_command;
 
 //---------------MATRIX_FUNCTIONS---------------//
@@ -60,11 +69,13 @@ void	debug_matrix_copy(t_minishell *minishell);
 
 void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect);
 void	safe_free(t_minishell *minishell, t_command *command);
-t_token	*tokenize(char *input);
+t_token	*tokenize(char *input, t_minishell *minishell);
 void	debug_token(t_token *head);
 void	check_if_pipes(char *input, int i, t_token *head, t_token *current);
 int		check_if_number(char *input, int i, t_token *head, t_token *current);
 void	add_token(t_token **head, t_token **current, t_token_type type, char *value);
 void	syntax_check(t_command *command, t_token *tokens, t_redirect *redirect);
+void	save_command(t_command *command, t_minishell *minishell);
+char	*find_var_in_matrix(char *var, t_minishell *minishell);
 
 #endif

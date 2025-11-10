@@ -19,7 +19,8 @@ SRC :=	src/main.c \
 		src/tokens_functions/tokens.c \
 		src/tokens_functions/tokens_extra.c \
 		src/matrix_utils/copy_matrix.c \
-		src/matrix_utils/free_matrix.c
+		src/matrix_utils/free_matrix.c \
+		src/matrix_utils/find_matrix.c
 
 OBJ	= $(patsubst src%, obj%, $(SRC:.c=.o))
 
