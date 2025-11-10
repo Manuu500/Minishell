@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/10 16:27:17 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/10 17:28:36 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,29 @@ static char	*substr_remove_quotes(char *input, int start, int len, char quote_ty
 	return (str);
 }
 
-static void	save_var(char *input, t_token **head, t_token **current, t_minishell *minishell)
+static void	save_var(char *input, t_token **head, t_token **current, t_minishell *minishell, int start)
 {
 	int		count;
 	char	*str;
 	char	*result;
 	int		i;
+	int		stop_flag;
 
-	i = 0;
-	(void) current;
+	i = start;
 	str = NULL;
 	result = NULL;
-	count = 0;
 	while (input[i])
 	{
 		if (input[i] == '$')
 		{
+			count = i + 1;
 			i++;
 			while (input[i] >= 'A' && input[i] <= 'Z')
 				i++;	
-			str = ft_substr(input, 1, i - 0);
+			str = ft_substr(input, count, i - count);
 			result = check_var_token(minishell, str);
 			add_token(head, current, TOKEN_VAR, result);
+			stop_flag = 1;
 			free(str);
 		}
 		i++;
@@ -167,7 +168,7 @@ t_token	*tokenize(char *input, t_minishell *minishell)
 		}
 		else if (input[i] == '$')
 		{
-			save_var(input, &head, &current, minishell);
+			save_var(input, &head, &current, minishell, i);
 			i++;
 		}
 		else
