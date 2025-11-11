@@ -1,27 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe.h                                              :+:      :+:    :+:   */
+/*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/30 19:07:51 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/11 12:59:40 by arivas-q         ###   ########.fr       */
+/*   Created: 2025/11/11 17:42:01 by arivas-q          #+#    #+#             */
+/*   Updated: 2025/11/11 17:42:02 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXE_H
-# define EXE_H
-# include <stddef.h>
-# include "../minishell.h"
-# include <unistd.h>
-# include <sys/wait.h>
-# include <string.h>
-# include <stdio.h>
-
-/* Commands */
-int		command_dispatcher(t_command *command, t_minishell *ms);
-int		execute_external_command(char **argv, char **envp);
-void	exec_from_path(char **argv, char **envp);
-
-#endif

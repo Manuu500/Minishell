@@ -31,9 +31,9 @@ SRC := \
 	src/exec/exe_utils.c \
 	src/exec/exe_runner.c \
 	src/exec/argv_builder.c \
+		src/exec/exec_dispatch.c \
 	src/signals/signal.c \
-	src/signals/Ctrl_Sig.c \
-	src/signals/Ctrl_D.c
+		src/signals/Ctrl_Sig.c
 
 OBJ	:= $(patsubst src%, obj%, $(SRC:.c=.o))
 

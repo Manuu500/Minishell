@@ -6,14 +6,17 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:04:53 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/05 10:31:33 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/11 12:15:24 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtings.h"
 
-int	is_builtin(const char *name)
+int	is_builtin(char **argv)
 {
+	char *name;
+
+	name = argv[0];
 	if (!name)
 		return (0);
 	if (ft_strncmp(name, "echo", 5) == 0)
