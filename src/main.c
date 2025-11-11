@@ -6,12 +6,13 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/05 15:05:14 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:12:21 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec/exe.h"
+#include "signals/signals.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -22,13 +23,17 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	(void) argc;
 	
+	while(1) {
 	init_vars(&minishell, &command, &redirect);
+	setup_signal_handlers();
 	minishell.user_input = readline("Prompt: ");
-	printf("Linea: %s\n", minishell.user_input);
+	if (handle_ctrl_d(minishell.user_input))
+		break;
 	minishell.envp = copy_matrix(envp);
 	tokens = tokenize(minishell.user_input);
-	// debug_matrix_copy(&minishell);
-	debug_token(tokens);
-	safe_free(&minishell, &command);
+	command_dispatcher(tokens, &minishell);
+	//* debug_matrix_copy(&minishell);
+	//*safe_free(&minishell, &command);*//
+	}
 	return(1);
 }

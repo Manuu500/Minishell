@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/03 11:56:00 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:42:59 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "exe.h"
 #include <unistd.h>
 #include <sys/wait.h>
+#include "../signals/signals.h"
 
 static void	exec_child(char **argv, char **envp)
 {
@@ -45,18 +46,26 @@ static int	wait_child(pid_t pid)
 int	execute_external_command(char **argv, char **envp)
 {
 	pid_t	pid;
+	int		ret;
 
 	if (!argv || !argv[0])
 		return (1);
+	execute_signals(SIGST_BEFORE_FORK, 0);
 	pid = fork();
 	if (pid < 0)
 	{
 		write(2, "fork: error\n", 12);
+		set_in_child(0);
 		return (1);
 	}
 	if (pid == 0)
 	{
+		execute_signals(SIGST_IN_CHILD, 0);
 		exec_child(argv, envp);
 	}
-	return (wait_child(pid));
+	{
+		ret = wait_child(pid);
+		execute_signals(SIGST_AFTER_WAIT, ret);
+		return (ret);
+	}
 }
