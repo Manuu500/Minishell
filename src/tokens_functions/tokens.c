@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/10 17:28:36 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:28:14 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static	char	*check_var_token(t_minishell *minishell, char *str)
 	char		*word;
 
 	word = find_var_in_matrix(str, minishell);
+	if (!word)
+		printf("\n");
 	return (word);
 }
 
@@ -44,34 +46,55 @@ static char	*substr_remove_quotes(char *input, int start, int len, char quote_ty
 	return (str);
 }
 
-static void	save_var(char *input, t_token **head, t_token **current, t_minishell *minishell, int start)
-{
-	int		count;
-	char	*str;
-	char	*result;
-	int		i;
-	int		stop_flag;
+// static int	save_var(char *input, t_token **head, t_token **current, t_minishell *minishell, int start)
+// {
+// 	int		count;
+// 	char	*str;
+// 	char	*result;
+// 	int		i;
+// 	int		valid_flag;
+// 	int		end_flag;
 
-	i = start;
-	str = NULL;
-	result = NULL;
-	while (input[i])
-	{
-		if (input[i] == '$')
-		{
-			count = i + 1;
-			i++;
-			while (input[i] >= 'A' && input[i] <= 'Z')
-				i++;	
-			str = ft_substr(input, count, i - count);
-			result = check_var_token(minishell, str);
-			add_token(head, current, TOKEN_VAR, result);
-			stop_flag = 1;
-			free(str);
-		}
-		i++;
-	}
-}
+// 	end_flag = 0;
+// 	valid_flag = 0;
+// 	i = start;
+// 	str = NULL;
+// 	result = NULL;
+// 	while (input[i])
+// 	{
+// 		if (input[i] == '$')
+// 		{
+// 			count = i + 1;
+// 			i++;
+// 			while (input[i] >= 'A' && input[i] <= 'Z')
+// 			{
+// 				valid_flag = 1;
+// 				i++;
+// 			}
+// 			if (input[i] == '\0')
+// 				return (1);
+// 			if (valid_flag == 1)
+// 			{
+// 				str = ft_substr(input, count, i - count);
+// 				if (!str)
+// 				{
+// 					free(str);
+// 					printf("No existe la variable");
+// 				}
+// 				result = check_var_token(minishell, str);
+// 				add_token(head, current, TOKEN_VAR, result);
+// 				free(str);
+// 			}
+// 			else
+// 			{
+// 				printf("Invalid variable\n");
+// 				exit (0);
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 
 static	t_token	*create_token(t_token_type type, char *value)
@@ -120,10 +143,13 @@ t_token	*tokenize(char *input, t_minishell *minishell)
 	t_token *head;
 	t_token	*current;
 	char	*word;
+	char	*str;
 	char	quote;
 	int		i;
 	int		start;
+	int		flag;
 
+	flag = 0;
 	i = 0;
 	head = NULL;
 	current = NULL;
@@ -168,8 +194,16 @@ t_token	*tokenize(char *input, t_minishell *minishell)
 		}
 		else if (input[i] == '$')
 		{
-			save_var(input, &head, &current, minishell, i);
+			start = i + 1;
 			i++;
+			while (input[i] >= 'A' && input[i] <= 'Z')
+				i++;
+			str = ft_substr(input, start, i - start);
+			char *result = check_var_token(minishell, str);
+			add_token(&head, &current, TOKEN_VAR, result);
+			free(str);
+			if (result)
+				free(result);
 		}
 		else
 		{

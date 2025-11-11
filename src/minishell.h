@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/10 17:28:50 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:26:19 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void	add_token(t_token **head, t_token **current, t_token_type type, char *value
 void	syntax_check(t_command *command, t_token *tokens, t_redirect *redirect);
 void	save_command(t_command *command, t_minishell *minishell);
 char	*find_var_in_matrix(char *var, t_minishell *minishell);
+void	check_non_word(char	*input, int	i, t_token **head, t_token **current);
 
 #endif
