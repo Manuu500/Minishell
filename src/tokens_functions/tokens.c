@@ -6,13 +6,13 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/11 16:28:14 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:28:14 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-static	char	*check_var_token(t_minishell *minishell, char *str)
+char	*check_var_token(t_minishell *minishell, char *str)
 {
 	char		*word;
 
@@ -22,7 +22,7 @@ static	char	*check_var_token(t_minishell *minishell, char *str)
 	return (word);
 }
 
-static char	*substr_remove_quotes(char *input, int start, int len, char quote_type)
+char	*substr_remove_quotes(char *input, int start, int len, char quote_type)
 {
 	char		*str;
 	int			i;
@@ -138,12 +138,11 @@ void	add_token(t_token **head, t_token **current, t_token_type type, char *value
 	}
 }
 
-t_token	*tokenize(char *input, t_minishell *minishell)
+t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize)
 {
-	t_token *head;
-	t_token	*current;
+	t_token *head = NULL;
+	t_token	*current = NULL;
 	char	*word;
-	char	*str;
 	char	quote;
 	int		i;
 	int		start;
@@ -151,8 +150,8 @@ t_token	*tokenize(char *input, t_minishell *minishell)
 
 	flag = 0;
 	i = 0;
-	head = NULL;
-	current = NULL;
+	optimize->head = &head;
+	optimize->current = &current;
 	if (!input)
 		return(NULL);
 	while (input[i])
@@ -162,49 +161,13 @@ t_token	*tokenize(char *input, t_minishell *minishell)
 		if (!input[i])
 			break;
 		if (input[i] == '|')
-		{
-			add_token(&head, &current, TOKEN_PIPE, "|");
-			i++;
-		}
+			i = handle_pipe_token(input, optimize, i);
 		else if (input[i] == '<')
-		{
-			if (input[i + 1] == '<')
-			{
-				add_token(&head, &current, TOKEN_HEREDOC, "<<");
-				i += 2;
-			}
-			else
-			{
-				add_token(&head, &current, TOKEN_REDIR_IN, "<");
-				i++;
-			}
-		}
+			i = handle_input_redir(input, optimize, i);
 		else if (input[i] == '>')
-		{
-			if (input[i + 1] == '>')
-			{
-				add_token(&head, &current, TOKEN_REDIR_APPEND, ">>");
-				i += 2;
-			}
-			else
-			{
-				add_token(&head, &current, TOKEN_REDIR_OUT, ">");
-				i++;
-			}
-		}
+			i = handle_output_redir(input, optimize, i);
 		else if (input[i] == '$')
-		{
-			start = i + 1;
-			i++;
-			while (input[i] >= 'A' && input[i] <= 'Z')
-				i++;
-			str = ft_substr(input, start, i - start);
-			char *result = check_var_token(minishell, str);
-			add_token(&head, &current, TOKEN_VAR, result);
-			free(str);
-			if (result)
-				free(result);
-		}
+			i = handle_variable_token(input, optimize, i, minishell);
 		else
 		{
 			start = i;

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/11 16:26:19 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:54:58 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ typedef struct s_token {
 	struct s_token	*prev;
 }			t_token;
 
+typedef struct	s_optimize_data {
+	t_token		**head;
+	t_token		**current;
+}				t_optimize_data;
+
 typedef struct	s_redirect {
 	char				*filename;
 	int					fd;
@@ -67,9 +72,9 @@ void	debug_matrix_copy(t_minishell *minishell);
 
 //----------------------------------------------//
 
-void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect);
+void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect, t_optimize_data *optimize);
 void	safe_free(t_minishell *minishell, t_command *command);
-t_token	*tokenize(char *input, t_minishell *minishell);
+t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize);
 void	debug_token(t_token *head);
 void	check_if_pipes(char *input, int i, t_token *head, t_token *current);
 int		check_if_number(char *input, int i, t_token *head, t_token *current);
@@ -77,6 +82,11 @@ void	add_token(t_token **head, t_token **current, t_token_type type, char *value
 void	syntax_check(t_command *command, t_token *tokens, t_redirect *redirect);
 void	save_command(t_command *command, t_minishell *minishell);
 char	*find_var_in_matrix(char *var, t_minishell *minishell);
-void	check_non_word(char	*input, int	i, t_token **head, t_token **current);
+int		handle_pipe_token(char *input, t_optimize_data *optimize, int i);
+int 	handle_input_redir(char *input, t_optimize_data *optimize, int i);
+int		handle_output_redir(char *input, t_optimize_data *optimize, int i);
+int 	handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minishell *minishell);
+char	*check_var_token(t_minishell *minishell, char *str);
+char	*substr_remove_quotes(char *input, int start, int len, char quote_type);
 
 #endif
