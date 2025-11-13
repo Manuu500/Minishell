@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/11 17:29:50 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/13 22:51:39 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,3 +102,4 @@ int	process_word(char *input, int i, t_optimize_data *optimize)
 	}
 	return (i);
 }
+//fix
