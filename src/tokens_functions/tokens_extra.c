@@ -15,7 +15,7 @@
 int handle_pipe_token(char *input, t_optimize_data *optimize, int i)
 {
 	(void) input;
-	add_token(optimize->head, optimize->current, TOKEN_PIPE, "|");
+	add_token(&optimize->head, &optimize->current, TOKEN_PIPE, "|");
 	return (i + 1);
 }
 
@@ -23,12 +23,12 @@ int handle_input_redir(char *input, t_optimize_data *optimize, int i)
 {
 	if (input[i + 1] == '<')
 	{
-		add_token(optimize->head, optimize->current, TOKEN_HEREDOC, "<<");
+		add_token(&optimize->head, &optimize->current, TOKEN_HEREDOC, "<<");
 		return (i + 2);
 	}
 	else
 	{
-		add_token(optimize->head, optimize->current, TOKEN_REDIR_IN, "<");
+		add_token(&optimize->head, &optimize->current, TOKEN_REDIR_IN, "<");
 		return (i + 1);
 	}
 }
@@ -37,12 +37,12 @@ int	handle_output_redir(char *input, t_optimize_data *optimize, int i)
 {
 	if (input[i + 1] == '>')
 	{
-		add_token(optimize->head, optimize->current, TOKEN_REDIR_APPEND, ">>");
+		add_token(&optimize->head, &optimize->current, TOKEN_REDIR_APPEND, ">>");
 		return (i + 2);
 	}
 	else
 	{
-		add_token(optimize->head, optimize->current, TOKEN_REDIR_OUT, ">");
+		add_token(&optimize->head, &optimize->current, TOKEN_REDIR_OUT, ">");
 		return (i + 1);
 	}
 }
@@ -59,14 +59,46 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
         i++;
     str = ft_substr(input, start, i - start);
     result = check_var_token(minishell, str);
-    add_token(optimize->head, optimize->current, TOKEN_VAR, result);
+    add_token(&optimize->head, &optimize->current, TOKEN_VAR, result);
     free(str);
     if (result)
         free(result);
     return (i);
 }
 
-int	process_word()
+int	process_word(char *input, int i, t_optimize_data *optimize)
 {
-	return (0);
+	int		start;
+	char	*word;
+	char	quote;
+	
+	start = i;
+	while (input[i])
+	{
+		if (input[i] == '\'' || input[i] == '\"')
+		{
+			quote = input[i];
+			i++;
+			while (input[i] && input[i] != quote)
+				i++;
+			if (!input[i])
+			{
+				printf("No hay ningún input\n");
+				return (-1);
+			}
+			i++;
+		}
+		else if ((input[i] == ' ' || input[i] == '\t' || input[i] == '<'
+			|| input[i] == '>' || input[i] == '|'))
+			break;
+		else
+			i++;
+	}
+	if (i > start)
+	{
+		word = substr_remove_quotes(input, start, i - start, quote);
+		add_token(&optimize->head, &optimize->current, TOKEN_WORD, word);
+		free(word);
+	}
+	return (i);
 }
