@@ -140,18 +140,13 @@ void	add_token(t_token **head, t_token **current, t_token_type type, char *value
 
 t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize)
 {
-	t_token *head = NULL;
-	t_token	*current = NULL;
-	char	*word;
-	char	quote;
 	int		i;
-	int		start;
-	int		flag;
 
-	flag = 0;
-	i = 0;
-	optimize->head = &head;
-	optimize->current = &current;
+	if (!optimize)
+        return (NULL);
+    i = 0;
+    optimize->head = NULL;
+    optimize->current = NULL;
 	if (!input)
 		return(NULL);
 	while (input[i])
@@ -169,36 +164,7 @@ t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize
 		else if (input[i] == '$')
 			i = handle_variable_token(input, optimize, i, minishell);
 		else
-		{
-			start = i;
-			while (input[i])
-			{
-				if (input[i] == '\'' || input[i] == '\"')
-				{
-					quote = input[i];
-					i++;
-					while (input[i] && input[i] != quote)
-						i++;
-					if (!input[i])
-					{
-						printf("ERROR");
-						return(NULL);
-					}
-					i++;
-				}
-				else if ((input[i] == ' ' || input[i] == '\t' || input[i] == '<'
-					|| input[i] == '>' || input[i] == '|'))
-					break;
-				else
-					i++;
-			}
-			if (i > start)
-			{
-				word = substr_remove_quotes(input, start, i - start, quote);
-				add_token(&head, &current, TOKEN_WORD, word);
-				free(word);
-			}
-		}
+			i = process_word(input, i, optimize);
 	}
-	return (head);
+	return (optimize->head);
 }
