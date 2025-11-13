@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Manu <Manu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/13 22:44:17 by Manu             ###   ########.fr       */
+/*   Updated: 2025/11/13 23:07:57 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,4 @@ void	safe_free(t_minishell *minishell, t_command *command)
 		free(minishell->user_input);
 	if (minishell->envp)
 		free_matrix(minishell->envp);
-	// if (command->input)
-    // {
-    //     i = 0;
-    //     while (command->input[i])
-    //     {
-    //         free(command->input[i]); 
-    //         i++;
-    //     }
-    //     free(command->input);
-    //     command->input = NULL;
-    // }
-    // if (command->argv)
-    // {
-    //     i = 0;
-    //     while (command->argv[i])
-    //     {
-    //         free(command->argv[i]); 
-    //         i++;
-    //     }
-    //     free(command->argv);
-    //     command->argv = NULL;
-    // }
 }
