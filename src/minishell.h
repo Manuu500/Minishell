@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: Manu <Manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/11 16:54:58 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/13 22:45:20 by Manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_token {
 }			t_token;
 
 typedef struct	s_optimize_data {
-	t_token		**head;
-	t_token		**current;
+	t_token		*head;
+	t_token		*current;
 }				t_optimize_data;
 
 typedef struct	s_redirect {
@@ -88,5 +88,6 @@ int		handle_output_redir(char *input, t_optimize_data *optimize, int i);
 int 	handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minishell *minishell);
 char	*check_var_token(t_minishell *minishell, char *str);
 char	*substr_remove_quotes(char *input, int start, int len, char quote_type);
+int		process_word(char *input, int i, t_optimize_data *optimize);
 
 #endif
