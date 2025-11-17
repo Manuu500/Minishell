@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/17 11:22:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/17 13:01:42 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,31 @@ void	save_command(t_command *command, t_minishell *minishell)
 {
 	int	i;
 	char	*j;
+	char	*k;
 
 	i = 0;
 	command->argv = ft_split(minishell->user_input, '|');
 	while (command->argv[i])
 	{
 		j = ft_strchr(command->argv[i], '>');
+		k = ft_strchr(command->argv[i], '<');
 		if (j)
 		{
 			command->redirs->type = TOKEN_REDIR_OUT;
 			j++;
 			while (*j == ' ')
 				j++;
-			command->redirs->filename = ft_substr(command->argv[i], 0, count_until_space(j));
+			command->redirs->filename = ft_substr(j, 0, count_until_space(j));
 		}
-		else if (ft_strchr(command->argv[i], '<'))
+		if (k)
+		{
 			command->redirs->type = TOKEN_REDIR_IN;
+			k++;
+			while (*k == ' ')
+				k++;
+			command->redirs->filename = ft_substr(k, 0, count_until_space(k));
+		}
+		i = 0;
 		if (command->redirs->next)
 			command->redirs = command->redirs->next;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/17 10:51:13 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:57:00 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize
 		return(NULL);
 	while (input[i])
 	{
-		if (i == 1)
+		if (i == -1)
 			return (NULL);
 		while (input[i] && (input[i] == ' ' || input[i] == '\t'))
             i++;

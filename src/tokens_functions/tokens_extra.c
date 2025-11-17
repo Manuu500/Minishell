@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/17 11:19:56 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:56:52 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 		return (i);
 	}
 	else
-		return (1);
+		return (-1);
 	
 }
 
