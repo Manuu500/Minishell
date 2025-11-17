@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/13 23:07:36 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:19:56 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,7 @@ int	process_word(char *input, int i, t_optimize_data *optimize)
 		if (input[i] == '\'' || input[i] == '\"')
 		{
 			quote = input[i];
-			i++;
-			while (input[i] && input[i] != quote)
-				i++;
-			if (!input[i])
-			{
-				printf("No hay ningún input\n");
-				return (-1);
-			}
-			i++;
+			i = process_quotes(input, i, quote);
 		}
 		else if ((input[i] == ' ' || input[i] == '\t' || input[i] == '<'
 			|| input[i] == '>' || input[i] == '|'))
@@ -112,4 +104,3 @@ int	process_word(char *input, int i, t_optimize_data *optimize)
 	}
 	return (i);
 }
-//fix

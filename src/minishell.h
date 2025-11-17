@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/13 22:51:28 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:01:33 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int 	handle_variable_token(char *input, t_optimize_data *optimize, int i, t_mini
 char	*check_var_token(t_minishell *minishell, char *str);
 char	*substr_remove_quotes(char *input, int start, int len, char quote_type);
 int		process_word(char *input, int i, t_optimize_data *optimize);
+int	process_quotes(char	*input, int i, char quote);
 //fix
 
 #endif

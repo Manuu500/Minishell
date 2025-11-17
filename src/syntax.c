@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/10 11:27:59 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:22:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,9 @@ void	save_command(t_command *command, t_minishell *minishell)
 			command->redirs->filename = ft_substr(command->argv[i], 0, count_until_space(j));
 		}
 		else if (ft_strchr(command->argv[i], '<'))
-		{
 			command->redirs->type = TOKEN_REDIR_IN;
-		}
 		if (command->redirs->next)
 			command->redirs = command->redirs->next;
-		i++;
-	}
-	i = 0;
-	while (command->argv[i] != NULL)
-	{
-		printf("%s\n",command->argv[i]);
 		i++;
 	}
 }
