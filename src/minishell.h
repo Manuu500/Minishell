@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/11 16:14:09 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:06:16 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_redirect {
 typedef struct s_command {
     char        **argv;     // matriz con todo el comando. Separar por pipe argv[0] = comando;
     int         argc;       // (no se si esto sirve para algo)
-    t_redirect     *redirs;    // lista enlazada de redirecciones para este comando
+    t_redirect     *redirs; // lista enlazada de redirecciones para este comando
     int         in_fd;      // init -1, ADRI lo rellena
     int         out_fd;     // init -1
     int         is_builtin; // init 0. Adri lo rellena

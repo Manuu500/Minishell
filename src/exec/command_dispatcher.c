@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/11 18:12:52 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/17 13:22:58 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,23 @@
 #include "exe.h"
 #include "../builtings/builtings.h"
 
-int redir_dispatcher(t_redirect redirs)
+void redir_dispatcher(t_redirect *command)
 {
-    redirs->fd = open(redirs->filename);
-    if (!redirs->fd)
-        
+	t_redirect	*redirs;
+
+	redirs = command->redirs;
+	while (redirs)
+	{
+		if (redirs->type == TOKEN_REDIR_IN)
+			redir_infile(redirs, command);
+		else if (redirs->type == TOKEN_REDIR_OUT)
+			redir_outfile(redirs, command);
+		else if (redirs->type == TOKEN_HEREDOC)
+			redir_heredoc(redirs, command);
+		else if (redirs->type == TOKEN_REDIR_APPEND)
+			redir_append(redirs, command);
+		redirs = redirs->next;
+	}
 }
 
 int	command_dispatcher(t_command *command, t_minishell *ms)
@@ -29,7 +41,7 @@ int	command_dispatcher(t_command *command, t_minishell *ms)
     envp = ms->envp;
     cur_command = command->argv;
     if (command->redirs)
-        redir_dispatcher(command->redirs)
+        redir_dispatcher(command);
     if (is_builtin(cur_command[0]))
         builtin_dispatch(cur_command[0], ms);
     else
