@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/17 13:18:14 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:15:28 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static	int	count_until_space(char *line)
 		i++;		
 	return (i);
 }
+
 static	void	manage_red_out(t_command *command, char *j)
 {
 	command->redirs->type = TOKEN_REDIR_OUT;
