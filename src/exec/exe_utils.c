@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/11 12:10:39 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:41:30 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	try_exec_dir(const char *dir, char **argv, char **envp)
 	}
 }
 
-void	exec_from_path(char *argv, char **envp)
+void exec_from_path(char **argv, char **envp)
 {
 	char	*path;
 	char	**parts;

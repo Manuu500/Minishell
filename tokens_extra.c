@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_extra.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: Manu <Manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/17 11:56:52 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/13 22:17:55 by Manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,18 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
     int start;
     char *str;
     char *result;
-	int		flag;
 
-	flag = 0;
     start = i + 1;
     i++;
     while (input[i] >= 'A' && input[i] <= 'Z')
-	{
-		flag = 1;
         i++;
-	}
-	if (flag == 1)
-	{
-		str = ft_substr(input, start, i - start);
-		result = check_var_token(minishell, str);
-		add_token(&optimize->head, &optimize->current, TOKEN_VAR, result);
-		free(str);
-		free(result);
-		return (i);
-	}
-	else
-		return (-1);
-	
+    str = ft_substr(input, start, i - start);
+    result = check_var_token(minishell, str);
+    add_token(&optimize->head, &optimize->current, TOKEN_VAR, result);
+    free(str);
+    if (result)
+        free(result);
+    return (i);
 }
 
 int	process_word(char *input, int i, t_optimize_data *optimize)
@@ -88,7 +78,15 @@ int	process_word(char *input, int i, t_optimize_data *optimize)
 		if (input[i] == '\'' || input[i] == '\"')
 		{
 			quote = input[i];
-			i = process_quotes(input, i, quote);
+			i++;
+			while (input[i] && input[i] != quote)
+				i++;
+			if (!input[i])
+			{
+				printf("No hay ningún input\n");
+				return (-1);
+			}
+			i++;
 		}
 		else if ((input[i] == ' ' || input[i] == '\t' || input[i] == '<'
 			|| input[i] == '>' || input[i] == '|'))

@@ -10,30 +10,31 @@ HEADERS	:= -I $(LIBFT)
 
 LIBS := $(LIBFT)/libft.a
 
-SRC := \
-	src/main.c \
+SRC :=	src/main.c \
 	src/utils.c \
 	src/free.c \
+	src/debug.c \
 	src/syntax.c \
 	src/tokens_functions/tokens.c \
 	src/tokens_functions/tokens_extra.c \
+	src/tokens_functions/tokens_proc_word.c \
 	src/matrix_utils/copy_matrix.c \
 	src/matrix_utils/free_matrix.c \
+	src/matrix_utils/find_matrix.c \
+	src/exec/command_dispatcher.c \
+	src/exec/exe_runner.c \
+	src/exec/exe_utils.c \
+	src/exec/redirs.c \
 	src/builtings/builtings.c \
+	src/builtings/cd.c \
 	src/builtings/echo.c \
 	src/builtings/env.c \
-	src/builtings/pwd.c \
-	src/builtings/cd.c \
-	src/builtings/export.c \
-	src/builtings/unset.c \
 	src/builtings/exit.c \
-	src/exec/command_dispatcher.c \
-	src/exec/exe_utils.c \
-	src/exec/exe_runner.c \
-	src/exec/argv_builder.c \
-		src/exec/exec_dispatch.c \
-	src/signals/signal.c \
-		src/signals/Ctrl_Sig.c
+	src/builtings/export.c \
+	src/builtings/pwd.c \
+	src/builtings/unset.c \
+	src/signals/Ctrl_Sig.c \
+	src/signals/signal.c
 
 OBJ	:= $(patsubst src%, obj%, $(SRC:.c=.o))
 
@@ -45,7 +46,7 @@ libft:
 $(NAME): $(OBJ)
 	@echo "compiling ${NAME}"
 	# Generar el ejecutable en el mismo directorio que este Makefile
-	@$(CC) $(CFLAGS) $(OBJ) $(HEADERS) -o $(CURDIR)/$(NAME) $(LIBS) -lreadline
+	@$(CC) $(CFLAGS) $(OBJ) $(HEADERS) -o $(CURDIR)/$(NAME) $(LIBS) -lreadline -lncurses
 
 obj/%.o: src/%.c
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ && printf "Compiling: $(notdir $<)\n"

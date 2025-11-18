@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/06 16:42:59 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/18 11:30:14 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,27 @@
 #include <sys/wait.h>
 #include "../signals/signals.h"
 
-static void	exec_child(char **argv, char **envp)
+static void	apply_child_redirs(t_command *cmd)
 {
-	if (ft_strchr(argv[0], '/'))
-	{
-		execve(argv[0], argv, envp);
-		write(2, "execve: error\n", 14);
-		_exit(127);
-	}
-	exec_from_path(argv, envp);
+    if (cmd->in_fd != STDIN_FILENO)
+        dup2(cmd->in_fd, STDIN_FILENO);
+    if (cmd->out_fd != STDOUT_FILENO)
+        dup2(cmd->out_fd, STDOUT_FILENO);
+}
+
+static void	exec_child(t_command *command, char **envp)
+{
+    char **argv;
+	
+	argv = command->argv;
+    apply_child_redirs(command);
+    if (ft_strchr(argv[0], '/'))
+    {
+        execve(argv[0], argv, envp);
+        write(2, "execve: error\n", 14);
+        _exit(127);
+    }
+    exec_from_path(argv, envp);
 }
 
 static int	wait_child(pid_t pid)
@@ -43,12 +55,12 @@ static int	wait_child(pid_t pid)
 	return (1);
 }
 
-int	execute_external_command(char **argv, char **envp)
+int	execute_external_command(t_command *command, char **envp)
 {
 	pid_t	pid;
 	int		ret;
 
-	if (!argv || !argv[0])
+	if (!command || !command->argv || !command->argv[0])
 		return (1);
 	execute_signals(SIGST_BEFORE_FORK, 0);
 	pid = fork();
@@ -61,7 +73,7 @@ int	execute_external_command(char **argv, char **envp)
 	if (pid == 0)
 	{
 		execute_signals(SIGST_IN_CHILD, 0);
-		exec_child(argv, envp);
+		exec_child(command, envp);
 	}
 	{
 		ret = wait_child(pid);

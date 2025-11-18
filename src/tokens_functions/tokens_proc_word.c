@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   tokens_proc_word.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/13 23:07:57 by mruiz-ur         ###   ########.fr       */
+/*   Created: 2025/11/17 10:52:30 by mruiz-ur          #+#    #+#             */
+/*   Updated: 2025/11/17 11:19:15 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-void	safe_free(t_minishell *minishell, t_command *command)
+int	process_quotes(char	*input, int i, char quote)
 {
-	(void)  command;
-    
-	if (minishell->user_input)
-		free(minishell->user_input);
-	if (minishell->envp)
-		free_matrix(minishell->envp);
+	i++;
+	while (input[i] && input[i] != quote)
+		i++;
+	if (!input[i])
+	{
+		printf("No hay ningún input\n");
+		return (-1);
+	}
+	return (i + 1);
 }
