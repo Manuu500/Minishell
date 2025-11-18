@@ -6,11 +6,35 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/17 11:56:52 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/18 13:08:01 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	add_word_to_com(char *word, t_command *com)
+{
+	int	i;
+	int	word_lenght;
+
+	word_lenght = ft_strlen(word);
+	i = 0;
+	com->argv = malloc(sizeof(char *) * word_lenght);
+	if (!com->argv)
+		return ;
+	while (com->argv)
+	{
+		com->argv[i] = word;
+		i++;
+	}
+	i = 0;
+	printf("LLegao");
+	while (com->argv[i])
+	{
+		printf("Linea de envp: %s\n", com->argv[i]);
+		i++;
+	}
+}
 
 int handle_pipe_token(char *input, t_optimize_data *optimize, int i)
 {
@@ -76,12 +100,13 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 	
 }
 
-int	process_word(char *input, int i, t_optimize_data *optimize)
+int	process_word(char *input, int i, t_optimize_data *optimize, t_command *com)
 {
 	int		start;
 	char	*word;
 	char	quote;
 	
+	(void) com;
 	start = i;
 	while (input[i])
 	{
@@ -104,3 +129,5 @@ int	process_word(char *input, int i, t_optimize_data *optimize)
 	}
 	return (i);
 }
+
+		// add_word_to_com(word, com);

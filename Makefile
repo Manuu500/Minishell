@@ -13,7 +13,6 @@ LIBS := $(LIBFT)/libft.a
 SRC :=	src/main.c \
 	src/utils.c \
 	src/free.c \
-	src/debug.c \
 	src/syntax.c \
 	src/tokens_functions/tokens.c \
 	src/tokens_functions/tokens_extra.c \

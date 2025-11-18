@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/18 09:54:27 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/18 15:29:57 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum token_type {
 	TOKEN_REDIR_APPEND,
 	TOKEN_HEREDOC,
 	TOKEN_EOF,
+	TOKEN_COMMAND,
 	TOKEN_VAR
 }			t_token_type;
 
@@ -74,7 +75,7 @@ void	free_matrix(char **matrix);
 
 void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect, t_optimize_data *optimize);
 void	safe_free(t_minishell *minishell, t_command *command);
-t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize);
+t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize, t_command *com);
 void	debug_token(t_token *head);
 void	check_if_pipes(char *input, int i, t_token *head, t_token *current);
 int		check_if_number(char *input, int i, t_token *head, t_token *current);
@@ -88,8 +89,10 @@ int		handle_output_redir(char *input, t_optimize_data *optimize, int i);
 int 	handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minishell *minishell);
 char	*check_var_token(t_minishell *minishell, char *str);
 char	*substr_remove_quotes(char *input, int start, int len, char quote_type);
-int		process_word(char *input, int i, t_optimize_data *optimize);
+int		process_word(char *input, int i, t_optimize_data *optimize, t_command *com);
 int		process_quotes(char	*input, int i, char quote);
+void	add_word_to_com(char *word, t_command *com);
+void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min);
 //fix
 
 #endif

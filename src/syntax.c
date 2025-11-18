@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/17 13:18:14 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/18 13:55:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ static	void	manage_red_in(t_command *command, char *k)
 
 void	save_command(t_command *command, t_minishell *minishell)
 {
-	int	i;
+	int		i;
 	char	*k;
 	char	*j;
+	
 	i = 0;
 	command->argv = ft_split(minishell->user_input, '|');
 	while (command->argv[i])
@@ -73,9 +74,9 @@ void	save_command(t_command *command, t_minishell *minishell)
 		j = ft_strchr(command->argv[i], '>');
 		k = ft_strchr(command->argv[i], '<');
 		if (j)
-			manage_red_out(command, j);
-		if (k)
-			manage_red_in(command, k);
+			manage_red_out(command, command->argv[i]);
+		else if (k)
+			manage_red_in(command, command->argv[i]);
 		if (command->redirs->next)
 			command->redirs = command->redirs->next;
 		i++;

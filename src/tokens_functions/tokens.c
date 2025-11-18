@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/17 11:57:00 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/18 14:00:53 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,17 +138,17 @@ void	add_token(t_token **head, t_token **current, t_token_type type, char *value
 	}
 }
 
-t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize)
+t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize, t_command *com)
 {
 	int		i;
 
     i = 0;
 	if (!input)
-		return(NULL);
+		exit(1);
 	while (input[i])
 	{
 		if (i == -1)
-			return (NULL);
+			exit(1);
 		while (input[i] && (input[i] == ' ' || input[i] == '\t'))
             i++;
 		if (!input[i])
@@ -162,7 +162,7 @@ t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize
 		else if (input[i] == '$')
 			i = handle_variable_token(input, optimize, i, minishell);
 		else
-			i = process_word(input, i, optimize);
+			i = process_word(input, i, optimize, com);
 	}
 	return (optimize->head);
 }

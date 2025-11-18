@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_dispatcher.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/18 12:04:47 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/18 12:24:43 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	command_dispatcher(t_command *command, t_minishell *ms)
 	if (is_builtin(cur_command))
 		builtin_dispatch(cur_command, ms);
 	else
-		execute_external_command(cur_command, envp);
+		execute_external_command(command, envp);
 	if (command->next != NULL)
 		(void)0; /* pipeline pendiente */
 	return (1);
