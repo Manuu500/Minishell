@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:38 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/05 11:59:53 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/11/19 11:27:00 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 int	builtin_echo(char **argv)
 {
     int i;
-    int newline;
 
     if (!argv)
         return (1);
     i = 1;
-    newline = 1;
     while (argv[i])
     {
         ft_putendl_fd(argv[i], 1);

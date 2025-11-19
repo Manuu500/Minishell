@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/18 17:06:32 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/19 13:07:41 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect,
 	redirect->filename = NULL;
 	redirect->next = NULL;
 	redirect->type = 0;
+	command->in_fd = -1;
+	command->out_fd = -1;
+	command->redir_error = 0;
 	// command->redirs = malloc(sizeof(t_command));
 	// command->argv = malloc(sizeof(char) * 200);
 	optimize->head = NULL;
@@ -92,31 +95,18 @@ void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
 	}
     while (current)
     {
-		if (!current->next && !current->prev)
-			add_to_argv(command, current, &i_argv);
-		else if (!current->prev)
-			add_to_argv(command, current, &i_argv);
-		else if ((!current->prev) && current->next && current->next->type == TOKEN_WORD)
-			add_to_argv(command, current, &i_argv);
-		else if (current->type == TOKEN_REDIR_IN || current->type == TOKEN_REDIR_OUT)
+		if (current->type == TOKEN_WORD)
         {
-            if (current->prev && current->prev->type == TOKEN_WORD)
+            if (!(current->prev && (current->prev->type == TOKEN_REDIR_IN
+                    || current->prev->type == TOKEN_REDIR_OUT
+                    || current->prev->type == TOKEN_REDIR_APPEND
+                    || current->prev->type == TOKEN_HEREDOC)))
             {
-                printf("%s es comando\n", current->prev->value);
-				add_to_argv(command, current->prev, &i_argv);
+                add_to_argv(command, current, &i_argv);
             }
-            if (current->next && current->next->next && current->next->next->type == TOKEN_WORD)
-            {
-                printf("%s es comando\n", current->next->next->value);
-				add_to_argv(command, current->next->next, &i_argv);
-            }
+			else if (current && !(current->prev))
+				add_to_argv(command, current, &i_argv);
         }
-		// else if (current->type == TOKEN_WORD)
-		// {
-        //     printf("%s es comando\n", current->value);
-		// 	add_to_argv(command, current, &i_argv);
-		// }
-        // printf("Token %d: Valor: '%s' Tipo: %u\n", i, current->value, current->type);
         current = current->next;
     }
 	i = 0;

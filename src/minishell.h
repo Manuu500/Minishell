@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/18 15:29:57 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:54:42 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		process_word(char *input, int i, t_optimize_data *optimize, t_command *com)
 int		process_quotes(char	*input, int i, char quote);
 void	add_word_to_com(char *word, t_command *com);
 void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min);
+void	save_filename_redirs(t_command *command, t_token *head);
 //fix
 
 #endif
