@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/20 13:18:50 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/20 16:41:41 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,19 @@ int	process_word(char *input, int i, t_optimize_data *optimize)
 	int		start;
 	char	*word;
 	char	quote;
+	int		inside_quotes;
 	
+	inside_quotes = 0;
 	start = i;
 	while (input[i])
 	{
 		if (input[i] == '\'' || input[i] == '\"')
 		{
+			inside_quotes = 1;
 			quote = input[i];
 			i = process_quotes(input, i, quote);
 		}
-		else if ((input[i] == ' ' || input[i] == '\t' || input[i] == '<'
+		else if (inside_quotes == 0 && (input[i] == ' ' || input[i] == '\t' || input[i] == '<'
 			|| input[i] == '>' || input[i] == '|'))
 			break;
 		else
