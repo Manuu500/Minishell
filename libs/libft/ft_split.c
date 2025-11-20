@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:57:21 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2024/10/15 20:40:59 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/20 13:17:48 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t	word_count(char const *s, char c)
 	return (counter);
 }
 
-void	free_mem(char **str)
+static void	free_mem(char **str)
 {
 	size_t	i;
 

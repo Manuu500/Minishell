@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/18 13:08:01 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/20 13:18:50 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,12 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 	
 }
 
-int	process_word(char *input, int i, t_optimize_data *optimize, t_command *com)
+int	process_word(char *input, int i, t_optimize_data *optimize)
 {
 	int		start;
 	char	*word;
 	char	quote;
 	
-	(void) com;
 	start = i;
 	while (input[i])
 	{

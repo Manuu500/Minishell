@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Manu <Manu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/13 22:17:49 by Manu             ###   ########.fr       */
+/*   Updated: 2025/11/20 13:24:01 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,6 @@ t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize
 {
 	int		i;
 
-	if (!optimize)
-        return (NULL);
     i = 0;
     optimize->head = NULL;
     optimize->current = NULL;
@@ -164,9 +162,7 @@ t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize
 		else if (input[i] == '$')
 			i = handle_variable_token(input, optimize, i, minishell);
 		else
-		{
 			i = process_word(input, i, optimize);
-		}
 	}
 	return (optimize->head);
 }

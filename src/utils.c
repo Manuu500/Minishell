@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/19 13:07:41 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/11/20 15:46:27 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,21 @@ void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect,
     optimize->current = NULL;
 }
 
-static void	free_mem(char **str)
+static	int	word_is_argument(t_token *current)
 {
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
+	return ((current->prev && (current->prev->type == TOKEN_REDIR_IN
+			|| current->prev->type == TOKEN_REDIR_OUT
+			|| current->prev->type == TOKEN_REDIR_APPEND
+			|| current->prev->type == TOKEN_HEREDOC)));
 }
 
-static size_t	word_count(char const *s, char c)
+static void	initialize_argv(t_command *command, int j, int num_words)
 {
-	size_t	i;
-	size_t	counter;
-
-	counter = 0;
-	i = 0;
-	while (s[i])
+	while (j <= num_words)
 	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
-			counter++;
-		i++;
+		command->argv[j] = NULL;
+		j++;
 	}
-	return (counter);
 }
 
 static  void    add_to_argv(t_command *command, t_token *current, int *i)
@@ -77,7 +65,6 @@ void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
 {
 	t_token *current;
     int		i_argv;
-	int		i;
 	int		num_words;
 	int		j;
 	
@@ -88,44 +75,51 @@ void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
 	if (!command->argv)
 		return ;
 	j = 0;
-	while (j <= num_words)
-	{
-		command->argv[j] = NULL;
-		j++;
-	}
+	initialize_argv(command, j, num_words);
     while (current)
     {
 		if (current->type == TOKEN_WORD)
         {
-            if (!(current->prev && (current->prev->type == TOKEN_REDIR_IN
-                    || current->prev->type == TOKEN_REDIR_OUT
-                    || current->prev->type == TOKEN_REDIR_APPEND
-                    || current->prev->type == TOKEN_HEREDOC)))
-            {
+            if (!(word_is_argument(current)))
                 add_to_argv(command, current, &i_argv);
-            }
 			else if (current && !(current->prev))
 				add_to_argv(command, current, &i_argv);
         }
         current = current->next;
     }
-	i = 0;
-	printf("=== COMANDOS EN ARGV ===\n");
-    if (command->argv)
-    {
-        while (command->argv[i])
-        {
-            printf("argv[%d]: %s\n", i, command->argv[i]);
-            i++;
-        }
-        printf("Total comandos: %d\n", i);
-    }
-    else
-    {
-        printf("argv es NULL\n");
-    }
-    printf("=======================\n");
+	// int	i = 0;
+	// printf("=== COMANDOS EN ARGV ===\n");
+    // if (command->argv)
+    // {
+    //     while (command->argv[i])
+    //     {
+    //         printf("argv[%d]: %s\n", i, command->argv[i]);
+    //         i++;
+    //     }
+    //     printf("Total comandos: %d\n", i);
+    // }
+    // else
+    // {
+    //     printf("argv es NULL\n");
+    // }
+    // printf("=======================\n");
 }
+
+// printf("=== COMANDOS EN ARGV ===\n");
+//     if (command->argv)
+//     {
+//         while (command->argv[i])
+//         {
+//             printf("argv[%d]: %s\n", i, command->argv[i]);
+//             i++;
+//         }
+//         printf("Total comandos: %d\n", i);
+//     }
+//     else
+//     {
+//         printf("argv es NULL\n");
+//     }
+//     printf("=======================\n");
 
 // Para cada token:
 //   Si es el primer TOKEN_WORD → COMANDO
