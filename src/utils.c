@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/20 15:46:27 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/01 23:12:56 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect,
 	redirect->filename = NULL;
 	redirect->next = NULL;
 	redirect->type = 0;
-	command->in_fd = -1;
-	command->out_fd = -1;
+	command->in_fd = STDIN_FILENO;
+	command->out_fd = STDOUT_FILENO;
 	command->redir_error = 0;
+	command->next = NULL;
 	// command->redirs = malloc(sizeof(t_command));
 	// command->argv = malloc(sizeof(char) * 200);
 	optimize->head = NULL;

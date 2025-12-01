@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_runner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/18 11:30:14 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/12/01 23:15:02 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 static void	apply_child_redirs(t_command *cmd)
 {
-    if (cmd->in_fd != STDIN_FILENO)
-        dup2(cmd->in_fd, STDIN_FILENO);
-    if (cmd->out_fd != STDOUT_FILENO)
-        dup2(cmd->out_fd, STDOUT_FILENO);
+	if (cmd->in_fd >= 0 && cmd->in_fd != STDIN_FILENO)
+		dup2(cmd->in_fd, STDIN_FILENO);
+	if (cmd->out_fd >= 0 && cmd->out_fd != STDOUT_FILENO)
+		dup2(cmd->out_fd, STDOUT_FILENO);
 }
 
 static void	exec_child(t_command *command, char **envp)

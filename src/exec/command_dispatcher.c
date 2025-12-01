@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_dispatcher.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/18 12:24:43 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/01 23:22:58 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,17 @@ int	command_dispatcher(t_command *command, t_minishell *ms)
 
     envp = ms->envp;
     cur_command = command->argv;
+    
 	if (command->redirs)
 		redir_dispatcher(command);
 	if (command->redir_error == 1)
 		return (0);
+	if (count_cmds(command) > 1)
+	{
+		return (execute_pipeline(command, ms));
+	}
 	if (is_builtin(cur_command))
-		builtin_dispatch(cur_command, ms);
-	else
-		execute_external_command(command, envp);
-	if (command->next != NULL)
-		(void)0; /* pipeline pendiente */
-	return (1);
+		return (builtin_dispatch(cur_command, ms)), 1;
+	return (execute_external_command(command, envp));
 }
 

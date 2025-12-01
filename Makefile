@@ -24,6 +24,9 @@ SRC :=	src/main.c \
 	src/exec/command_dispatcher.c \
 	src/exec/exe_runner.c \
 	src/exec/exe_utils.c \
+	src/exec/pipes.c \
+	src/exec/pipe_loop.c \
+	src/exec/pipes_utils.c \
 	src/exec/redirs.c \
 	src/builtings/builtings.c \
 	src/builtings/cd.c \
