@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/09 15:14:54 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/09 15:58:24 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,24 +112,24 @@ void	save_filename_redirs(t_command *command, t_token *head)
 {
 	t_token *current;
 	t_redirect	*redir;
+	t_redirect	*new_redir;
 	
 	current = head;
 	redir = command->redirs;
+	while (redir && redir->next)
+		redir = redir->next;
 	while (current)
 	{
-		if ((current->type == TOKEN_REDIR_IN) && current->next && current->next->type == TOKEN_WORD)
+		if ((current->type == TOKEN_REDIR_IN || current->type == TOKEN_REDIR_OUT) 
+			&& current->next && current->next->type == TOKEN_WORD)
 		{
-			redir->type = TOKEN_REDIR_IN;
-			redir->filename = ft_strdup(current->next->value);
-			if (redir->next)
-				redir = redir->next;
-		}
-		else if ((current->type == TOKEN_REDIR_OUT) && current->next && current->next->type == TOKEN_WORD)
-		{
-			redir->type = TOKEN_REDIR_OUT;
-			redir->filename = ft_strdup(current->next->value);
-			if (redir->next)
-				redir = redir->next;
+			new_redir = malloc(sizeof(t_redirect));
+			if (!new_redir)
+				return ;
+			new_redir->type = current->type;
+			new_redir->filename = ft_strdup(current->next->value);
+			redir->next = new_redir;
+			redir = new_redir;
 		}
 		current = current->next;
 	}

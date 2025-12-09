@@ -4,3 +4,4 @@
     FALLO: PARSEO. Se pisan las redirecciones y tan solo cuenta la última. syntax.c;
 - Funcionalidad de pipes parcialmente completada.
 - Problema con >> y <<. No se detecta correctamente.
+- Con comillas no funcionan las redirecciones
