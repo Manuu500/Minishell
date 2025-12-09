@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/09 13:06:26 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:56:44 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
 	initialize_argv(command, j, num_words);
     while (current)
     {
-		if (current->type == TOKEN_WORD)
+		if (current->type == TOKEN_WORD || current->type == TOKEN_VAR)
         {
             if (!(word_is_argument(current)))
                 add_to_argv(command, current, &i_argv);

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/09 11:33:05 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:59:58 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	add_word_to_com(char *word, t_command *com)
 		i++;
 	}
 	i = 0;
-	printf("LLegao");
 	while (com->argv[i])
 	{
 		printf("Linea de envp: %s\n", com->argv[i]);
@@ -100,35 +99,115 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 	
 }
 
-int	process_word(char *input, int i, t_optimize_data *optimize)
+static char	*ft_strjoin_free(char *s1, char *s2)
 {
-	int		start;
-	char	*word;
-	char	quote;
-	int		inside_quotes;
-	
-	inside_quotes = 0;
-	start = i;
-	while (input[i])
-	{
-		if (input[i] == '\'' || input[i] == '\"')
-		{
-			inside_quotes = 1;
-			quote = input[i];
-			i = process_quotes(input, i, quote);
-		}
-		else if (inside_quotes == 0 && (input[i] == ' ' || input[i] == '\t' || input[i] == '<'
-			|| input[i] == '>' || input[i] == '|'))
-			break;
-		else
-			i++;
-	}
-	if (i > start)
-	{
-		word = substr_remove_quotes(input, start, i - start, quote);
-		add_token(&optimize->head, &optimize->current, TOKEN_WORD, word);
-		free(word);
-	}
-	return (i);
+    char	*result;
+
+	if (!s1 || !s2)
+		return (s1);
+    result = ft_strjoin(s1, s2);
+    free(s1);
+    free(s2);
+    return (result);
 }
+
+int	process_word(char *input, int i, t_optimize_data *optimize, t_minishell *minishell)
+{
+    int		start;
+    char	*word;
+    char	*var_value;
+    char	quote;
+    
+    word = ft_strdup("");
+    start = i;
+    while (input[i] && input[i] != ' ' && input[i] != '\t' && input[i] != '<' 
+        && input[i] != '>' && input[i] != '|')
+    {
+        if (input[i] == '\'' || input[i] == '\"')
+        {
+			if (i > start)
+                word = ft_strjoin_free(word, ft_substr(input, start, i - start));
+            quote = input[i];
+            i++;
+            start = i;
+            while (input[i] && input[i] != quote)
+            {
+                if (input[i] == '$' && quote == '\"')
+                {
+                    if (i > start)
+                        word = ft_strjoin_free(word, ft_substr(input, start, i - start));
+                    var_value = include_legit_variable(input, optimize, i, minishell);
+                    if (var_value)
+                        word = ft_strjoin_free(word, var_value);
+                    i++;
+                    while (input[i] && input[i] != quote && (ft_isalnum(input[i]) || input[i] == '_'))
+                        i++;
+                    start = i;
+                }
+                else
+                    i++;
+            }
+            if (i > start)
+                word = ft_strjoin_free(word, ft_substr(input, start, i - start));
+            i++;
+            start = i;
+        }
+        else if (input[i] == '$')
+        {
+            if (i > start)
+                word = ft_strjoin_free(word, ft_substr(input, start, i - start));
+            var_value = include_legit_variable(input, optimize, i, minishell);
+            if (var_value)
+                word = ft_strjoin_free(word, var_value);
+            i++;
+            while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
+                i++;
+            start = i;
+        }
+        else
+            i++;
+    }
+    if (i > start)
+        word = ft_strjoin_free(word, ft_substr(input, start, i - start));
+    add_token(&optimize->head, &optimize->current, TOKEN_WORD, word);
+    free(word);
+    return (i);
+}
+
+// int	process_word(char *input, int i, t_optimize_data *optimize, t_minishell *minishell)
+// {
+// 	int		start;
+// 	char	*temp;
+// 	char	*word;
+// 	char	*test_word;
+// 	char	quote;
+// 	int		inside_quotes;
+	
+// 	start = i;
+// 	while (input[i])
+// 	{
+// 		inside_quotes = 0;
+// 		if (input[i] == '\'' || input[i] == '\"')
+// 		{
+// 			inside_quotes = 1;
+// 			quote = input[i];
+// 			i = process_quotes(input, i, quote);
+// 		}
+// 		else if (input[i] == '$')
+//         {
+//             test_word = include_legit_variable(input, optimize, i, minishell);
+//             word = ft_strjoin(word, test_word);
+// 			i++;
+//         }
+// 		else if (inside_quotes == 0 && (input[i] == ' ' || input[i] == '\t' || input[i] == '<'
+// 			|| input[i] == '>' || input[i] == '|'))
+// 			break;
+// 		else
+// 			i++;
+// 	}
+// 	word = ft_strjoin(word, temp);
+// 	add_token(&optimize->head, &optimize->current, TOKEN_WORD, word);
+//     free(word);
+// 	return (i);
+// }
 		// add_word_to_com(word, com);

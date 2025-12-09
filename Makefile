@@ -17,6 +17,7 @@ SRC :=	src/main.c \
 	src/utils_extra.c \
 	src/tokens_functions/tokens.c \
 	src/tokens_functions/tokens_extra.c \
+	src/tokens_functions/tokens_extra_extra.c \
 	src/tokens_functions/tokens_proc_word.c \
 	src/matrix_utils/copy_matrix.c \
 	src/matrix_utils/free_matrix.c \
