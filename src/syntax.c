@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/20 15:25:15 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/09 15:14:54 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,52 @@
 // 	}
 // }
 
+// static	void	add_to_redir(t_redirect **head, int type, char *filename)
+// {
+	
+// 	t_redirect *new_node;
+// 	t_redirect *current;
+
+// 	new_node = malloc(sizeof(t_redirect));
+// 	if (!new_node)
+// 		return ;
+// 	new_node->type = type;
+// 	new_node->filename = ft_strdup(filename);
+// 	new_node->next = NULL;
+	
+// 	if (*head == NULL)
+// 		*head = new_node;
+// 	else
+// 	{
+// 		current = *head;
+// 		while (current->next)
+// 			current = current->next;
+// 		current->next = new_node;
+// 	}
+// }
+
 void	save_filename_redirs(t_command *command, t_token *head)
 {
 	t_token *current;
+	t_redirect	*redir;
 	
 	current = head;
+	redir = command->redirs;
 	while (current)
 	{
 		if ((current->type == TOKEN_REDIR_IN) && current->next && current->next->type == TOKEN_WORD)
 		{
-			command->redirs->type = TOKEN_REDIR_IN;
-			command->redirs->filename = current->next->value;
+			redir->type = TOKEN_REDIR_IN;
+			redir->filename = ft_strdup(current->next->value);
+			if (redir->next)
+				redir = redir->next;
 		}
 		else if ((current->type == TOKEN_REDIR_OUT) && current->next && current->next->type == TOKEN_WORD)
 		{
-			command->redirs->type = TOKEN_REDIR_OUT;
-			command->redirs->filename = current->next->value;
+			redir->type = TOKEN_REDIR_OUT;
+			redir->filename = ft_strdup(current->next->value);
+			if (redir->next)
+				redir = redir->next;
 		}
 		current = current->next;
 	}
