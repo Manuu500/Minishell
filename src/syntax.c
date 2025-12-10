@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/09 15:58:24 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/10 13:43:56 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	save_filename_redirs(t_command *command, t_token *head)
 			new_redir = malloc(sizeof(t_redirect));
 			if (!new_redir)
 				return ;
+			new_redir->next = NULL;
 			new_redir->type = current->type;
 			new_redir->filename = ft_strdup(current->next->value);
 			redir->next = new_redir;

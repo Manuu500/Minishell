@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/09 18:03:21 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/10 13:10:10 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum token_type {
 	TOKEN_PIPE,
 	TOKEN_REDIR_IN, // <
 	TOKEN_REDIR_OUT, // >
+	TOKEN_EQUAL, // =
 	TOKEN_REDIR_APPEND,
 	TOKEN_HEREDOC,
 	TOKEN_EOF,
@@ -46,6 +47,10 @@ typedef struct s_token {
 typedef struct	s_optimize_data {
 	t_token		*head;
 	t_token		*current;
+	char		*word;
+	char		*var_value;
+	char		*input;
+	char		quote;
 }				t_optimize_data;
 
 typedef struct	s_redirect {
@@ -87,6 +92,7 @@ int		handle_pipe_token(char *input, t_optimize_data *optimize, int i);
 int 	handle_input_redir(char *input, t_optimize_data *optimize, int i);
 int		handle_output_redir(char *input, t_optimize_data *optimize, int i);
 int 	handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minishell *minishell);
+int 	handle_equal_redir(char *input, t_optimize_data *optimize, int i);
 char	*check_var_token(t_minishell *minishell, char *str);
 char	*substr_remove_quotes(char *input, int start, int len, char quote_type);
 int		process_word(char *input, int i, t_optimize_data *optimize, t_minishell *minishell);
@@ -97,6 +103,7 @@ void	save_filename_redirs(t_command *command, t_token *head);
 size_t	word_count(char const *s, char c);
 void	free_mem(char **str);
 void	*include_legit_variable(char *input, t_optimize_data *optimize, int i, t_minishell *minishell);
+void	save_vars(t_minishell *minishell, t_token *token);
 
 //fix
 

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/09 18:59:58 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/10 12:34:29 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ void	add_word_to_com(char *word, t_command *com)
 		i++;
 	}
 }
+
+// int handle_equal_redir(char *input, t_optimize_data *optimize, int i)
+// {
+// 	(void) input;
+// 	add_token(&optimize->head, &optimize->current, TOKEN_EQUAL, "=");
+// 	return (i + 1);
+// }
 
 int handle_pipe_token(char *input, t_optimize_data *optimize, int i)
 {
@@ -96,82 +103,6 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 	}
 	else
 		return (-1);
-	
-}
-
-static char	*ft_strjoin_free(char *s1, char *s2)
-{
-    char	*result;
-
-	if (!s1 || !s2)
-		return (s1);
-    result = ft_strjoin(s1, s2);
-    free(s1);
-    free(s2);
-    return (result);
-}
-
-int	process_word(char *input, int i, t_optimize_data *optimize, t_minishell *minishell)
-{
-    int		start;
-    char	*word;
-    char	*var_value;
-    char	quote;
-    
-    word = ft_strdup("");
-    start = i;
-    while (input[i] && input[i] != ' ' && input[i] != '\t' && input[i] != '<' 
-        && input[i] != '>' && input[i] != '|')
-    {
-        if (input[i] == '\'' || input[i] == '\"')
-        {
-			if (i > start)
-                word = ft_strjoin_free(word, ft_substr(input, start, i - start));
-            quote = input[i];
-            i++;
-            start = i;
-            while (input[i] && input[i] != quote)
-            {
-                if (input[i] == '$' && quote == '\"')
-                {
-                    if (i > start)
-                        word = ft_strjoin_free(word, ft_substr(input, start, i - start));
-                    var_value = include_legit_variable(input, optimize, i, minishell);
-                    if (var_value)
-                        word = ft_strjoin_free(word, var_value);
-                    i++;
-                    while (input[i] && input[i] != quote && (ft_isalnum(input[i]) || input[i] == '_'))
-                        i++;
-                    start = i;
-                }
-                else
-                    i++;
-            }
-            if (i > start)
-                word = ft_strjoin_free(word, ft_substr(input, start, i - start));
-            i++;
-            start = i;
-        }
-        else if (input[i] == '$')
-        {
-            if (i > start)
-                word = ft_strjoin_free(word, ft_substr(input, start, i - start));
-            var_value = include_legit_variable(input, optimize, i, minishell);
-            if (var_value)
-                word = ft_strjoin_free(word, var_value);
-            i++;
-            while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
-                i++;
-            start = i;
-        }
-        else
-            i++;
-    }
-    if (i > start)
-        word = ft_strjoin_free(word, ft_substr(input, start, i - start));
-    add_token(&optimize->head, &optimize->current, TOKEN_WORD, word);
-    free(word);
-    return (i);
 }
 
 // int	process_word(char *input, int i, t_optimize_data *optimize, t_minishell *minishell)

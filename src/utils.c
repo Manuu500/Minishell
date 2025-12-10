@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/09 18:56:44 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/10 13:46:30 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,32 @@
 
 void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect, t_optimize_data *optimize)
 {
+	(void)	redirect;
 	(void)	command;
 	t_redirect *head;
-
-	command->redirs = redirect;
+	
+	command->redirs = malloc(sizeof(t_redirect));
+    if (!command->redirs)
+	{
+        return;
+	}
 	minishell->envp = NULL;
 	minishell->user_input = NULL;
 	head = malloc(sizeof(t_redirect));
 	if (!head)
 		return ;
-	redirect->fd = -1;
-	redirect->filename = NULL;
-	redirect->next = NULL;
-	redirect->type = 0;
+	command->redirs->fd = -1;
+	command->redirs->filename = NULL;
+	command->redirs->next = NULL;
+	command->redirs->type = 0;
+	// redirect->fd = -1;
+	// redirect->filename = NULL;
+	// redirect->next = NULL;
+	// redirect->type = 0;
 	command->in_fd = STDIN_FILENO;
 	command->out_fd = STDOUT_FILENO;
 	command->redir_error = 0;
 	command->next = NULL;
-	// command->redirs = malloc(sizeof(t_command));
-	// command->argv = malloc(sizeof(char) * 200);
 	optimize->head = NULL;
     optimize->current = NULL;
 }
