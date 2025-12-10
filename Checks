@@ -6,4 +6,4 @@
 - Problema con >> y <<. No se detecta correctamente.
 - Con comillas no funcionan las redirecciones ✅
 - Con comillas dobles, si se pone una variable dentro debe de salir✅
-
+- Corregir fallo comillas salto de línea
