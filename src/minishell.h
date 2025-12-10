@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 13:10:10 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/10 15:09:48 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct	s_optimize_data {
 	char		*var_value;
 	char		*input;
 	char		quote;
+	int			in_quote;
 }				t_optimize_data;
 
 typedef struct	s_redirect {

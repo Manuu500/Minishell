@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 11:21:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 13:11:16 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/10 15:19:16 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ static	char	*ft_strjoin_free(char *s1, char *s2)
 {
     char	*result;
 
-	if (!s1 || !s2)
-		return (s1);
+	if (!s1 && !s2)
+		return (NULL);
+    if (!s1)
+        return (s2);
+    if (!s2)
+        return (s1);
     result = ft_strjoin(s1, s2);
     free(s1);
     free(s2);
@@ -43,7 +47,7 @@ static	void join_strings(t_optimize_data *opt, int i, int start)
         opt->word = ft_strjoin_free(opt->word, ft_substr(opt->input, start, i - start));
 }
 
-static  int not_word(t_optimize_data *opt, int i)
+static  int is_word(t_optimize_data *opt, int i)
 {
     return (opt->input[i] != ' ' && opt->input[i] != '\t' 
         && opt->input[i] != '<' && opt->input[i] != '>' && opt->input[i] != '|');
@@ -61,45 +65,71 @@ static  int print_variable_content(t_optimize_data *opt, t_minishell *min, int i
 	return (i);
 }
 
-int	process_word(char *input, int i, t_optimize_data *optimize, t_minishell *minishell)
+static  void init_data(t_optimize_data *opt, char *input)
+{
+    opt->input = input;
+    opt->word = ft_strdup("");
+    opt->in_quote = 0; 
+}
+
+static  int init_data_quote(t_optimize_data *opt, int i, int *start)
+{
+    join_strings(opt, i, *start);
+    opt->quote = opt->input[i];
+    i++;
+    *start = i;
+    return (i);
+}
+
+static int manage_dollar_quote_case(t_optimize_data *opt, t_minishell *min, int i, int *start)
+{
+    if (opt->input[i] == '$' && opt->quote == '\"')
+    {
+        i = print_variable_content(opt, min, i, *start);
+        *start = i;
+    }
+    else
+        i++;
+    return (i);
+}
+
+static int manage_lone_quote_case(t_optimize_data *opt, t_minishell *min, int i, int start)
+{
+    i = init_data_quote(opt, i, &start);
+    while (opt->input[i] && opt->input[i] != opt->quote)
+    {
+        opt->in_quote = 1;
+        i = manage_dollar_quote_case(opt, min, i, &start);
+    }
+    join_strings(opt, i, start);
+    i++;
+    return (i);
+}
+int	process_word(char *input, int i, t_optimize_data *opt, t_minishell *min)
 {
     int			start;
     
-	optimize->input = input;
-    optimize->word = ft_strdup("");
+    init_data(opt, input);
     start = i;
-    while (optimize->input[i] && not_word(optimize, i))
+    while (opt->input[i])
     {
-        if (input[i] == '\'' || input[i] == '\"')
+        if (opt->in_quote == 0 && (!is_word(opt, i)))
+            break;
+        if (opt->input[i] == '\'' || opt->input[i] == '\"')
         {
-			join_strings(optimize, i, start);
-            optimize->quote = input[i];
-            i++;
-            start = i;
-            while (input[i] && input[i] != optimize->quote)
-            {
-                if (input[i] == '$' && optimize->quote == '\"')
-                {
-                    i = print_variable_content(optimize, minishell, i, start);
-                    start = i;
-                }
-                else
-                    i++;
-            }
-            join_strings(optimize, i, start);
-            i++;
+            i = manage_lone_quote_case(opt, min, i, start);
             start = i;
         }
         else if (input[i] == '$')
         {
-			i = manage_dollar_case(optimize, minishell, i, start);
+			i = manage_dollar_case(opt, min, i, start);
             start = i;
         }
 		else
             i++;
     }
-    join_strings(optimize, i, start);
-    add_token(&optimize->head, &optimize->current, TOKEN_WORD, optimize->word);
-    free(optimize->word);
+    join_strings(opt, i, start);
+    add_token(&opt->head, &opt->current, TOKEN_WORD, opt->word);
+    free(opt->word);
     return (i);
 }
