@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 13:46:30 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/12 21:44:50 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect,
 {
 	(void)	redirect;
 	(void)	command;
-	t_redirect *head;
 	
 	command->redirs = malloc(sizeof(t_redirect));
     if (!command->redirs)
@@ -25,8 +24,9 @@ void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect,
 	}
 	minishell->envp = NULL;
 	minishell->user_input = NULL;
-	head = malloc(sizeof(t_redirect));
-	if (!head)
+	// 12/10/2025, Último cambio, cambiar "head" por "optimize->head"
+	optimize->head_red = malloc(sizeof(t_redirect));
+	if (!optimize->head_red)
 		return ;
 	command->redirs->fd = -1;
 	command->redirs->filename = NULL;
@@ -71,6 +71,46 @@ static  void    add_to_argv(t_command *command, t_token *current, int *i)
     }
     (*i)++;
     command->argv[*i] = NULL; 
+}
+
+int	check_tokens(t_token *token)
+{	
+	while (token)
+	{
+		if (token->type == TOKEN_PIPE)
+			return (1);
+		token = token->next;
+	}
+	return (0);
+}
+
+void	tokens_to_command(t_token *tokens, t_command *com, t_minishell *min)
+{
+	int	is_pipe;
+	
+	is_pipe = check_tokens(tokens);
+	if (is_pipe)
+		pipe_tokens_to_command(tokens, com, min);
+	else
+		move_tokens_to_command(tokens, com, min);
+}
+
+void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
+{
+	t_token *split;
+	t_token *next_split;
+
+	(void) min;
+	(void) com;
+	(void) next_split;
+	split = token;
+	next_split = NULL;
+	if (!token)
+		return ;
+	while (split && split->type != TOKEN_PIPE)
+		split = split->next;
+	if (split)
+		printf("He llegado al pipe");
 }
 
 void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 11:21:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 15:19:16 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/12 22:03:41 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ static	int manage_dollar_case(t_optimize_data *opt, t_minishell *min, int i, int
 static	void join_strings(t_optimize_data *opt, int i, int start)
 {
 	if (i > start)
+    {
         opt->word = ft_strjoin_free(opt->word, ft_substr(opt->input, start, i - start));
+    }
 }
 
 static  int is_word(t_optimize_data *opt, int i)
@@ -111,7 +113,7 @@ int	process_word(char *input, int i, t_optimize_data *opt, t_minishell *min)
     
     init_data(opt, input);
     start = i;
-    while (opt->input[i])
+    while (opt->input[i] && opt->input[i + 1] != '|')
     {
         if (opt->in_quote == 0 && (!is_word(opt, i)))
             break;

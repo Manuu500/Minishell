@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 15:09:48 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/12 21:23:04 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ typedef enum token_type {
 	TOKEN_VAR
 }			t_token_type;
 
+typedef struct	s_redirect {
+	char				*filename;
+	int					fd;
+	struct s_redirect 	*next;
+	t_token_type		type;
+}			t_redirect;
+
 typedef struct s_token {
 	t_token_type 	type;
 	char			*value;
@@ -46,6 +53,7 @@ typedef struct s_token {
 
 typedef struct	s_optimize_data {
 	t_token		*head;
+	t_redirect	*head_red;
 	t_token		*current;
 	char		*word;
 	char		*var_value;
@@ -53,13 +61,6 @@ typedef struct	s_optimize_data {
 	char		quote;
 	int			in_quote;
 }				t_optimize_data;
-
-typedef struct	s_redirect {
-	char				*filename;
-	int					fd;
-	struct s_redirect 	*next;
-	t_token_type		type;
-}			t_redirect;
 
 typedef struct s_command {
 	char				**argv;
@@ -80,7 +81,7 @@ void	free_matrix(char **matrix);
 //----------------------------------------------//
 
 void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect, t_optimize_data *optimize);
-void	safe_free(t_minishell *minishell, t_command *command);
+void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt);
 t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize);
 void	debug_token(t_token *head);
 void	check_if_pipes(char *input, int i, t_token *head, t_token *current);
@@ -100,6 +101,8 @@ int		process_word(char *input, int i, t_optimize_data *optimize, t_minishell *mi
 int		process_quotes(char	*input, int i, char quote);
 void	add_word_to_com(char *word, t_command *com);
 void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min);
+void	tokens_to_command(t_token *tokens, t_command *com, t_minishell *min);
+void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min);
 void	save_filename_redirs(t_command *command, t_token *head);
 size_t	word_count(char const *s, char c);
 void	free_mem(char **str);

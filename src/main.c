@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 12:28:44 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/12 21:48:35 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ int	main(int argc, char **argv, char **envp)
 		handle_ctrl_d(minishell.user_input);
 		minishell.envp = copy_matrix(envp);
 		tokens = tokenize(minishell.user_input, &minishell, &optimize_data);
-		move_tokens_to_command(tokens, &command, &minishell);
+		tokens_to_command(tokens, &command, &minishell);
+		// move_tokens_to_command(tokens, &command, &minishell);
 		save_filename_redirs(&command, tokens);
 		// save_vars(&minishell, tokens);
 		command_dispatcher(&command, &minishell);
 		// debug_matrix_copy(&minishell);
 		// debug_token(tokens);
-		safe_free(&minishell, &command);
+		safe_free(&minishell, &command, &optimize_data);
 	}
 	return(1);
 }
