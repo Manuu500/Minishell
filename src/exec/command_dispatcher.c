@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_dispatcher.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/12/09 12:41:30 by arivas-q         ###   ########.fr       */
+/*   Updated: 2025/12/12 22:55:25 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,3 @@ int	command_dispatcher(t_command *command, t_minishell *ms)
     }
     return (execute_external_command(command, envp));
 }
-

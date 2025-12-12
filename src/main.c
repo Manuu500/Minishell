@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/12 21:48:35 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/12 22:06:26 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	main(int argc, char **argv, char **envp)
 		save_filename_redirs(&command, tokens);
 		// save_vars(&minishell, tokens);
 		command_dispatcher(&command, &minishell);
-		// debug_matrix_copy(&minishell);
-		// debug_token(tokens);
 		safe_free(&minishell, &command, &optimize_data);
 	}
 	return(1);
