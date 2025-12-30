@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/12 22:57:29 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:10:36 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,40 @@
 
 void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect, t_optimize_data *optimize)
 {
-	(void)	redirect;
-	(void)	command;
-	
+	(void)redirect;
+
+	/* Zero the structures to avoid uninitialized fields */
+	ft_bzero(minishell, sizeof(t_minishell));
+	ft_bzero(command, sizeof(t_command));
+	ft_bzero(optimize, sizeof(t_optimize_data));
+
+	/* Allocate initial redirect node for the command */
 	command->redirs = malloc(sizeof(t_redirect));
-    if (!command->redirs)
-	{
-        return;
-	}
+	if (!command->redirs)
+		return;
+
+	/* Explicitly set fields we care about */
 	minishell->envp = NULL;
 	minishell->user_input = NULL;
-	// 12/10/2025, Último cambio, cambiar "head" por "optimize->head"
-	optimize->head_red = malloc(sizeof(t_redirect));
-	if (!optimize->head_red)
-		return ;
+
+	optimize->head_red = NULL;
+	optimize->current = NULL;
+	optimize->head = NULL;
+	optimize->input = NULL;
+	optimize->var_value = NULL;
+	optimize->word = NULL;
+	optimize->quote = 0;
+	optimize->in_quote = 0;
+
 	command->redirs->fd = -1;
 	command->redirs->filename = NULL;
 	command->redirs->next = NULL;
 	command->redirs->type = 0;
-	// redirect->fd = -1;
-	// redirect->filename = NULL;
-	// redirect->next = NULL;
-	// redirect->type = 0;
+	command->argv = NULL;
 	command->in_fd = STDIN_FILENO;
 	command->out_fd = STDOUT_FILENO;
 	command->redir_error = 0;
 	command->next = NULL;
-	optimize->head = NULL;
-    optimize->current = NULL;
 }
 
 static	int	word_is_argument(t_token *current)

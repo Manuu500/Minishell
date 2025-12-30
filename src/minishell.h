@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/12 21:23:04 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/30 18:53:44 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	free_matrix(char **matrix);
 //----------------------------------------------//
 
 void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect, t_optimize_data *optimize);
-void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt);
+void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt, t_token *token);
 t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize);
 void	debug_token(t_token *head);
 void	check_if_pipes(char *input, int i, t_token *head, t_token *current);

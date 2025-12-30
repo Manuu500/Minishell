@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 12:34:08 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:15:02 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ static	t_token	*create_token(t_token_type type, char *value)
 		return (NULL);
 	}
 	new_token->next = NULL;
+	new_token->prev = NULL;
+	new_token->var_name = NULL;
 	return (new_token);
 }
 
