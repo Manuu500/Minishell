@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 12:34:29 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/06 17:03:35 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	handle_output_redir(char *input, t_optimize_data *optimize, int i)
 		return (i + 1);
 	}
 }
+
 
 int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minishell *minishell)
 {

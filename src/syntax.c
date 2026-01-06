@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 13:43:56 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/06 17:18:17 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ void	save_filename_redirs(t_command *command, t_token *head)
 		redir = redir->next;
 	while (current)
 	{
-		if ((current->type == TOKEN_REDIR_IN || current->type == TOKEN_REDIR_OUT) 
+		if ((current->type == TOKEN_REDIR_IN || current->type == TOKEN_REDIR_OUT
+			|| current->type == TOKEN_HEREDOC || current->type == TOKEN_REDIR_APPEND) 
 			&& current->next && current->next->type == TOKEN_WORD)
 		{
 			new_redir = malloc(sizeof(t_redirect));
