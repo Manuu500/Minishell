@@ -6,16 +6,11 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 12:02:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/12 16:40:57 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
-
-// void	free_list(t_optimize_data *opt)
-// {
-		
-// }
 
 void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt, t_token *token)
 {
@@ -25,7 +20,6 @@ void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt,
 	t_token *tn;
 	int	i;
 	
-	(void) opt;
 	if (minishell->user_input)
 		free(minishell->user_input);
 	i = 0;
@@ -94,13 +88,23 @@ void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt,
 				free(t);
 				t = tn;
 			}
-			if (opt)
-			{
-				if (opt->head == token)
-					opt->head = NULL;
-				if (opt->current == token)
-					opt->current = NULL;
-			}
 		}
 	}
+	else if (opt && opt->head)
+	{
+		t = opt->head;
+		while (t)
+		{
+			tn = t->next;
+			if (t->value)
+				free(t->value);
+			if (t->var_name)
+				free(t->var_name);
+			free(t);
+			t = tn;
+		}
+		opt->head = NULL;
+		opt->current = NULL;
+	}
 }
+

@@ -6,23 +6,35 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 12:36:49 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 13:03:03 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/12 15:39:19 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void init_com(t_command *com)
+{
+	com->next = malloc(sizeof(t_command));
+	if (!com->next)
+		return ;
+	ft_memset(com->next, 0, sizeof(t_command));
+	com->next->redirs = malloc(sizeof(t_redirect));
+    if (!com->next->redirs)
+    {
+        free(com->next);
+        return ;
+    }
+    ft_memset(com->next->redirs, 0, sizeof(t_redirect));
+	com->next->in_fd = 0;
+	com->next->out_fd = 1;
+}
 
-// static void	check_if_pipe(t_token *split, t_token *token, t_command *com, t_minishell *min)
-// {
-// 	while (split && split->type != TOKEN_PIPE)
-// 		split = split->next;
-// 	if (!split)
-// 	{
-// 		move_tokens_to_command(token, com, min);
-// 		return ;
-// 	}
-//
+static t_token	*check_if_pipe(t_token *split)
+{
+	while (split && split->type != TOKEN_PIPE)
+		split = split->next;
+	return (split);
+}
 
 void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
 {
@@ -33,8 +45,7 @@ void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
 	next_split = NULL;
 	if (!token || !com || !min)
 		return ;
-	while (split && split->type != TOKEN_PIPE)
-		split = split->next;
+	split = check_if_pipe(split);
 	if (!split)
 	{
 		move_tokens_to_command(token, com, min);
@@ -48,13 +59,6 @@ void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
 	if (!next_split)
 		return ;
 	if (!com->next)
-	{
-		com->next = malloc(sizeof(t_command));
-		if (!com->next)
-			return ;
-		ft_memset(com->next, 0, sizeof(t_command));
-		com->next->in_fd = 0;
-		com->next->out_fd = 1;
-	}
+		init_com(com);
 	pipe_tokens_to_command(next_split, com->next, min);
 }

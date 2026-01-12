@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 12:44:38 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/12 16:19:12 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_vars(t_minishell *minishell, t_command *command, t_optimize_data *opti
 	if (!command->redirs)
 		return;
 	minishell->envp = NULL;
+	minishell->run = 1;
 	minishell->user_input = NULL;
 	optimize->head_red = NULL;
 	optimize->current = NULL;

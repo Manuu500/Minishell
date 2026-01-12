@@ -1,0 +1,4 @@
+#!/bin/bash
+clear 
+make re 
+valgrind --suppressions=vincent.supp --show-leak-kinds=all --trace-children=yes --leak-check=full ./minishell

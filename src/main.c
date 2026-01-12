@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 12:45:11 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/12 16:18:26 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	if (argc != 2)
 	{
+		minishell.run = 1;
 		setup_signal_handlers();
-		while (1)
+		while (minishell.run)
 		{
 			init_vars(&minishell, &command, &optimize_data);
 			minishell.user_input = readline("Prompt: ");
