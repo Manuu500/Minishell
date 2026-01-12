@@ -7,3 +7,4 @@
 - Con comillas no funcionan las redirecciones ✅
 - Con comillas dobles, si se pone una variable dentro debe de salir✅
 - Corregir fallo comillas salto de línea✅
+- Usar FIND_VAR_IN_MATRIX en las variables de heredoc
