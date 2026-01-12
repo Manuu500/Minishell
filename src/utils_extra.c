@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:10:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/20 13:13:25 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:44:21 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,26 @@ size_t	word_count(char const *s, char c)
 		i++;
 	}
 	return (counter);
+}
+
+int	check_tokens(t_token *token)
+{	
+	while (token)
+	{
+		if (token->type == TOKEN_PIPE)
+			return (1);
+		token = token->next;
+	}
+	return (0);
+}
+
+void	tokens_to_command(t_token *tokens, t_command *com, t_minishell *min)
+{
+	int	is_pipe;
+	
+	is_pipe = check_tokens(tokens);
+	if (is_pipe)
+		pipe_tokens_to_command(tokens, com, min);
+	else
+		move_tokens_to_command(tokens, com, min);
 }

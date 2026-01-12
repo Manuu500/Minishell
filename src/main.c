@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 11:35:17 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:45:11 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_command command;
 	t_minishell minishell;
-	t_redirect	redirect;
 	t_token	*tokens;
 	t_optimize_data	optimize_data;
 	
@@ -28,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		setup_signal_handlers();
 		while (1)
 		{
-			init_vars(&minishell, &command, &redirect, &optimize_data);
+			init_vars(&minishell, &command, &optimize_data);
 			minishell.user_input = readline("Prompt: ");
 			handle_ctrl_d(minishell.user_input);
 			minishell.envp = copy_matrix(envp);

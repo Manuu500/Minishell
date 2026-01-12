@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 11:03:11 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:44:46 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	free_matrix(char **matrix);
 
 //----------------------------------------------//
 
-void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect, t_optimize_data *optimize);
+void	init_vars(t_minishell *minishell, t_command *command, t_optimize_data *optimize);
 void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt, t_token *token);
 t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize);
 void	debug_token(t_token *head);
@@ -108,7 +108,10 @@ size_t	word_count(char const *s, char c);
 void	free_mem(char **str);
 void	*include_legit_variable(char *input, t_optimize_data *optimize, int i, t_minishell *minishell);
 void	save_vars(t_minishell *minishell, t_token *token);
-
-//fix
+char	*ft_strjoin_free(char *s1, char *s2);
+int 	manage_dollar_case(t_optimize_data *opt, t_minishell *min, int i, int start);
+void 	join_strings(t_optimize_data *opt, int i, int start);
+int 	is_word(t_optimize_data *opt, int i);
+int 	print_variable_content(t_optimize_data *opt, t_minishell *min, int i, int start);
 
 #endif

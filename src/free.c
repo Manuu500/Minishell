@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/30 19:12:32 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:02:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 
 void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt, t_token *token)
 {
-	// t_redirect	*next_redir;
-    // t_redirect	*redir;
 	t_redirect *r;
 	t_redirect *nr;
 	t_token *t;

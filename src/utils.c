@@ -6,30 +6,22 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/06 17:12:35 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/12 12:44:38 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect, t_optimize_data *optimize)
+void	init_vars(t_minishell *minishell, t_command *command, t_optimize_data *optimize)
 {
-	(void)redirect;
-
-	/* Zero the structures to avoid uninitialized fields */
 	ft_bzero(minishell, sizeof(t_minishell));
 	ft_bzero(command, sizeof(t_command));
 	ft_bzero(optimize, sizeof(t_optimize_data));
-
-	/* Allocate initial redirect node for the command */
 	command->redirs = malloc(sizeof(t_redirect));
 	if (!command->redirs)
 		return;
-
-	/* Explicitly set fields we care about */
 	minishell->envp = NULL;
 	minishell->user_input = NULL;
-
 	optimize->head_red = NULL;
 	optimize->current = NULL;
 	optimize->head = NULL;
@@ -38,7 +30,6 @@ void	init_vars(t_minishell *minishell, t_command *command, t_redirect *redirect,
 	optimize->word = NULL;
 	optimize->quote = 0;
 	optimize->in_quote = 0;
-
 	command->redirs->fd = -1;
 	command->redirs->filename = NULL;
 	command->redirs->next = NULL;
@@ -58,16 +49,7 @@ static	int	word_is_argument(t_token *current)
 			|| current->prev->type == TOKEN_HEREDOC)));
 }
 
-static void	initialize_argv(t_command *command, int j, int num_words)
-{
-	while (j <= num_words)
-	{
-		command->argv[j] = NULL;
-		j++;
-	}
-}
-
-static  void    add_to_argv(t_command *command, t_token *current, int *i)
+static void    add_to_argv(t_command *command, t_token *current, int *i)
 {
 	command->argv[*i] = ft_strdup(current->value);
     if (!command->argv[*i])
@@ -79,61 +61,13 @@ static  void    add_to_argv(t_command *command, t_token *current, int *i)
     command->argv[*i] = NULL; 
 }
 
-int	check_tokens(t_token *token)
-{	
-	while (token)
-	{
-		if (token->type == TOKEN_PIPE)
-			return (1);
-		token = token->next;
-	}
-	return (0);
-}
-
-void	tokens_to_command(t_token *tokens, t_command *com, t_minishell *min)
+static void	initialize_argv(t_command *command, int j, int num_words)
 {
-	int	is_pipe;
-	
-	is_pipe = check_tokens(tokens);
-	if (is_pipe)
-		pipe_tokens_to_command(tokens, com, min);
-	else
-		move_tokens_to_command(tokens, com, min);
-}
-
-void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
-{
-	t_token *split;
-	t_token *next_split;
-
-	split = token;
-	next_split = NULL;
-	if (!token || !com || !min)
-		return ;
-	while (split && split->type != TOKEN_PIPE)
-		split = split->next;
-	if (!split)
+	while (j <= num_words)
 	{
-		move_tokens_to_command(token, com, min);
-		return ;
+		command->argv[j] = NULL;
+		j++;
 	}
-	next_split = split->next;
-	split->next = NULL;
-	if (next_split)
-		next_split->prev = NULL;
-	move_tokens_to_command(token, com, min);
-	if (!next_split)
-		return ;
-	if (!com->next)
-	{
-		com->next = malloc(sizeof(t_command));
-		if (!com->next)
-			return ;
-		ft_memset(com->next, 0, sizeof(t_command));
-		com->next->in_fd = 0;
-		com->next->out_fd = 1;
-	}
-	pipe_tokens_to_command(next_split, com->next, min);
 }
 
 void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
@@ -162,22 +96,6 @@ void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
         }
         current = current->next;
     }
-	// int	i = 0;
-	// printf("=== COMANDOS EN ARGV ===\n");
-    // if (command->argv)
-    // {
-    //     while (command->argv[i])
-    //     {
-    //         printf("argv[%d]: %s\n", i, command->argv[i]);
-    //         i++;
-    //     }
-    //     printf("Total comandos: %d\n", i);
-    // }
-    // else
-    // {
-    //     printf("argv es NULL\n");
-    // }
-    // printf("=======================\n");
 }
 
 // printf("=== COMANDOS EN ARGV ===\n");
