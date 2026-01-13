@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:54:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/12/09 11:54:12 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/13 18:17:37 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/* Helpers del pipeline alojados aquí para equilibrar número de funciones */
-
 void parent_after_fork(t_pipe_ctx *ctx)
 {
 	ctx->pids[ctx->i] = ctx->pid;
 	if (ctx->next[1] != -1)
+	{
 		close(ctx->next[1]);
+		ctx->next[1] = -1;
+	}
 	close_pair(ctx->prev);
 	ctx->prev[0] = ctx->next[0];
 	ctx->prev[1] = -1;
+	ctx->next[0] = -1;
 }
 
 void apply_child_redirs_if_any(t_command *cmd)

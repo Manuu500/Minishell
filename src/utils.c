@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 16:19:12 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/13 17:57:35 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
         }
         current = current->next;
     }
+	save_filename_redirs(command, head);
 }
 
 // printf("=== COMANDOS EN ARGV ===\n");

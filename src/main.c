@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 16:18:26 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/13 17:57:35 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	main(int argc, char **argv, char **envp)
 			tokens = tokenize(minishell.user_input, &minishell, &optimize_data);
 			tokens_to_command(tokens, &command, &minishell);
 			// move_tokens_to_command(tokens, &command, &minishell);
-			save_filename_redirs(&command, tokens);
 			command_dispatcher(&command, &minishell);
 			safe_free(&minishell, &command, &optimize_data, tokens);
 		}
