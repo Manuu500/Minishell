@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:10:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 12:44:21 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:17:06 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,10 @@ void	tokens_to_command(t_token *tokens, t_command *com, t_minishell *min)
 		pipe_tokens_to_command(tokens, com, min);
 	else
 		move_tokens_to_command(tokens, com, min);
+}
+
+void	exit_program(t_minishell *ms, int err_snipet)
+{
+	ms->last_exit_code = err_snipet;
+	ms->run = 0;	
 }

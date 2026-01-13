@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/12 16:37:07 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:16:34 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	try_exec_dir(const char *dir, char **argv, char **envp)
 	}
 }
 
-void exec_from_path(char **argv, char **envp)
+void exec_from_path(char **argv, char **envp, t_minishell *ms)
 {
 	char	*path;
 	char	**parts;
@@ -85,11 +85,11 @@ void exec_from_path(char **argv, char **envp)
 	if (!path)
 	{
 		write(2, "minishell: PATH not set\n", 24);
-		_exit(127);
+		exit_program(ms, 127);
 	}
 	parts = ft_split(path, ':');
 	if (!parts)
-		_exit(127);
+		exit_program(ms, 127);
 	i = 0;
 	while (parts[i])
 	{
@@ -99,5 +99,5 @@ void exec_from_path(char **argv, char **envp)
 	write(2, argv[0], ft_strlen(argv[0]));
 	write(2, ": command not found\n", 20);
 	free_strv(parts);
-	_exit(127);
+	exit_program(ms, 127);
 }

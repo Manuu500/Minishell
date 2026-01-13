@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/12/12 22:55:25 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:08:23 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,5 @@ int	command_dispatcher(t_command *command, t_minishell *ms)
         reset_builtin_fds(command, saved_in, saved_out);
         return (1);
     }
-    return (execute_external_command(command, envp));
+    return (execute_external_command(command, envp, ms));
 }

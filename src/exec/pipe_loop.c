@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:50:18 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/12/09 11:50:27 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:18:42 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void exec_child_process(t_pipe_ctx *ctx, t_minishell *ms)
     if (is_builtin(ctx->cmd->argv))
     {
         int status = builtin_dispatch(ctx->cmd->argv, ms);
-        _exit(status);
+        exit_program(ms, status);
     }
-    exec_from_path(ctx->cmd->argv, ms->envp);
-    _exit(127);
+    exec_from_path(ctx->cmd->argv, ms->envp, ms);
+    exit_program(ms, 127);
 }
 
 int run_pipeline_loop(t_pipe_ctx *ctx, t_minishell *ms)

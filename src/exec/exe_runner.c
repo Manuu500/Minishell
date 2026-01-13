@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_runner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/12/09 11:51:19 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:16:18 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	apply_child_redirs(t_command *cmd)
 		dup2(cmd->out_fd, STDOUT_FILENO);
 }
 
-static void	exec_child(t_command *command, char **envp)
+static void	exec_child(t_command *command, char **envp, t_minishell *ms)
 {
     char **argv;
 	
@@ -34,9 +34,9 @@ static void	exec_child(t_command *command, char **envp)
     {
         execve(argv[0], argv, envp);
         write(2, "execve: error\n", 14);
-        _exit(127);
+        exit_program(ms, 127);
     }
-    exec_from_path(argv, envp);
+    exec_from_path(argv, envp, ms);
 }
 
 static int	wait_child(pid_t pid)
@@ -55,7 +55,7 @@ static int	wait_child(pid_t pid)
 	return (1);
 }
 
-int	execute_external_command(t_command *command, char **envp)
+int	execute_external_command(t_command *command, char **envp, t_minishell *ms)
 {
 	pid_t	pid;
 	int		ret;
@@ -73,7 +73,7 @@ int	execute_external_command(t_command *command, char **envp)
 	if (pid == 0)
 	{
 		execute_signals(SIGST_IN_CHILD, 0);
-		exec_child(command, envp);
+		exec_child(command, envp, ms);
 	}
 	{
 		ret = wait_child(pid);
