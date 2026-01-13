@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 19:07:51 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/13 13:08:47 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/13 17:07:09 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	close_pair(int p[2]);
 int		wait_children(pid_t *pids, int n, int status);
 int		run_pipeline_loop(t_pipe_ctx *ctx, t_minishell *ms);
 void	init_state(t_pipe_ctx *ctx, t_command *head);
-void	connect_child(int i, int n, int prev[2], int next[2]);
+void	connect_child(int i, int n, int prev[2], int next[2], t_command *cmd);
 /* Pipeline helpers (defined across pipes.c / pipe_loop.c) */
 void	parent_after_fork(t_pipe_ctx *ctx);
 void	apply_child_redirs_if_any(t_command *cmd);

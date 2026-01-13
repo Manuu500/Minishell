@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 20:05:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/12/09 11:50:04 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/12 13:27:32 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	close_pair(int p[2])
 		close(p[1]);
 }
 
-void connect_child(int i, int n, int prev[2], int next[2])
+void connect_child(int i, int n, int prev[2], int next[2], t_command *cmd)
 {
-	if (i > 0 && prev[0] != -1)
-		dup2(prev[0], STDIN_FILENO);
-	if (i < n - 1 && next[1] != -1)
-		dup2(next[1], STDOUT_FILENO);
+	       if (i > 0 && prev[0] != -1 && (cmd->in_fd < 0 || cmd->in_fd == STDIN_FILENO))
+		       dup2(prev[0], STDIN_FILENO);
+	       if (i < n - 1 && next[1] != -1 && cmd->out_fd < 0)
+		       dup2(next[1], STDOUT_FILENO);
 	close_pair(prev);
 	close_pair(next);
 }
