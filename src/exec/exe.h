@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 19:07:51 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/15 12:07:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/15 12:39:35 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	redir_infile(t_redirect *redirs, t_command *command);
 void	redir_outfile(t_redirect *redirs, t_command *command);
 void	redir_append(t_redirect *redirs, t_command *command);
 void	redir_heredoc(t_redirect *redirs, t_command *command, t_minishell *ms);
+char 	*expand_variables(char *line, t_minishell *ms);
 
 #endif
