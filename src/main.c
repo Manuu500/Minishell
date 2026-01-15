@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/13 17:57:35 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/15 13:04:27 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,17 @@ int	main(int argc, char **argv, char **envp)
 	{
 		minishell.run = 1;
 		setup_signal_handlers();
+		using_history();
 		while (minishell.run)
 		{
 			init_vars(&minishell, &command, &optimize_data);
 			minishell.user_input = readline("Prompt: ");
+			if (minishell.user_input)
+				add_history(minishell.user_input);
 			handle_ctrl_d(minishell.user_input);
 			minishell.envp = copy_matrix(envp);
 			tokens = tokenize(minishell.user_input, &minishell, &optimize_data);
 			tokens_to_command(tokens, &command, &minishell);
-			// move_tokens_to_command(tokens, &command, &minishell);
 			command_dispatcher(&command, &minishell);
 			safe_free(&minishell, &command, &optimize_data, tokens);
 		}

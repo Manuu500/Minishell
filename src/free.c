@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 16:58:21 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/15 13:09:17 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt, t_token *token)
 {
+	HISTORY_STATE *history;
 	t_redirect *r;
 	t_redirect *nr;
 	t_token *t;
 	t_token *tn;
 	int	i;
 	
+	history = history_get_history_state();
+	clear_history();
+	if (history)
+		free(history);	
 	if (minishell->user_input)
 	{
 		free(minishell->user_input);
