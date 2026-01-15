@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 19:07:51 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/13 17:07:09 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/15 12:07:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	connect_child(int i, int n, int prev[2], int next[2], t_command *cmd);
 void	parent_after_fork(t_pipe_ctx *ctx);
 void	apply_child_redirs_if_any(t_command *cmd);
 int		abort_pipeline(t_pipe_ctx *ctx, int err);
-int		handle_redirs_in_parent(t_command *cmd);
+int 	handle_redirs_in_parent(t_command *cmd, t_minishell *ms);
 void	exec_child_process(t_pipe_ctx *ctx, t_minishell *ms);
 
 /* Redirs */
-void	redir_dispatcher(t_command *command);
+void 	redir_dispatcher(t_command *command, t_minishell *ms);
 void	redir_infile(t_redirect *redirs, t_command *command);
 void	redir_outfile(t_redirect *redirs, t_command *command);
 void	redir_append(t_redirect *redirs, t_command *command);
-void	redir_heredoc(t_redirect *redirs, t_command *command);
+void	redir_heredoc(t_redirect *redirs, t_command *command, t_minishell *ms);
 
 #endif

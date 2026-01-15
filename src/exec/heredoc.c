@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 18:36:30 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/13 18:37:22 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/15 12:06:31 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,48 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static int	create_heredoc_pipe(const char *delim, int *out_read_fd)
+static char  *check_if_correct(char *var)
+{
+    if (var)
+        return (var);
+    else
+        return (ft_strdup(""));
+}
+
+static char *expand_variables(char *line, t_minishell *ms)
+{
+    int     start;
+    char    *var_name;
+    char    *var_value;
+    int     i;
+    
+    i = 0;
+	while (line[i])
+    {
+        if (line[i] == '$')
+        {
+            start = ++i;
+            while (line[i] >= 'A' && line[i] <= 'Z')
+                i++; 
+            if (i > start && (var_name = ft_substr(line, start, i - start)))
+            {
+                var_value = check_var_token(ms, var_name);
+                free(var_name); 
+                return (check_if_correct(var_value));
+            }
+        }
+        else
+            i++;
+    }
+    return (ft_strdup(line));
+}
+
+static int	create_heredoc_pipe(const char *delim, int *out_read_fd, t_minishell *ms)
 {
     int		fd[2];
     char	*line;
-
+    char    *expanded;
+    
     if (pipe(fd) < 0)
         return (-1);
     while (1)
@@ -32,8 +69,10 @@ static int	create_heredoc_pipe(const char *delim, int *out_read_fd)
             free(line);
             break;
         }
-        write(fd[1], line, ft_strlen(line));
+        expanded = expand_variables(line, ms);
+        write(fd[1], expanded, ft_strlen(expanded));
         write(fd[1], "\n", 1);
+        free(expanded);
         free(line);
     }
     close(fd[1]);
@@ -41,11 +80,11 @@ static int	create_heredoc_pipe(const char *delim, int *out_read_fd)
     return (0);
 }
 
-void	redir_heredoc(t_redirect *redirs, t_command *command)
+void	redir_heredoc(t_redirect *redirs, t_command *command, t_minishell *ms)
 {
     int	read_fd;
 
-    if (create_heredoc_pipe(redirs->filename, &read_fd) < 0)
+    if (create_heredoc_pipe(redirs->filename, &read_fd, ms) < 0)
     {
         ft_putendl_fd("heredoc: error", 2);
         command->redir_error = 1;

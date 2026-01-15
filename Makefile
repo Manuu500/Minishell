@@ -33,6 +33,7 @@ SRC :=	src/main.c \
 	src/exec/pipe_loop.c \
 	src/exec/pipes_utils.c \
 	src/exec/redirs.c \
+	src/exec/heredoc.c \
 	src/builtings/builtings.c \
 	src/builtings/cd.c \
 	src/builtings/echo.c \

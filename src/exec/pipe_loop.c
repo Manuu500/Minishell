@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:50:18 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/13 17:11:20 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/15 12:08:40 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static int  safe_pipe(int next[2])
     return (0);
 }
 
-int handle_redirs_in_parent(t_command *cmd)
+int handle_redirs_in_parent(t_command *cmd, t_minishell *ms)
 {
     if (cmd->redirs)
-        redir_dispatcher(cmd);
+        redir_dispatcher(cmd, ms);
     if (cmd->redir_error == 1)
         return (1);
     if (cmd->in_fd < 0)
@@ -60,7 +60,7 @@ int run_pipeline_loop(t_pipe_ctx *ctx, t_minishell *ms)
     status = 1;
     while (ctx->i < ctx->n)
     {
-        if (handle_redirs_in_parent(ctx->cmd))
+        if (handle_redirs_in_parent(ctx->cmd, ms))
             return abort_pipeline(ctx, 1);
         if (ctx->i < ctx->n - 1 && safe_pipe(ctx->next))
             return abort_pipeline(ctx, 1);
