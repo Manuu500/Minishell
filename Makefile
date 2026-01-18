@@ -13,6 +13,7 @@ LIBS := $(LIBFT)/libft.a
 SRC :=	src/main.c \
 	src/utils.c \
 	src/free.c \
+	src/free_extra.c \
 	src/syntax.c \
 	src/variable.c \
 	src/utils_extra.c \

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/15 11:23:23 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/18 15:40:27 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,7 @@ void 	join_strings(t_optimize_data *opt, int i, int start);
 int 	is_word(t_optimize_data *opt, int i);
 int 	print_variable_content(t_optimize_data *opt, t_minishell *min, int i, int start);
 void	exit_program(t_minishell *ms, int err_snipet);
+void    free_com_redirs(t_command *com);
+void    free_com_argv(t_command *com);
 
 #endif
