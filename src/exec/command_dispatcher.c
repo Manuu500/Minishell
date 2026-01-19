@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/15 11:33:05 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:02:07 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ static void	reset_builtin_fds(t_command *command, int saved_in, int saved_out)
 int	command_dispatcher(t_command *command, t_minishell *ms)
 {
     char	**cur_command;
-    char	**envp;
+    // char	**envp;
     int		saved_in;
     int		saved_out;
 
-    envp = ms->envp;
+    // envp = ms->envp;
     cur_command = command->argv;
     if (command->redirs)
         redir_dispatcher(command, ms);
@@ -81,5 +81,5 @@ int	command_dispatcher(t_command *command, t_minishell *ms)
         reset_builtin_fds(command, saved_in, saved_out);
         return (1);
     }
-    return (execute_external_command(command, envp, ms));
+    return (execute_external_command(command, ms->envp, ms));
 }

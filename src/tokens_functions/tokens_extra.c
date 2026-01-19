@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/06 17:03:35 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:18:20 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 	flag = 0;
     start = i + 1;
     i++;
-    while (input[i] >= 'A' && input[i] <= 'Z')
+    while ((input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= 'a' && input[i] <= 'z') || (input[i] == '_'))
 	{
 		flag = 1;
         i++;
@@ -103,7 +103,10 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 		return (i);
 	}
 	else
-		return (-1);
+	{
+		add_token(&optimize->head, &optimize->current, TOKEN_WORD, "$");
+		return -1;
+	}
 }
 
 // int	process_word(char *input, int i, t_optimize_data *optimize, t_minishell *minishell)

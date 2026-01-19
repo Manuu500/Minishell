@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:26:39 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 13:17:28 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/19 12:58:06 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ static void	sort_env_bubble(char **sorted, int count)
 
 char	**sort_env(char **envp)
 {
-	int		i;
+	// int		i;
 	int		count;
 	char	**sorted;
 
-	i = 0;
+	// i = 0;
 	count = 0;
 	while (envp[count])
 		count++;
