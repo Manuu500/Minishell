@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/19 15:18:20 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:24:28 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 	flag = 0;
     start = i + 1;
     i++;
-    while ((input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= 'a' && input[i] <= 'z') || (input[i] == '_'))
+    while ((input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= 'a' && input[i] <= 'z') || (input[i] == '_')
+			|| (input[i] >= '0' && input[i] <= '9'))
 	{
 		flag = 1;
         i++;
