@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/19 13:12:08 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:07:46 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 2)
 	{
 		ft_bzero(&minishell, sizeof(t_minishell)); /*Nchange*/
+		using_history();
 		minishell.run = 1;
 		minishell.last_exit_code = 0; /*Nchange*/
 		minishell.envp = copy_matrix(envp); /*Nchange*/

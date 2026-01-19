@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/19 11:26:56 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:53:37 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt,
 	HISTORY_STATE *history;
 	
 	history = history_get_history_state();
-	clear_history();
+	// clear_history();
 	if (history)
 		free(history);	
 	if (minishell->user_input)
