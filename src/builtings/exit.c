@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:27 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/12 16:15:56 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 13:02:57 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 
 int	builtin_exit(char **argv, t_minishell *ms)
 {
-    // int code;
-
-    (void)ms;
-    if (!argv || !argv[1])
-    {
-        ms->run = 0;
-    }
-    // code = ft_atoi(argv[1]);
-    // exit(code);
-    return (0);
+	(void)ms;
+	if (!argv || !argv[1])
+	{
+		ms->run = 0;
+	}
+	return (0);
 }
-

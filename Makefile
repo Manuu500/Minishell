@@ -39,7 +39,9 @@ SRC :=	src/main.c \
 	src/builtings/builtings.c \
 	src/builtings/cd.c \
 	src/builtings/echo.c \
-	src/builtings/env.c \
+	src/builtings/env_print.c \
+	src/builtings/env_set.c \
+	src/builtings/env_utils.c \
 	src/builtings/exit.c \
 	src/builtings/export.c \
 	src/builtings/pwd.c \

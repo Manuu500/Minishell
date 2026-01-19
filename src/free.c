@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/18 15:40:10 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 11:26:56 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
-
+/*
 static void	free_minishell(t_minishell *ms)
 {
 	int i;
@@ -25,6 +25,7 @@ static void	free_minishell(t_minishell *ms)
 	free(ms->envp);
 	ms->envp = NULL;
 }
+	DELETED (sustituido en main por free_matrix)*/
 
 static void	free_command(t_command *command)
 {
@@ -85,8 +86,8 @@ void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt,
 		free(minishell->user_input);
 		minishell->user_input = NULL;
 	}
-	if (minishell->envp)
-		free_minishell(minishell);
+	/*if (minishell->envp)
+		free_minishell(minishell); DELETED (sustituido en main por free amtrix)*/
 	if (command)
 		free_command(command);
 	if (opt)

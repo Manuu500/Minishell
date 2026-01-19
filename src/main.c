@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/15 13:04:27 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 11:26:15 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	if (argc != 2)
 	{
+		ft_bzero(&minishell, sizeof(t_minishell)); /*Nchange*/
 		minishell.run = 1;
+		minishell.last_exit_code = 0; /*Nchange*/
+		minishell.envp = copy_matrix(envp); /*Nchange*/
 		setup_signal_handlers();
 		using_history();
 		while (minishell.run)
@@ -34,12 +37,14 @@ int	main(int argc, char **argv, char **envp)
 			if (minishell.user_input)
 				add_history(minishell.user_input);
 			handle_ctrl_d(minishell.user_input);
-			minishell.envp = copy_matrix(envp);
+			/*minishell.envp = copy_matrix(envp) DELETED*/
 			tokens = tokenize(minishell.user_input, &minishell, &optimize_data);
 			tokens_to_command(tokens, &command, &minishell);
 			command_dispatcher(&command, &minishell);
 			safe_free(&minishell, &command, &optimize_data, tokens);
 		}
+		if (minishell.envp) /*Nchange*/
+			free_matrix(minishell.envp);/*Nchange*/
 	}
 	return(1);
 }

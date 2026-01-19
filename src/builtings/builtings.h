@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:08:15 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/11 12:59:50 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/19 12:34:00 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,18 @@
 
 int		is_builtin(char **argv);
 int		builtin_dispatch(char **argv, t_minishell *ms);
+int		builtin_export(char **argv, t_minishell *ms);
+int		builtin_unset(char **argv, t_minishell *ms);
+char	**sort_env(char **envp);
+void	print_export_format(const char *env);
+char	*join_key_value(const char *key, const char *value);
+char	**add_env_var(char **envp, const char *key, const char *value);
 
-/* builtins */
-int	builtin_echo(char **argv);
-int	builtin_cd(char **argv, t_minishell *ms);
-int	builtin_pwd(char **argv);
-/*int	builtin_export(char **argv, t_minishell *ms);
-int	builtin_unset(char **argv, t_minishell *ms);*/
-int	builtin_env(char **argv, t_minishell *ms);
-int	builtin_exit(char **argv, t_minishell *ms);
+int		builtin_echo(char **argv);
+int		builtin_cd(char **argv, t_minishell *ms);
+int		builtin_pwd(char **argv);
+int		builtin_export(char **argv, t_minishell *ms);
+int		builtin_env(char **argv, t_minishell *ms);
+int		builtin_exit(char **argv, t_minishell *ms);
+
 #endif

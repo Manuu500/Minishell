@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:07 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/13 12:16:49 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 13:05:22 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 
 int	builtin_pwd(char **argv)
 {
-    char *cwd;
+	char	*cwd;
 
-    (void)argv;
-    cwd = getcwd(NULL, 0);
-    if (!cwd)
-    {
-        ft_putendl_fd("cwd: error", 2);
-        return (1);
-    }
-    ft_putendl_fd(cwd, 1);
-    free(cwd);
-    return (0);
+	(void)argv;
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		ft_putendl_fd("cwd: error", 2);
+		return (1);
+	}
+	ft_putendl_fd(cwd, 1);
+	free(cwd);
+	return (0);
 }

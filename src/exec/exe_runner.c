@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_runner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/13 13:16:18 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 11:30:04 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ static int	wait_child(pid_t pid)
 	int	status;
 
 	if (waitpid(pid, &status, 0) < 0)
-	{
-		write(2, "waitpid: error\n", 15);
 		return (1);
-	}
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	if (WIFSIGNALED(status))

@@ -1,12 +1,15 @@
 - Con comandos externos se excribe "Linea:....." de manera extra✅
     Easy fix (?);
-- Al incluir infile y outfile, no funciona el outfile
+- Al incluir infile y outfile, no funciona el outfile✅
     FALLO: PARSEO. Se pisan las redirecciones y tan solo cuenta la última. syntax.c;
 - Funcionalidad de pipes parcialmente completada.✅
 - Problema con >> y <<. No se detecta correctamente.
 - Con comillas no funcionan las redirecciones ✅
 - Con comillas dobles, si se pone una variable dentro debe de salir✅
 - Corregir fallo comillas salto de línea✅
-- Usar FIND_VAR_IN_MATRIX en las variables de heredoc
+- Usar FIND_VAR_IN_MATRIX en las variables de heredoc✅
 - -n en el echo ✅
 - Al hacer exit, el programa sale directamente y no pasa por safe_free.
+- Problemas con expansion de variables y minusculas. La expansion debe admitir cualquier letra, numero y _. En cualquier otro caso para la expansión.
+- En caso de no haber nada despues de $ no se expande nada. $ es un caracter como cualquier otro
+- manejar caso especial de $?

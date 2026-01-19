@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/13 17:57:35 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/19 11:45:30 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	init_vars(t_minishell *minishell, t_command *command, t_optimize_data *optimize)
 {
-	ft_bzero(minishell, sizeof(t_minishell));
+	/*ft_bzero(minishell, sizeof(t_minishell))*/
 	ft_bzero(command, sizeof(t_command));
 	ft_bzero(optimize, sizeof(t_optimize_data));
 	command->redirs = malloc(sizeof(t_redirect));
 	if (!command->redirs)
 		return;
-	minishell->envp = NULL;
-	minishell->run = 1;
+	/*minishell->envp = NULL* DELETED (en main sustituido)
+	minishell->run = 1*     DELETED (en main sustituido)*/
 	minishell->user_input = NULL;
 	optimize->head_red = NULL;
 	optimize->current = NULL;
