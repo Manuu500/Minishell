@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:37:26 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 14:49:33 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 13:36:12 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ static void	apply_export_arg(char *arg, t_minishell *ms)
 	}
 	if (!eq)
 		key = ft_strdup(arg);
-	if (key && is_valid_key(key))
+	if (key && is_valid_key(key) && eq)
 		ms->envp = add_env_var(ms->envp, key, value);
+	else if (key && is_valid_key(key))
+		ms->envp = add_env_var_if_not_exists(ms->envp, key, value);
 	free(key);
 }
 

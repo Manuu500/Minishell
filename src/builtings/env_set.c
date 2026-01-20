@@ -1,3 +1,4 @@
+#include <string.h>
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -13,6 +14,24 @@
 #include "../../libs/libft/libft.h"
 #include "builtings.h"
 #include <stdlib.h>
+
+char **add_env_var_if_not_exists(char **envp, const char *key, const char *value)
+{
+	int		i;
+	size_t	key_len;
+
+	i = 0;
+	key_len = ft_strlen(key);
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], key, key_len) == 0 && envp[i][key_len] == '=')
+		{
+			return envp;
+		}
+		i++;
+	}
+	return add_env_var(envp, key, value);
+}
 
 char	*join_key_value(const char *key, const char *value)
 {
