@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 15:35:52 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/18 15:40:19 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 13:43:45 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void    free_com_argv(t_command *com)
     
     while (com->argv[i])
     {
-        free(com->argv[i]);
+        if (com->argv[i])
+            free(com->argv[i]);
         i++;
     }
     free(com->argv);

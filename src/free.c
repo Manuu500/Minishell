@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/19 15:53:37 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 13:43:33 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt,
 		free_opt(opt);
 	if (token)
 		free_token(token);
+    // free(command->argv);
+
 	// else if (opt && opt->head)
 	// {
 	// 	t = opt->head;

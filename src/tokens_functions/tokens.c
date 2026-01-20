@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/20 13:45:03 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:07:14 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,8 @@ t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize
 			i = handle_input_redir(input, optimize, i);
 		else if (input[i] == '>')
 			i = handle_output_redir(input, optimize, i);
-		else if (input[i] == '$')
-			i = handle_variable_token(input, optimize, i, minishell);
+		// else if (input[i] == '$')
+		// 	i = handle_variable_token(input, optimize, i, minishell);
 		else
 			i = process_word(input, i, optimize, minishell);
 	}
