@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 12:37:37 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/15 12:39:19 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:28:32 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static char *get_var_value(char *line, int *i, t_minishell *ms)
     int     start;
 
     start = ++(*i);
+    //Ultimo cambio realizado 
+	if (line[*i] == '?')
+	{
+		(*i)++;
+		return (ft_itoa(ms->last_exit_code));
+	}
     *i = check_if_alpha(line, *i);
     var_name = ft_substr(line, start, *i - start);
     var_value = check_var_token(ms, var_name);
@@ -55,7 +61,7 @@ char *expand_variables(char *line, t_minishell *ms)
     i = 0;
     while (line[i])
     {
-        if (line[i] == '$' && (ft_isalnum(line[i + 1]) || line[i + 1] == '_'))
+        if (line[i] == '$' && (ft_isalnum(line[i + 1]) || line[i + 1] == '_' || line[i + 1] == '?'))
             result = append_str(result, get_var_value(line, &i, ms));
         else
         {

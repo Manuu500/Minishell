@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 11:53:24 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 15:38:05 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:17:38 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int manage_dollar_case(t_optimize_data *opt, t_minishell *min, int i, int start)
 			opt->word = ft_strjoin_free(opt->word, temp);
 	}
 	i++;
+	if (opt->input[i] == '?')
+		return (i + 1);
 	while (opt->input[i] && (ft_isalnum(opt->input[i]) || opt->input[i] == '_'))
 		i++;
 	return (i);

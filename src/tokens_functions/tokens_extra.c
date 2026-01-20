@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/19 15:59:29 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:30:16 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 		free(result);
 		return (i);
 	}
-	else if (input[i] == '?')
-	{
-		add_token(&optimize->head, &optimize->current, TOKEN_WORD, ft_itoa(minishell->last_exit_code));
-		return -1;
-	}
+	// else if (input[i] == '?')
+	// {
+	// 	add_token(&optimize->head, &optimize->current, TOKEN_WORD, ft_itoa(minishell->last_exit_code));
+	// 	return -1;
+	// }
 	else
 	{
 		add_token(&optimize->head, &optimize->current, TOKEN_WORD, "$");

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/13 13:16:34 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:23:48 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void exec_from_path(char **argv, char **envp, t_minishell *ms)
 	}
 	write(2, argv[0], ft_strlen(argv[0]));
 	write(2, ": command not found\n", 20);
-	free_strv(parts);
 	exit_program(ms, 127);
+	free_strv(parts);
 }
