@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_extra.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:10:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/13 13:17:06 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:21:27 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void	tokens_to_command(t_token *tokens, t_command *com, t_minishell *min)
 void	exit_program(t_minishell *ms, int err_snipet)
 {
 	ms->last_exit_code = err_snipet;
-	ms->run = 0;	
+	ms->run = 0;
+	exit(err_snipet);
 }

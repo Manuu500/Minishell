@@ -12,6 +12,7 @@
 - Al hacer exit, el programa sale directamente y no pasa por safe_free. ✅
 - Problemas con expansion de variables y minusculas. La expansion debe admitir cualquier letra, numero y _. En cualquier otro caso para la expansión.
 - En caso de no haber nada despues de $ no se expande nada. $ es un caracter como cualquier otro
-- manejar caso especial de $?
+- manejar caso especial de $? ✅
 - Variables en env con el mismo nombre ✅
 - salto de linea randomly cuando se hace echo $VAR que no existe
+- Mensaje de error erroneo en builtins

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:50:18 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/15 12:08:40 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 17:18:11 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int handle_redirs_in_parent(t_command *cmd, t_minishell *ms)
 
 void exec_child_process(t_pipe_ctx *ctx, t_minishell *ms)
 {
-    execute_signals(SIGST_IN_CHILD, 0);
+    execute_signals(SIGST_IN_CHILD, 0, ms);
     connect_child(ctx->i, ctx->n, ctx->prev, ctx->next, ctx->cmd);
     apply_child_redirs_if_any(ctx->cmd);
     if (is_builtin(ctx->cmd->argv))
@@ -56,7 +56,7 @@ int run_pipeline_loop(t_pipe_ctx *ctx, t_minishell *ms)
 {
     int status;
 
-    execute_signals(SIGST_BEFORE_FORK, 0);
+    execute_signals(SIGST_BEFORE_FORK, 0, ms);
     status = 1;
     while (ctx->i < ctx->n)
     {
@@ -75,6 +75,6 @@ int run_pipeline_loop(t_pipe_ctx *ctx, t_minishell *ms)
     }
     close_pair(ctx->prev);
     status = wait_children(ctx->pids, ctx->n, ctx->status);
-    execute_signals(SIGST_AFTER_WAIT, status);
+    execute_signals(SIGST_AFTER_WAIT, status, ms);
     return status;
 }

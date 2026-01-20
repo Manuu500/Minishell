@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 11:30:04 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:09:56 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	execute_external_command(t_command *command, char **envp, t_minishell *ms)
 
 	if (!command || !command->argv || !command->argv[0])
 		return (1);
-	execute_signals(SIGST_BEFORE_FORK, 0);
+	execute_signals(SIGST_BEFORE_FORK, 0, ms);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -69,12 +69,10 @@ int	execute_external_command(t_command *command, char **envp, t_minishell *ms)
 	}
 	if (pid == 0)
 	{
-		execute_signals(SIGST_IN_CHILD, 0);
+		execute_signals(SIGST_IN_CHILD, 0, ms);
 		exec_child(command, envp, ms);
 	}
-	{
-		ret = wait_child(pid);
-		execute_signals(SIGST_AFTER_WAIT, ret);
-		return (ret);
-	}
+	ret = wait_child(pid);
+	execute_signals(SIGST_AFTER_WAIT, ret, ms);
+	return (ret);
 }

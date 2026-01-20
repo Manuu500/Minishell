@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:44:36 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/11 09:24:09 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:33:04 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	setup_signal_handlers(void)
 	signal(SIGQUIT, on_sigquit);
 }
 
-void	execute_signals(t_sigstage stage, int ret)
+void	execute_signals(t_sigstage stage, int ret, t_minishell *ms)
 {
 	if (stage == SIGST_BEFORE_FORK)
 	{
@@ -43,6 +43,7 @@ void	execute_signals(t_sigstage stage, int ret)
 	}
 	else if (stage == SIGST_AFTER_WAIT)
 	{
+		ms->last_exit_code = ret;
 		if (ret == 130)
 		{
 			write(1, "\n", 1);

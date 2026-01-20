@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/20 16:52:49 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:22:28 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	main(int argc, char **argv, char **envp)
 		ft_bzero(&minishell, sizeof(t_minishell)); /*Nchange*/
 		using_history();
 		minishell.run = 1;
-		// minishell.last_exit_code = 0;
 		minishell.envp = copy_matrix(envp); /*Nchange*/
 		setup_signal_handlers();
 		while (minishell.run)
 		{
+			// minishell.last_exit_code = 0;
 			init_vars(&minishell, &command, &optimize_data);
 			minishell.user_input = readline("Prompt: ");
 			if (minishell.user_input && *minishell.user_input)
@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 			/*minishell.envp = copy_matrix(envp) DELETED*/
 			tokens = tokenize(minishell.user_input, &minishell, &optimize_data);
 			tokens_to_command(tokens, &command, &minishell);
-			minishell.last_exit_code = command_dispatcher(&command, &minishell);
+			command_dispatcher(&command, &minishell);
 			safe_free(&minishell, &command, &optimize_data, tokens);
 		}
 		if (minishell.envp) /*Nchange*/

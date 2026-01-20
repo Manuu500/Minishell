@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/20 16:07:14 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:37:28 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*check_var_token(t_minishell *minishell, char *str)
 	char		*word;
 
 	word = find_var_in_matrix(str, minishell);
-	if (!word)
-		printf("\n"); /*salto de linea extra en echo????????*/
+	/* if (!word)
+		printf("\n"); salto de linea extra en echo????????*/
 	return (word);
 }
 

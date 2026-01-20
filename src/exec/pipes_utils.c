@@ -6,13 +6,14 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 20:05:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/13 17:43:48 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:21:27 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exe.h"
 #include "../minishell.h"
 #include <unistd.h>
+#include <sys/wait.h>
 
 void init_state(t_pipe_ctx *ctx, t_command *head)
 {
@@ -58,14 +59,23 @@ void connect_child(int i, int n, int prev[2], int next[2], t_command *cmd)
 
 int wait_children(pid_t *pids, int n, int status)
 {
-	int i;
+	int	i;
+	int	wstatus;
+	int	last_wstatus;
 
+	(void)status;
 	i = 0;
+	last_wstatus = 0;
 	while (i < n)
 	{
-		waitpid(pids[i], &status, 0);
+		if (waitpid(pids[i], &wstatus, 0) >= 0 && i == n - 1)
+			last_wstatus = wstatus;
 		i++;
 	}
 	free(pids);
-	return (status);
+	if (WIFEXITED(last_wstatus))
+		return (WEXITSTATUS(last_wstatus));
+	if (WIFSIGNALED(last_wstatus))
+		return (128 + WTERMSIG(last_wstatus));
+	return (1);
 }

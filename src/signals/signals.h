@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:28:03 by arivas-q          #+#    #+#             */
-/*   Updated: 2025/11/11 09:18:27 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/20 17:18:46 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "../minishell.h"
 
 
 /* Etapas para la gestión de señales alrededor de la ejecución de un child */
@@ -46,6 +47,6 @@ void    on_sigquit(int signum);
 
 /* Ejecuta la lógica de señales en la etapa indicada. Para SIGST_AFTER_WAIT,
    pasar el código de retorno (por ejemplo 130/131) en `ret`. */
-void    execute_signals(t_sigstage stage, int ret);
+void    execute_signals(t_sigstage stage, int ret, t_minishell *ms);
 
 #endif

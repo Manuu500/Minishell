@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_dispatcher.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/20 16:55:27 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:27:57 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ int	command_dispatcher(t_command *command, t_minishell *ms)
         builtin_redirs(command, &saved_in, &saved_out);
         builtin_dispatch(cur_command, ms);
         reset_builtin_fds(command, saved_in, saved_out);
-        return (1);
+        ms->last_exit_code = 0;
+        return (0);
     }
     return (execute_external_command(command, ms->envp, ms));
 }

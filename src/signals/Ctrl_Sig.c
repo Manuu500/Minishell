@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Ctrl_Sig.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:00:00 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 15:47:24 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:35:54 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	on_sigint(int signum)
 
 	if (in_child)
 		return;
+	
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
