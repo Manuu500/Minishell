@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 12:36:49 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 15:39:19 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/26 15:53:58 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,17 @@ void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
 	if (!com->next)
 		init_com(com);
 	pipe_tokens_to_command(next_split, com->next, min);
+}
+
+int is_word_or_arg(t_token *current)
+{
+	return (current->type == TOKEN_WORD || current->type == TOKEN_VAR);
+}
+
+int	is_redir(t_token *current)
+{
+	return (current->type == TOKEN_REDIR_IN 
+			|| current->type == TOKEN_REDIR_APPEND
+			|| current->type == TOKEN_REDIR_OUT
+			|| current->type == TOKEN_HEREDOC);
 }

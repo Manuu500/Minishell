@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:00:00 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/26 13:53:54 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/26 15:29:19 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int handle_ctrl_d(char *line, t_minishell *ms)
 {
     if (line == NULL)
     {
-        write(1, "exit\n", 5);
+        // write(1, "exit\n", 5);
         // rl_clear_history();
         // exit(0);
 		ms->run = 0;
