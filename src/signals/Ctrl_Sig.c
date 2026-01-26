@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Ctrl_Sig.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:00:00 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/20 18:35:54 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:53:54 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ void	on_sigquit(int signum)
 	rl_redisplay();
 }
 
-int handle_ctrl_d(char *line)
+int handle_ctrl_d(char *line, t_minishell *ms)
 {
     if (line == NULL)
     {
         write(1, "exit\n", 5);
         // rl_clear_history();
-        exit(0);
+        // exit(0);
+		ms->run = 0;
+		
     }
     return (0);
 }

@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:07 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 13:05:22 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:36:02 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtings.h"
 #include <unistd.h>
 #include <stdlib.h>
+
+void	__real_free(void *ptr);
 
 int	builtin_pwd(char **argv)
 {
@@ -26,6 +28,6 @@ int	builtin_pwd(char **argv)
 		return (1);
 	}
 	ft_putendl_fd(cwd, 1);
-	free(cwd);
+	__real_free(cwd);
 	return (0);
 }

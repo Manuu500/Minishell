@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/20 13:43:33 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:57:34 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,6 @@ static void	free_token(t_token *token)
 
 void	safe_free(t_minishell *minishell, t_command *command, t_optimize_data *opt, t_token *token)
 {
-	HISTORY_STATE *history;
-	
-	history = history_get_history_state();
-	// clear_history();
-	if (history)
-		free(history);	
 	if (minishell->user_input)
 	{
 		free(minishell->user_input);

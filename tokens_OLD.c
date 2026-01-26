@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens.c                                           :+:      :+:    :+:   */
+/*   tokens_OLD.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/11/20 13:24:01 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/26 12:57:30 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize
 		else if (input[i] == '$')
 			i = handle_variable_token(input, optimize, i, minishell);
 		else
-			i = process_word(input, i, optimize);
+			i = process_word(input, i, optimize, minishell);
 	}
 	return (optimize->head);
 }

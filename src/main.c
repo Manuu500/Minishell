@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/20 18:22:28 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/26 14:03:57 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 			minishell.user_input = readline("Prompt: ");
 			if (minishell.user_input && *minishell.user_input)
 				add_history(minishell.user_input);
-			handle_ctrl_d(minishell.user_input);
+			handle_ctrl_d(minishell.user_input, &minishell);
 			/*minishell.envp = copy_matrix(envp) DELETED*/
 			tokens = tokenize(minishell.user_input, &minishell, &optimize_data);
 			tokens_to_command(tokens, &command, &minishell);
@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (minishell.envp) /*Nchange*/
 			free_matrix(minishell.envp);/*Nchange*/
+		rl_clear_history();
 	}
 	return(1);
 }

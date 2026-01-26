@@ -19,7 +19,7 @@ size_t	ft_strlen(const char *str)
 
 	cont = 0;
 	i = 0;
-	while (str[i++] != '\0')
+	while (str && str[i++] != '\0')
 		cont++;
 	return (cont);
 }

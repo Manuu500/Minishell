@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/20 17:53:38 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:10:56 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void	try_exec_dir(const char *dir, char **argv, char **envp)
 	{
 		execve(full_path, argv, envp);
 		free(full_path);
+		
 	}
 }
 
@@ -96,6 +97,7 @@ void exec_from_path(char **argv, char **envp, t_minishell *ms)
 		try_exec_dir(parts[i], argv, envp);
 		i++;
 	}
+	// parts[i] = NULL;
 	write(2, argv[0], ft_strlen(argv[0]));
 	write(2, ": command not found\n", 20);
 	exit_program(ms, 127);

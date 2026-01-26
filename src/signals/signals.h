@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:28:03 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/20 17:18:46 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/26 12:25:43 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ extern volatile sig_atomic_t in_child;
 void    setup_signal_handlers(void);
 
 /* Manejo de Ctrl-D (EOF en readline): si `line == NULL`, imprime "exit" y sale */
-int     handle_ctrl_d(char *line);
+int     handle_ctrl_d(char *line, t_minishell *ms);
 
 /* API de señales */
 void    set_in_child(int val);
