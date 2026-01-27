@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:26:39 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 12:58:06 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/27 11:01:42 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,9 @@ static void	sort_env_bubble(char **sorted, int count)
 
 char	**sort_env(char **envp)
 {
-	// int		i;
 	int		count;
 	char	**sorted;
 
-	// i = 0;
 	count = 0;
 	while (envp[count])
 		count++;
@@ -77,10 +75,10 @@ void	print_export_format(const char *env)
 
 	i = 0;
 	printf("declare -x ");
-	   while (env[i] && env[i] != '=')
-		   ft_putchar_fd(env[i++], 1);
-	   if (env[i] == '=')
-		   printf("=\"%s\"\n", env + i + 1);
-	   else
-		   printf("\n");
+	while (env[i] && env[i] != '=')
+		ft_putchar_fd(env[i++], 1);
+	if (env[i] == '=')
+		printf("=\"%s\"\n", env + i + 1);
+	else
+		printf("\n");
 }

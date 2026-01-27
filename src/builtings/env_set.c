@@ -1,21 +1,21 @@
-#include <string.h>
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:26:42 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 12:59:14 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/27 11:07:29 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/libft/libft.h"
 #include "builtings.h"
+#include <string.h>
 #include <stdlib.h>
 
-char **add_env_var_if_not_exists(char **envp, const char *key, const char *value)
+char	**add_var_if_not_exists(char **envp, const char *key, const char *val)
 {
 	int		i;
 	size_t	key_len;
@@ -26,11 +26,11 @@ char **add_env_var_if_not_exists(char **envp, const char *key, const char *value
 	{
 		if (ft_strncmp(envp[i], key, key_len) == 0 && envp[i][key_len] == '=')
 		{
-			return envp;
+			return (envp);
 		}
 		i++;
 	}
-	return add_env_var(envp, key, value);
+	return (add_env_var(envp, key, val));
 }
 
 char	*join_key_value(const char *key, const char *value)

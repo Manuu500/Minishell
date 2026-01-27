@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:38 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 13:17:28 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/27 11:00:01 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	no_nl_echo(char **argv)
 	{
 		printf("%s", argv[i]);
 		if (argv[i + 1])
-			   printf(" ");
+			printf(" ");
 		i++;
 	}
 }

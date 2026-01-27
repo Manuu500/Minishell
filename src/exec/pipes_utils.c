@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 20:05:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/20 18:21:27 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/27 12:02:52 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-void init_state(t_pipe_ctx *ctx, t_command *head)
+void	init_state(t_pipe_ctx *ctx, t_command *head)
 {
 	ctx->prev[0] = -1;
 	ctx->prev[1] = -1;
@@ -28,7 +28,7 @@ void init_state(t_pipe_ctx *ctx, t_command *head)
 
 int	count_cmds(t_command *c)
 {
-	int n;
+	int	n;
 
 	n = 0;
 	while (c)
@@ -47,17 +47,19 @@ void	close_pair(int p[2])
 		close(p[1]);
 }
 
-void connect_child(int i, int n, int prev[2], int next[2], t_command *cmd)
+void	connect_child(t_pipe_ctx *ctx)
 {
-	if (i > 0 && prev[0] != -1 && (cmd->in_fd < 0 || cmd->in_fd == 0))
-		dup2(prev[0], 0);
-	if (i < n - 1 && next[1] != -1 && (cmd->out_fd < 0 || cmd->out_fd == 1))
-		dup2(next[1], 1);
-	close_pair(prev);
-	close_pair(next);
+	if (ctx->i > 0 && ctx->prev[0] != -1
+		&& (ctx->cmd->in_fd < 0 || ctx->cmd->in_fd == 0))
+		dup2(ctx->prev[0], 0);
+	if (ctx->i < ctx->n - 1 && ctx->next[1] != -1
+		&& (ctx->cmd->out_fd < 0 || ctx->cmd->out_fd == 1))
+		dup2(ctx->next[1], 1);
+	close_pair(ctx->prev);
+	close_pair(ctx->next);
 }
 
-int wait_children(pid_t *pids, int n, int status)
+int	wait_children(pid_t *pids, int n, int status)
 {
 	int	i;
 	int	wstatus;

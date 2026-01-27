@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_runner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/26 13:26:06 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/27 12:19:11 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,51 @@
 #include <sys/wait.h>
 #include "../signals/signals.h"
 
+void	close_command_redir_fds(t_command *cmd)
+{
+	if (!cmd)
+		return ;
+	if (cmd->in_fd >= 0 && cmd->in_fd != STDIN_FILENO)
+	{
+		close(cmd->in_fd);
+		cmd->in_fd = STDIN_FILENO;
+	}
+	if (cmd->out_fd >= 0 && cmd->out_fd != STDOUT_FILENO)
+	{
+		close(cmd->out_fd);
+		cmd->out_fd = STDOUT_FILENO;
+	}
+}
+
 static void	apply_child_redirs(t_command *cmd)
 {
 	if (cmd->in_fd >= 0 && cmd->in_fd != STDIN_FILENO)
+	{
 		dup2(cmd->in_fd, STDIN_FILENO);
+		close(cmd->in_fd);
+		cmd->in_fd = STDIN_FILENO;
+	}
 	if (cmd->out_fd >= 0 && cmd->out_fd != STDOUT_FILENO)
+	{
 		dup2(cmd->out_fd, STDOUT_FILENO);
+		close(cmd->out_fd);
+		cmd->out_fd = STDOUT_FILENO;
+	}
 }
 
-static void	exec_child(t_command *command, char **envp, t_minishell *ms)
+static void	exec_child(t_command *cmd, char **envp, t_minishell *ms)
 {
-    char **argv;
-	
-	argv = command->argv;
-    apply_child_redirs(command);
-    if (ft_strchr(argv[0], '/'))
-    {
-        execve(argv[0], argv, envp);
-        write(2, "execve: error\n", 14);
-        exit_program(ms, 127);
-    }
-    exec_from_path(argv, envp, ms);
+	char	**argv;
+
+	argv = cmd->argv;
+	apply_child_redirs(cmd);
+	if (ft_strchr(argv[0], '/'))
+	{
+		execve(argv[0], argv, envp);
+		write(2, "execve: error\n", 14);
+		exit_program(ms, 127);
+	}
+	exec_from_path(argv, envp, ms);
 }
 
 static int	wait_child(pid_t pid)
@@ -52,12 +76,12 @@ static int	wait_child(pid_t pid)
 	return (1);
 }
 
-int	execute_external_command(t_command *command, char **envp, t_minishell *ms)
+int	execute_external_command(t_command *cmd, char **envp, t_minishell *ms)
 {
 	pid_t	pid;
 	int		ret;
 
-	if (!command || !command->argv || !command->argv[0])
+	if (!cmd || !cmd->argv || !cmd->argv[0])
 		return (1);
 	execute_signals(SIGST_BEFORE_FORK, 0, ms);
 	pid = fork();
@@ -70,8 +94,9 @@ int	execute_external_command(t_command *command, char **envp, t_minishell *ms)
 	if (pid == 0)
 	{
 		execute_signals(SIGST_IN_CHILD, 0, ms);
-		exec_child(command, envp, ms);
+		exec_child(cmd, envp, ms);
 	}
+	close_command_redir_fds(cmd);
 	ret = wait_child(pid);
 	execute_signals(SIGST_AFTER_WAIT, ret, ms);
 	return (ret);

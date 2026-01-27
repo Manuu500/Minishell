@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:44:36 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/20 18:33:04 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/27 10:49:17 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals.h"
 #include "../minishell.h"
 
-/* Única variable global: indica si el shell está esperando un child */
-volatile sig_atomic_t in_child = 0;
+volatile sig_atomic_t	g_in_child = 0;
 
 void	set_in_child(int val)
 {
 	if (val)
-		in_child = 1;
+		g_in_child = 1;
 	else
-		in_child = 0;
+		g_in_child = 0;
 }
 
 void	setup_signal_handlers(void)
@@ -55,4 +54,3 @@ void	execute_signals(t_sigstage stage, int ret, t_minishell *ms)
 		set_in_child(0);
 	}
 }
-

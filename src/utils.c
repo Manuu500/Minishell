@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/26 15:55:13 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:19:21 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_vars(t_minishell *minishell, t_command *command, t_optimize_data *optimize)
 {
+	/*ft_bzero(minishell, sizeof(t_minishell))*/
 	ft_bzero(command, sizeof(t_command));
 	ft_bzero(optimize, sizeof(t_optimize_data));
 	command->redirs = malloc(sizeof(t_redirect));
@@ -86,16 +87,16 @@ void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
 	j = 0;
 	initialize_argv(command, j, num_words);
     while (current)
-	{
-		if (is_word_or_arg(current) && (!word_is_argument(current) || !current->prev))
-			add_to_argv(command, current, &i_argv);
-		else if (is_redir(current) && current->next && !next_is_word(current))
-		{
-			printf("Bad getaway");
-			return ;
-		}
-		current = current->next;
-	}
+    {
+		if (current->type == TOKEN_WORD || current->type == TOKEN_VAR)
+        {
+            if (!(word_is_argument(current)))
+                add_to_argv(command, current, &i_argv);
+			else if (current && !(current->prev))
+				add_to_argv(command, current, &i_argv);
+        }
+        current = current->next;
+    }
 	save_filename_redirs(command, head);
 }
 
