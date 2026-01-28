@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_dispatcher.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 11:11:09 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/01/28 13:03:10 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	command_dispatcher(t_command *command, t_minishell *ms)
 	int		saved_in;
 	int		saved_out;
 
+	
 	cur_command = command->argv;
 	if (command->redirs)
 		redir_dispatcher(command, ms);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtings.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:04:53 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/20 18:05:16 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/28 13:16:18 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ int	is_builtin(char **argv)
 {
 	char	*name;
 
+	if (!argv)
+	{
+		printf("\n");
+		return 0;
+	}
 	name = argv[0];
 	if (!name)
 		return (0);

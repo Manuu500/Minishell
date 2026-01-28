@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 12:36:49 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/12 15:39:19 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/28 13:30:37 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
 	next_split = NULL;
 	if (!token || !com || !min)
 		return ;
+	if (token->type == TOKEN_PIPE)
+    {
+        printf("Error: invalid syntax\n");
+		com->redir_error = 1;
+        min->last_exit_code = 2;
+        return ;
+    }
 	split = check_if_pipe(split);
 	if (!split)
 	{
@@ -61,4 +68,12 @@ void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
 	if (!com->next)
 		init_com(com);
 	pipe_tokens_to_command(next_split, com->next, min);
+}
+
+int	is_redir(t_token *current)
+{
+	return (current->type == TOKEN_REDIR_OUT 
+			|| current->type == TOKEN_REDIR_IN
+			|| current->type == TOKEN_REDIR_APPEND
+			|| current->type == TOKEN_HEREDOC);
 }

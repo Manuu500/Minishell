@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/19 15:42:57 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/28 12:38:12 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,9 @@ int 	print_variable_content(t_optimize_data *opt, t_minishell *min, int i, int s
 void	exit_program(t_minishell *ms, int err_snipet);
 void    free_com_redirs(t_command *com);
 void    free_com_argv(t_command *com);
+int		next_is_word(t_token *current);
+int		word_or_var(t_token *current);
+int		is_redir(t_token *current);
+
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/28 12:46:34 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/01/28 13:29:49 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,15 @@ void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
 	initialize_argv(command, j, num_words);
     while (current)
     {
-		if (current->type == TOKEN_WORD || current->type == TOKEN_VAR)
-        {
-            if (!(word_is_argument(current)))
-                add_to_argv(command, current, &i_argv);
-			else if (current && !(current->prev))
+		if ((word_or_var(current)) && (!word_is_argument(current) || !current->prev))
 				add_to_argv(command, current, &i_argv);
-        }
+		if (is_redir(current) && !next_is_word(current))
+		{
+			printf("Error: Invalid syntax\n");
+			command->redir_error = 1;
+			min->last_exit_code = 2;
+			return ;
+		}
         current = current->next;
     }
 	save_filename_redirs(command, head);
