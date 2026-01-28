@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_extra.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:50:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/26 14:16:08 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/28 12:41:55 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,14 @@ void	add_word_to_com(char *word, t_command *com)
 	}
 }
 
-// int handle_equal_redir(char *input, t_optimize_data *optimize, int i)
-// {
-// 	(void) input;
-// 	add_token(&optimize->head, &optimize->current, TOKEN_EQUAL, "=");
-// 	return (i + 1);
-// }
-
-int handle_pipe_token(char *input, t_optimize_data *optimize, int i)
+int	handle_pipe_token(char *input, t_optimize_data *optimize, int i)
 {
 	(void) input;
 	add_token(&optimize->head, &optimize->current, TOKEN_PIPE, "|");
 	return (i + 1);
 }
 
-int handle_input_redir(char *input, t_optimize_data *optimize, int i)
+int	handle_input_redir(char *input, t_optimize_data *optimize, int i)
 {
 	if (input[i + 1] == '<')
 	{
@@ -77,22 +70,21 @@ int	handle_output_redir(char *input, t_optimize_data *optimize, int i)
 	}
 }
 
-
-int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minishell *minishell)
+int	handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minishell *minishell)
 {
-    int start;
-    char *str;
-    char *result;
+	int		start;
+	char	*str;
+	char	*result;
 	int		flag;
 
 	flag = 0;
-    start = i + 1;
-    i++;
-    while ((input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= 'a' && input[i] <= 'z') || (input[i] == '_')
-			|| (input[i] >= '0' && input[i] <= '9'))
+	start = i + 1;
+	i++;
+	while ((input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= 'a' && input[i] <= 'z') || (input[i] == '_')
+		|| (input[i] >= '0' && input[i] <= '9'))
 	{
 		flag = 1;
-        i++;
+		i++;
 	}
 	if (flag == 1)
 	{
@@ -103,52 +95,9 @@ int handle_variable_token(char *input, t_optimize_data *optimize, int i, t_minis
 		free(result);
 		return (i);
 	}
-	// else if (input[i] == '?')
-	// {
-	// 	add_token(&optimize->head, &optimize->current, TOKEN_WORD, ft_itoa(minishell->last_exit_code));
-	// 	return -1;
-	// }
 	else
 	{
 		add_token(&optimize->head, &optimize->current, TOKEN_WORD, "$");
-		return -1;
+		return (-1);
 	}
 }
-
-// int	process_word(char *input, int i, t_optimize_data *optimize, t_minishell *minishell)
-// {
-// 	int		start;
-// 	char	*temp;
-// 	char	*word;
-// 	char	*test_word;
-// 	char	quote;
-// 	int		inside_quotes;
-	
-// 	start = i;
-// 	while (input[i])
-// 	{
-// 		inside_quotes = 0;
-// 		if (input[i] == '\'' || input[i] == '\"')
-// 		{
-// 			inside_quotes = 1;
-// 			quote = input[i];
-// 			i = process_quotes(input, i, quote);
-// 		}
-// 		else if (input[i] == '$')
-//         {
-//             test_word = include_legit_variable(input, optimize, i, minishell);
-//             word = ft_strjoin(word, test_word);
-// 			i++;
-//         }
-// 		else if (inside_quotes == 0 && (input[i] == ' ' || input[i] == '\t' || input[i] == '<'
-// 			|| input[i] == '>' || input[i] == '|'))
-// 			break;
-// 		else
-// 			i++;
-// 	}
-// 	word = ft_strjoin(word, temp);
-// 	add_token(&optimize->head, &optimize->current, TOKEN_WORD, word);
-//     free(word);
-// 	return (i);
-// }
-		// add_word_to_com(word, com);

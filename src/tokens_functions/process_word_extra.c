@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_word_extra.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 11:53:24 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/20 16:17:38 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/28 12:33:40 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 char	*ft_strjoin_free(char *s1, char *s2)
 {
-    char	*result;
+	char	*result;
 
 	if (!s1 && !s2)
 		return (NULL);
-    if (!s2)
+	if (!s2)
 	{
 		free(s2);
-        return (s1);
+		return (s1);
 	}
-    if (!s1)
+	if (!s1)
 	{
-        s1 = ft_strdup("");
+		s1 = ft_strdup("");
 		free(s2);
-		return NULL;
+		return (NULL);
 	}
-    result = ft_strjoin(s1, s2);
-    free(s1);
-    free(s2);
-    return (result);
+	result = ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+	return (result);
 }
 
-int manage_dollar_case(t_optimize_data *opt, t_minishell *min, int i, int start)
+int	manage_dollar_case(t_optimize_data *opt, t_minishell *min, int i, int start)
 {
-	char *temp;
+	char	*temp;
 
 	if (i > start)
 		opt->word = ft_strjoin_free(opt->word, ft_substr(opt->input, start, i - start));
@@ -56,23 +56,23 @@ int manage_dollar_case(t_optimize_data *opt, t_minishell *min, int i, int start)
 	return (i);
 }
 
-void join_strings(t_optimize_data *opt, int i, int start)
+void	join_strings(t_optimize_data *opt, int i, int start)
 {
 	if (i > start)
-    {
-        opt->word = ft_strjoin_free(opt->word, ft_substr(opt->input, start, i - start));
-    }
+	{
+		opt->word = ft_strjoin_free(opt->word, ft_substr(opt->input, start, i - start));
+	}
 }
 
-int is_word(t_optimize_data *opt, int i)
+int	is_word(t_optimize_data *opt, int i)
 {
-    return (opt->input[i] != ' ' && opt->input[i] != '\t' 
-        && opt->input[i] != '<' && opt->input[i] != '>' && opt->input[i] != '|');
+	return (opt->input[i] != ' ' && opt->input[i] != '\t'
+		&& opt->input[i] != '<' && opt->input[i] != '>' && opt->input[i] != '|');
 }
 
-int print_variable_content(t_optimize_data *opt, t_minishell *min, int i, int start)
+int	print_variable_content(t_optimize_data *opt, t_minishell *min, int i, int start)
 {
-	char *temp;
+	char	*temp;
 
 	join_strings(opt, i, start);
 	opt->var_value = include_legit_variable(opt->input, opt, i, min);

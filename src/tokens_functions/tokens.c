@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/26 13:55:41 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/01/28 12:44:31 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 char	*check_var_token(t_minishell *minishell, char *str)
 {
 	char		*word;
 
 	word = find_var_in_matrix(str, minishell);
-	/* if (!word)
-		printf("\n"); salto de linea extra en echo????????*/
 	return (word);
 }
 
@@ -27,7 +25,7 @@ char	*substr_remove_quotes(char *input, int start, int len, char quote_type)
 	char		*str;
 	int			i;
 	int			j;
-	
+
 	i = start;
 	str = malloc(sizeof(char) * len + 1);
 	if (!str)
@@ -46,63 +44,12 @@ char	*substr_remove_quotes(char *input, int start, int len, char quote_type)
 	return (str);
 }
 
-// static int	save_var(char *input, t_token **head, t_token **current, t_minishell *minishell, int start)
-// {
-// 	int		count;
-// 	char	*str;
-// 	char	*result;
-// 	int		i;
-// 	int		valid_flag;
-// 	int		end_flag;
-
-// 	end_flag = 0;
-// 	valid_flag = 0;
-// 	i = start;
-// 	str = NULL;
-// 	result = NULL;
-// 	while (input[i])
-// 	{
-// 		if (input[i] == '$')
-// 		{
-// 			count = i + 1;
-// 			i++;
-// 			while (input[i] >= 'A' && input[i] <= 'Z')
-// 			{
-// 				valid_flag = 1;
-// 				i++;
-// 			}
-// 			if (input[i] == '\0')
-// 				return (1);
-// 			if (valid_flag == 1)
-// 			{
-// 				str = ft_substr(input, count, i - count);
-// 				if (!str)
-// 				{
-// 					free(str);
-// 					printf("No existe la variable");
-// 				}
-// 				result = check_var_token(minishell, str);
-// 				add_token(head, current, TOKEN_VAR, result);
-// 				free(str);
-// 			}
-// 			else
-// 			{
-// 				printf("Invalid variable\n");
-// 				exit (0);
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-
 static	t_token	*create_token(t_token_type type, char *value)
 {
 	t_token	*new_token;
-	
+
 	if (!value)
-		return(NULL);
+		return (NULL);
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return (NULL);
@@ -122,7 +69,7 @@ static	t_token	*create_token(t_token_type type, char *value)
 void	add_token(t_token **head, t_token **current, t_token_type type, char *value)
 {
 	t_token	*new_token;
-	
+
 	new_token = create_token(type, value);
 	if (!new_token)
 		return ;
@@ -144,7 +91,7 @@ t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize
 {
 	int		i;
 
-    i = 0;
+	i = 0;
 	if (!input)
 		exit(1);
 	while (input[i])
@@ -152,17 +99,15 @@ t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize
 		if (i == -1)
 			exit(1);
 		while (input[i] && (input[i] == ' ' || input[i] == '\t'))
-            i++;
+			i++;
 		if (!input[i])
-			break;
+			break ;
 		if (input[i] == '|')
 			i = handle_pipe_token(input, optimize, i);
 		else if (input[i] == '<')
 			i = handle_input_redir(input, optimize, i);
 		else if (input[i] == '>')
 			i = handle_output_redir(input, optimize, i);
-		// else if (input[i] == '$')
-		// 	i = handle_variable_token(input, optimize, i, minishell);
 		else
 			i = process_word(input, i, optimize, minishell);
 	}
