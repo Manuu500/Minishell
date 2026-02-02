@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/28 13:03:10 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:35:07 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "exe.h"
 #include "../builtings/builtings.h"
 
-void	redir_dispatcher(t_command *command, t_minishell *ms)
+void	redir_dispatcher(t_command *command, t_min *ms)
 {
-	t_redirect	*redirs;
+	t_redir	*redirs;
 
 	redirs = command->redirs;
 	while (redirs)
@@ -57,13 +57,12 @@ static void	reset_builtin_fds(t_command *command, int saved_in, int saved_out)
 		close(command->out_fd);
 }
 
-int	command_dispatcher(t_command *command, t_minishell *ms)
+int	command_dispatcher(t_command *command, t_min *ms)
 {
 	char	**cur_command;
 	int		saved_in;
 	int		saved_out;
 
-	
 	cur_command = command->argv;
 	if (command->redirs)
 		redir_dispatcher(command, ms);

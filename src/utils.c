@@ -6,60 +6,57 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:49:09 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/28 13:29:49 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:05:25 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-void	init_vars(t_minishell *minishell, t_command *command, t_optimize_data *optimize)
+void	init_vars(t_min *min, t_command *com, t_opt_data *opt)
 {
-	/*ft_bzero(minishell, sizeof(t_minishell))*/
-	ft_bzero(command, sizeof(t_command));
-	ft_bzero(optimize, sizeof(t_optimize_data));
-	command->redirs = malloc(sizeof(t_redirect));
-	if (!command->redirs)
-		return;
-	/*minishell->envp = NULL* DELETED (en main sustituido)
-	minishell->run = 1*     DELETED (en main sustituido)*/
-	minishell->user_input = NULL;
-	optimize->head_red = NULL;
-	optimize->current = NULL;
-	optimize->head = NULL;
-	optimize->input = NULL;
-	optimize->var_value = NULL;
-	optimize->word = NULL;
-	optimize->quote = 0;
-	optimize->in_quote = 0;
-	command->redirs->fd = -1;
-	command->redirs->filename = NULL;
-	command->redirs->next = NULL;
-	command->redirs->type = 0;
-	command->argv = NULL;
-	command->in_fd = STDIN_FILENO;
-	command->out_fd = STDOUT_FILENO;
-	command->redir_error = 0;
-	command->next = NULL;
+	ft_bzero(com, sizeof(t_command));
+	ft_bzero(opt, sizeof(t_opt_data));
+	com->redirs = malloc(sizeof(t_redir));
+	if (!com->redirs)
+		return ;
+	min->user_input = NULL;
+	opt->head_red = NULL;
+	opt->current = NULL;
+	opt->head = NULL;
+	opt->input = NULL;
+	opt->var_value = NULL;
+	opt->word = NULL;
+	opt->quote = 0;
+	opt->in_quote = 0;
+	com->redirs->fd = -1;
+	com->redirs->filename = NULL;
+	com->redirs->next = NULL;
+	com->redirs->type = 0;
+	com->argv = NULL;
+	com->in_fd = STDIN_FILENO;
+	com->out_fd = STDOUT_FILENO;
+	com->redir_error = 0;
+	com->next = NULL;
 }
 
 static	int	word_is_argument(t_token *current)
 {
 	return ((current->prev && (current->prev->type == TOKEN_REDIR_IN
-			|| current->prev->type == TOKEN_REDIR_OUT
-			|| current->prev->type == TOKEN_REDIR_APPEND
-			|| current->prev->type == TOKEN_HEREDOC)));
+				|| current->prev->type == TOKEN_REDIR_OUT
+				|| current->prev->type == TOKEN_REDIR_APPEND
+				|| current->prev->type == TOKEN_HEREDOC)));
 }
 
-static void    add_to_argv(t_command *command, t_token *current, int *i)
+static void	add_to_argv(t_command *command, t_token *current, int *i)
 {
 	command->argv[*i] = ft_strdup(current->value);
-    if (!command->argv[*i])
-    {
-        free_mem(command->argv);
-        return;
-    }
-    (*i)++;
-    command->argv[*i] = NULL; 
+	if (!command->argv[*i])
+	{
+		free_mem(command->argv);
+		return ;
+	}
+	(*i)++;
+	command->argv[*i] = NULL;
 }
 
 static void	initialize_argv(t_command *command, int j, int num_words)
@@ -71,34 +68,30 @@ static void	initialize_argv(t_command *command, int j, int num_words)
 	}
 }
 
-void	move_tokens_to_command(t_token *head, t_command *command, t_minishell *min)
+void	move_tokens_to_command(t_token *head, t_command *command, t_min *min)
 {
-	t_token *current;
-    int		i_argv;
+	t_token	*current;
+	int		i_argv;
 	int		num_words;
 	int		j;
-	
+
 	i_argv = 0;
-    current = head;
+	current = head;
 	num_words = word_count(min->user_input, ' ');
 	command->argv = malloc((sizeof(char *)) * (num_words + 1));
 	if (!command->argv)
 		return ;
 	j = 0;
 	initialize_argv(command, j, num_words);
-    while (current)
-    {
-		if ((word_or_var(current)) && (!word_is_argument(current) || !current->prev))
-				add_to_argv(command, current, &i_argv);
+	while (current)
+	{
+		if ((word_or_var(current))
+			&& (!word_is_argument(current) || !current->prev))
+			add_to_argv(command, current, &i_argv);
 		if (is_redir(current) && !next_is_word(current))
-		{
-			printf("Error: Invalid syntax\n");
-			command->redir_error = 1;
-			min->last_exit_code = 2;
-			return ;
-		}
-        current = current->next;
-    }
+			return (err_token(command, min));
+		current = current->next;
+	}
 	save_filename_redirs(command, head);
 }
 

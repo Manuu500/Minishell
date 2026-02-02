@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_extra.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 12:37:37 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/27 11:19:12 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	check_if_alpha(char *line, int i)
 	return (i);
 }
 
-static char	*get_var_value(char *line, int *i, t_minishell *ms)
+static char	*get_var_value(char *line, int *i, t_min *ms)
 {
 	char	*var_name;
 	char	*var_value;
@@ -50,7 +50,7 @@ static char	*append_str(char *result, char *to_add)
 	return (temp);
 }
 
-char	*expand_variables(char *line, t_minishell *ms)
+char	*expand_variables(char *line, t_min *ms)
 {
 	char	*result;
 	char	*temp;

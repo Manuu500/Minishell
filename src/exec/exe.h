@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 19:07:51 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 12:21:52 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:47:33 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ typedef struct s_pipe_ctx
 }	t_pipe_ctx;
 
 /* Commands */
-int		command_dispatcher(t_command *command, t_minishell *ms);
+int		command_dispatcher(t_command *command, t_min *ms);
 // int		execute_external_command(char **argv, char **envp);
-int		execute_external_command(t_command *cmd, char **envp, t_minishell *ms);
-void	exec_from_path(char **argv, char **envp, t_minishell *ms);
-int		execute_pipeline(t_command *head, t_minishell *ms);
+int		execute_external_command(t_command *cmd, char **envp, t_min *ms);
+void	exec_from_path(char **argv, char **envp, t_min *ms);
+int		execute_pipeline(t_command *head, t_min *ms);
 int		count_cmds(t_command *head);
 void	close_pair(int p[2]);
 int		wait_children(pid_t *pids, int n, int status);
-int		run_pipeline_loop(t_pipe_ctx *ctx, t_minishell *ms);
+int		run_pipeline_loop(t_pipe_ctx *ctx, t_min *ms);
 void	init_state(t_pipe_ctx *ctx, t_command *head);
 void	connect_child(t_pipe_ctx *ctx);
 void	close_command_redir_fds(t_command *cmd);
@@ -48,15 +48,15 @@ void	close_command_redir_fds(t_command *cmd);
 void	parent_after_fork(t_pipe_ctx *ctx);
 void	apply_child_redirs_if_any(t_command *cmd);
 int		abort_pipeline(t_pipe_ctx *ctx, int err);
-int		handle_redirs_in_parent(t_command *cmd, t_minishell *ms);
-void	exec_child_process(t_pipe_ctx *ctx, t_minishell *ms);
+int		handle_redirs_in_parent(t_command *cmd, t_min *ms);
+void	exec_child_process(t_pipe_ctx *ctx, t_min *ms);
 
 /* Redirs */
-void	redir_dispatcher(t_command *command, t_minishell *ms);
-void	redir_infile(t_redirect *redirs, t_command *command);
-void	redir_outfile(t_redirect *redirs, t_command *command);
-void	redir_append(t_redirect *redirs, t_command *command);
-void	redir_heredoc(t_redirect *redirs, t_command *command, t_minishell *ms);
-char	*expand_variables(char *line, t_minishell *ms);
+void	redir_dispatcher(t_command *command, t_min *ms);
+void	redir_infile(t_redir *redirs, t_command *command);
+void	redir_outfile(t_redir *redirs, t_command *command);
+void	redir_append(t_redir *redirs, t_command *command);
+void	redir_heredoc(t_redir *redirs, t_command *command, t_min *ms);
+char	*expand_variables(char *line, t_min *ms);
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/28 12:44:31 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:30:49 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*check_var_token(t_minishell *minishell, char *str)
+char	*check_var_token(t_min *minishell, char *str)
 {
 	char		*word;
 
@@ -66,7 +66,8 @@ static	t_token	*create_token(t_token_type type, char *value)
 	return (new_token);
 }
 
-void	add_token(t_token **head, t_token **current, t_token_type type, char *value)
+void	add_token(t_token **head, t_token **current,
+		t_token_type type, char *value)
 {
 	t_token	*new_token;
 
@@ -87,7 +88,7 @@ void	add_token(t_token **head, t_token **current, t_token_type type, char *value
 	}
 }
 
-t_token	*tokenize(char *input, t_minishell *minishell, t_optimize_data *optimize)
+t_token	*tokenize(char *input, t_min *minishell, t_opt_data *optimize)
 {
 	int		i;
 

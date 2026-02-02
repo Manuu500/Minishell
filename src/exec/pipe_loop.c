@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:50:18 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 12:02:52 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	safe_pipe(int next[2])
 	return (0);
 }
 
-int	handle_redirs_in_parent(t_command *cmd, t_minishell *ms)
+int	handle_redirs_in_parent(t_command *cmd, t_min *ms)
 {
 	if (cmd->redirs)
 		redir_dispatcher(cmd, ms);
@@ -41,7 +41,7 @@ int	handle_redirs_in_parent(t_command *cmd, t_minishell *ms)
 	return (0);
 }
 
-void	exec_child_process(t_pipe_ctx *ctx, t_minishell *ms)
+void	exec_child_process(t_pipe_ctx *ctx, t_min *ms)
 {
 	int	status;
 
@@ -57,7 +57,7 @@ void	exec_child_process(t_pipe_ctx *ctx, t_minishell *ms)
 	exit_program(ms, 127);
 }
 
-int	run_pipeline_loop(t_pipe_ctx *ctx, t_minishell *ms)
+int	run_pipeline_loop(t_pipe_ctx *ctx, t_min *ms)
 {
 	int	status;
 

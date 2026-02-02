@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 23:17:30 by vzurera-          #+#    #+#             */
-/*   Updated: 2026/01/26 14:03:45 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 09:29:49 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	handle_signal(int sig)
 	raise(sig);
 }
 
-__attribute__((constructor(101)))
+__attribute__((constructor))
 static void	init_signal_handlers(void)
 {
 	signal(SIGTERM, handle_signal);

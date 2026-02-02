@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:37:26 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 11:06:32 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char	*dup_key_part(const char *arg)
 	return (key);
 }
 
-static void	apply_export_arg(char *arg, t_minishell *ms)
+static void	apply_export_arg(char *arg, t_min *ms)
 {
 	char	*eq;
 	char	*key;
@@ -92,7 +92,7 @@ static void	apply_export_arg(char *arg, t_minishell *ms)
 	free(key);
 }
 
-int	builtin_export(char **argv, t_minishell *ms)
+int	builtin_export(char **argv, t_min *ms)
 {
 	int	i;
 

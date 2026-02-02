@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:45 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 12:36:12 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*get_env_value_local(char **envp, const char *key)
 	return (NULL);
 }
 
-int	builtin_cd(char **argv, t_minishell *ms)
+int	builtin_cd(char **argv, t_min *ms)
 {
 	char	*target;
 

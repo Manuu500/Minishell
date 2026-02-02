@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_runner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 12:19:11 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	apply_child_redirs(t_command *cmd)
 	}
 }
 
-static void	exec_child(t_command *cmd, char **envp, t_minishell *ms)
+static void	exec_child(t_command *cmd, char **envp, t_min *ms)
 {
 	char	**argv;
 
@@ -76,7 +76,7 @@ static int	wait_child(pid_t pid)
 	return (1);
 }
 
-int	execute_external_command(t_command *cmd, char **envp, t_minishell *ms)
+int	execute_external_command(t_command *cmd, char **envp, t_min *ms)
 {
 	pid_t	pid;
 	int		ret;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_print.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:55:21 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 13:17:28 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "builtings.h"
 #include "libft.h"
 
-int	builtin_env(char **argv, t_minishell *ms)
+int	builtin_env(char **argv, t_min *ms)
 {
 	int	i;
 

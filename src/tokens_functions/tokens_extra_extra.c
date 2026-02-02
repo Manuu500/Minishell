@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_extra_extra.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 16:46:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/28 12:39:27 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:34:33 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*include_legit_variable(char *input, t_optimize_data *optimize, int i, t_minishell *minishell)
+void	*include_legit_variable(char *input, t_opt_data *optimize,
+			int i, t_min *minishell)
 {
 	int		start;
 	char	*str;
@@ -25,9 +26,7 @@ void	*include_legit_variable(char *input, t_optimize_data *optimize, int i, t_mi
 	i++;
 	if (input[i] == '?')
 		return (ft_itoa(minishell->last_exit_code));
-	while ((input[i] >= 'A' && input[i] <= 'Z')
-		|| (input[i] >= 'a' && input[i] <= 'z') || (input[i] >= '0' && input[i] <= '9')
-		|| input[i] == '_')
+	while (char_is_valid(input, i))
 	{
 		flag = 1;
 		i++;

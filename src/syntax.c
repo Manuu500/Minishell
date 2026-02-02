@@ -6,18 +6,18 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/06 17:18:17 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:26:49 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static void add_redir_lst(t_redirect **head, char *value)
+// static void add_redir_lst(t_redir **head, char *value)
 // {
-// 	t_redirect *new_node;
-// 	t_redirect *current;
+// 	t_redir *new_node;
+// 	t_redir *current;
 
-// 	new_node = malloc(sizeof(t_redirect));
+// 	new_node = malloc(sizeof(t_redir));
 // 	if (!new_node)
 // 		return ;
 // 	new_node->value = value;
@@ -37,7 +37,7 @@
 // static	int	count_until_space(char *line)
 // {
 // 	int	i;
-	
+
 // 	i = 0;
 // 	while (line[i] && line[i] != ' ')
 // 		i++;		
@@ -61,12 +61,12 @@
 // 	command->redirs->filename = ft_substr(k, 0, count_until_space(k));
 // }
 
-// void	save_command(t_command *command, t_minishell *minishell)
+// void	save_command(t_command *command, t_min *minishell)
 // {
 // 	int		i;
 // 	char	*k;
 // 	char	*j;
-	
+
 // 	(void) minishell;
 // 	i = 0;
 // 	// command->argv = ft_split(minishell->user_input, '|');
@@ -84,19 +84,19 @@
 // 	}
 // }
 
-// static	void	add_to_redir(t_redirect **head, int type, char *filename)
+// static	void	add_to_redir(t_redir **head, int type, char *filename)
 // {
-	
-// 	t_redirect *new_node;
-// 	t_redirect *current;
 
-// 	new_node = malloc(sizeof(t_redirect));
+// 	t_redir *new_node;
+// 	t_redir *current;
+
+// 	new_node = malloc(sizeof(t_redir));
 // 	if (!new_node)
 // 		return ;
 // 	new_node->type = type;
 // 	new_node->filename = ft_strdup(filename);
 // 	new_node->next = NULL;
-	
+
 // 	if (*head == NULL)
 // 		*head = new_node;
 // 	else
@@ -110,21 +110,20 @@
 
 void	save_filename_redirs(t_command *command, t_token *head)
 {
-	t_token *current;
-	t_redirect	*redir;
-	t_redirect	*new_redir;
-	
+	t_redir	*redir;
+	t_redir	*new_redir;
+	t_token	*current;
+
 	current = head;
 	redir = command->redirs;
 	while (redir && redir->next)
 		redir = redir->next;
 	while (current)
 	{
-		if ((current->type == TOKEN_REDIR_IN || current->type == TOKEN_REDIR_OUT
-			|| current->type == TOKEN_HEREDOC || current->type == TOKEN_REDIR_APPEND) 
+		if ((is_redir(current))
 			&& current->next && current->next->type == TOKEN_WORD)
 		{
-			new_redir = malloc(sizeof(t_redirect));
+			new_redir = malloc(sizeof(t_redir));
 			if (!new_redir)
 				return ;
 			new_redir->next = NULL;

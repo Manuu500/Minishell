@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 18:36:30 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 11:23:02 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:55:14 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static int	create_heredoc(const char *delim, int *out_fd, t_minishell *ms)
+static int	create_heredoc(const char *delim, int *out_fd, t_min *ms)
 {
 	int		fd[2];
 	char	*line;
@@ -44,7 +44,7 @@ static int	create_heredoc(const char *delim, int *out_fd, t_minishell *ms)
 	return (0);
 }
 
-void	redir_heredoc(t_redirect *redirs, t_command *command, t_minishell *ms)
+void	redir_heredoc(t_redir *redirs, t_command *command, t_min *ms)
 {
 	int	read_fd;
 

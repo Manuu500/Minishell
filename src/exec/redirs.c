@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:42:01 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 12:16:08 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:55:14 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void	redir_infile(t_redirect *redirs, t_command *command)
+void	redir_infile(t_redir *redirs, t_command *command)
 {
 	int	fd;
 
@@ -33,7 +33,7 @@ void	redir_infile(t_redirect *redirs, t_command *command)
 	command->in_fd = fd;
 }
 
-void	redir_outfile(t_redirect *redirs, t_command *command)
+void	redir_outfile(t_redir *redirs, t_command *command)
 {
 	int	fd;
 
@@ -51,7 +51,7 @@ void	redir_outfile(t_redirect *redirs, t_command *command)
 	command->out_fd = fd;
 }
 
-void	redir_append(t_redirect *redirs, t_command *command)
+void	redir_append(t_redir *redirs, t_command *command)
 {
 	int	fd;
 

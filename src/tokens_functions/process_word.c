@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   process_word.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 11:21:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/28 12:37:00 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:32:07 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	init_data(t_optimize_data *opt, char *input)
+static void	init_data(t_opt_data *opt, char *input)
 {
 	opt->input = input;
 	opt->word = ft_strdup("");
 	opt->in_quote = 0;
 }
 
-static int	init_data_quote(t_optimize_data *opt, int i, int *start)
+static int	init_data_quote(t_opt_data *opt, int i, int *start)
 {
 	join_strings(opt, i, *start);
 	opt->quote = opt->input[i];
@@ -28,7 +28,8 @@ static int	init_data_quote(t_optimize_data *opt, int i, int *start)
 	return (i);
 }
 
-static int	manage_dollar_quote_case(t_optimize_data *opt, t_minishell *min, int i, int *start)
+static int	manage_dollar_quote_case(t_opt_data *opt, t_min *min,
+		int i, int *start)
 {
 	if (opt->input[i] == '$' && opt->quote == '\"')
 	{
@@ -40,7 +41,8 @@ static int	manage_dollar_quote_case(t_optimize_data *opt, t_minishell *min, int 
 	return (i);
 }
 
-static int	manage_lone_quote_case(t_optimize_data *opt, t_minishell *min, int i, int start)
+static int	manage_lone_quote_case(t_opt_data *opt,
+		t_min *min, int i, int start)
 {
 	i = init_data_quote(opt, i, &start);
 	while (opt->input[i])
@@ -63,7 +65,7 @@ static int	manage_lone_quote_case(t_optimize_data *opt, t_minishell *min, int i,
 	return (-1);
 }
 
-int	process_word(char *input, int i, t_optimize_data *opt, t_minishell *min)
+int	process_word(char *input, int i, t_opt_data *opt, t_min *min)
 {
 	int	start;
 

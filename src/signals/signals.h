@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:28:03 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 10:59:09 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:47:49 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef enum e_sigstage
 extern volatile sig_atomic_t	g_in_child;
 
 void	setup_signal_handlers(void);
-int		handle_ctrl_d(char *line, t_minishell *ms);
+int		handle_ctrl_d(char *line, t_min *ms);
 
 /* API de señales */
 void	set_in_child(int val);
@@ -43,6 +43,6 @@ void	on_sigquit(int signum);
 
 /* Ejecuta la lógica de señales en la etapa indicada. Para SIGST_AFTER_WAIT,
    pasar el código de retorno (por ejemplo 130/131) en `ret`. */
-void	execute_signals(t_sigstage stage, int ret, t_minishell *ms);
+void	execute_signals(t_sigstage stage, int ret, t_min *ms);
 
 #endif

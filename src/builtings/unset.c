@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 00:00:00 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/19 13:08:11 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**remove_env_var(char **envp, const char *key)
 	return (new_env);
 }
 
-int	builtin_unset(char **argv, t_minishell *ms)
+int	builtin_unset(char **argv, t_min *ms)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:44:36 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 10:49:17 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	setup_signal_handlers(void)
 	signal(SIGQUIT, on_sigquit);
 }
 
-void	execute_signals(t_sigstage stage, int ret, t_minishell *ms)
+void	execute_signals(t_sigstage stage, int ret, t_min *ms)
 {
 	if (stage == SIGST_BEFORE_FORK)
 	{

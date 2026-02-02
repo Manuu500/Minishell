@@ -6,13 +6,13 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 14:58:38 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/19 15:06:50 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:36:04 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_var_in_matrix(char *var, t_minishell *minishell)
+char	*find_var_in_matrix(char *var, t_min *minishell)
 {
 	int		i;
 	char	*content;
@@ -28,7 +28,6 @@ char	*find_var_in_matrix(char *var, t_minishell *minishell)
 			if (equal_pos)
 			{
 				content = ft_strdup(equal_pos + 1);
-				// printf("VARIABLE %s ENCONTRADA: %s, CONTENIDO: %s\n", var, minishell->envp[i], content);
 				return (content);
 			}
 		}

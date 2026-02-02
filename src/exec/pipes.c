@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:54:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 12:12:32 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	abort_pipeline(t_pipe_ctx *ctx, int err)
 	return (err);
 }
 
-int	execute_pipeline(t_command *command, t_minishell *ms)
+int	execute_pipeline(t_command *command, t_min *ms)
 {
 	int			n;
 	t_pipe_ctx	ctx;

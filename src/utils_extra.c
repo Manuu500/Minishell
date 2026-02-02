@@ -6,12 +6,11 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:10:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/26 11:50:33 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:03:04 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	free_mem(char **str)
 {
@@ -43,7 +42,7 @@ size_t	word_count(char const *s, char c)
 }
 
 int	check_tokens(t_token *token)
-{	
+{
 	while (token)
 	{
 		if (token->type == TOKEN_PIPE)
@@ -53,10 +52,10 @@ int	check_tokens(t_token *token)
 	return (0);
 }
 
-void	tokens_to_command(t_token *tokens, t_command *com, t_minishell *min)
+void	tokens_to_command(t_token *tokens, t_command *com, t_min *min)
 {
 	int	is_pipe;
-	
+
 	is_pipe = check_tokens(tokens);
 	if (is_pipe)
 		pipe_tokens_to_command(tokens, com, min);
@@ -64,7 +63,7 @@ void	tokens_to_command(t_token *tokens, t_command *com, t_minishell *min)
 		move_tokens_to_command(tokens, com, min);
 }
 
-void	exit_program(t_minishell *ms, int err_snipet)
+void	exit_program(t_min *ms, int err_snipet)
 {
 	ms->last_exit_code = err_snipet;
 	ms->run = 0;

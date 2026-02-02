@@ -6,16 +6,16 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 16:16:16 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/27 19:09:08 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:35:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static int	count_envp(char **envp)
 {
 	int	i;
-	
+
 	i = 0;
 	while (envp[i])
 		i++;
@@ -25,9 +25,9 @@ static int	count_envp(char **envp)
 char	**copy_matrix(char **envp)
 {
 	char		**envp_copy;
-	int				count;
-	int					i;
-	
+	int			count;
+	int			i;
+
 	if (!envp)
 		return (NULL);
 	count = count_envp(envp);
@@ -43,6 +43,5 @@ char	**copy_matrix(char **envp)
 		i++;
 	}
 	envp_copy[i] = NULL;
-	// printf("Ha llegado bien");
-	return(envp_copy);
+	return (envp_copy);
 }

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 11:38:43 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/12/10 12:28:14 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:28:30 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // 	return (count);
 // }
 
-// void	save_vars(t_minishell *minishell, t_token *token)
+// void	save_vars(t_min *minishell, t_token *token)
 // {
 // 	t_token *current;
 // 	char	*var_name;
@@ -34,7 +34,7 @@
 // 	int		var_content_length;
 // 	int		i;
 // 	char	*pos;
-	
+
 // 	var_name_length = 0;
 // 	var_content_length = 0;
 // 	pos = NULL;

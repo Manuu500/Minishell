@@ -6,25 +6,25 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 12:36:49 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/01/28 13:30:37 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:23:26 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void init_com(t_command *com)
+static void	init_com(t_command *com)
 {
 	com->next = malloc(sizeof(t_command));
 	if (!com->next)
 		return ;
 	ft_memset(com->next, 0, sizeof(t_command));
-	com->next->redirs = malloc(sizeof(t_redirect));
-    if (!com->next->redirs)
-    {
-        free(com->next);
-        return ;
-    }
-    ft_memset(com->next->redirs, 0, sizeof(t_redirect));
+	com->next->redirs = malloc(sizeof(t_redir));
+	if (!com->next->redirs)
+	{
+		free(com->next);
+		return ;
+	}
+	ft_memset(com->next->redirs, 0, sizeof(t_redir));
 	com->next->in_fd = 0;
 	com->next->out_fd = 1;
 }
@@ -36,22 +36,24 @@ static t_token	*check_if_pipe(t_token *split)
 	return (split);
 }
 
-void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
+void	err_token(t_command *com, t_min *min)
 {
-	t_token *split;
-	t_token *next_split;
+	printf("Error: invalid syntax\n");
+	com->redir_error = 1;
+	min->last_exit_code = 2;
+}
+
+void	pipe_tokens_to_command(t_token *token, t_command *com, t_min *min)
+{
+	t_token	*split;
+	t_token	*next_split;
 
 	split = token;
 	next_split = NULL;
 	if (!token || !com || !min)
 		return ;
 	if (token->type == TOKEN_PIPE)
-    {
-        printf("Error: invalid syntax\n");
-		com->redir_error = 1;
-        min->last_exit_code = 2;
-        return ;
-    }
+		return (err_token(com, min));
 	split = check_if_pipe(split);
 	if (!split)
 	{
@@ -72,8 +74,8 @@ void	pipe_tokens_to_command(t_token *token, t_command *com, t_minishell *min)
 
 int	is_redir(t_token *current)
 {
-	return (current->type == TOKEN_REDIR_OUT 
-			|| current->type == TOKEN_REDIR_IN
-			|| current->type == TOKEN_REDIR_APPEND
-			|| current->type == TOKEN_HEREDOC);
+	return (current->type == TOKEN_REDIR_OUT
+		|| current->type == TOKEN_REDIR_IN
+		|| current->type == TOKEN_REDIR_APPEND
+		|| current->type == TOKEN_HEREDOC);
 }

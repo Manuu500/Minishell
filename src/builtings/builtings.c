@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:04:53 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/28 13:16:18 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_builtin(char **argv)
 	return (0);
 }
 
-int	builtin_dispatch(char **argv, t_minishell *ms)
+int	builtin_dispatch(char **argv, t_min *ms)
 {
 	(void)ms;
 	if (!argv || !argv[0])
