@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:04:53 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/03 10:51:19 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_builtin(char **argv)
 	if (!argv)
 	{
 		printf("\n");
-		return 0;
+		return (0);
 	}
 	name = argv[0];
 	if (!name)

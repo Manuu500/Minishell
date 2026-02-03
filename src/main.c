@@ -6,13 +6,27 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/02 12:27:57 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/03 11:01:31 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "exec/exe.h"
 #include "signals/signals.h"
+
+static void	init_data(t_min *min, char **envp)
+{
+	using_history();
+	min->run = 1;
+	min->envp = copy_matrix(envp);
+	setup_signal_handlers();
+}
+
+static void	clean_envp(t_min *min)
+{
+	if (min->envp)
+		free_matrix(min->envp);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -25,10 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 2)
 	{
 		ft_bzero(&minishell, sizeof(t_min));
-		using_history();
-		minishell.run = 1;
-		minishell.envp = copy_matrix(envp);
-		setup_signal_handlers();
+		init_data(&minishell, envp);
 		while (minishell.run)
 		{
 			init_vars(&minishell, &command, &optimize_data);
@@ -40,8 +51,7 @@ int	main(int argc, char **argv, char **envp)
 			tokens_to_command(tokens, &command, &minishell);
 			command_dispatcher(&command, &minishell);
 		}
-		if (minishell.envp)
-			free_matrix(minishell.envp);
+		clean_envp(&minishell);
 		rl_clear_history();
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 11:21:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/02 12:32:07 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/03 10:49:21 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ int	process_word(char *input, int i, t_opt_data *opt, t_min *min)
 		else
 			i++;
 	}
-	join_strings(opt, i, start);
-	add_token(&opt->head, &opt->current, TOKEN_WORD, opt->word);
-	free(opt->word);
+	join_word(opt, i, start);
 	return (i);
 }
