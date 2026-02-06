@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:22:14 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2025/03/10 13:39:05 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/06 11:38:10 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ int	ft_putnbr_fd(int n, int fd)
 	counter++;
 	return (counter);
 }
-
