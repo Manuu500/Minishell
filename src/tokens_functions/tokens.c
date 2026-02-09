@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:35:55 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/02 12:30:49 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/09 16:15:55 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 char	*check_var_token(t_min *minishell, char *str)
 {
-	char		*word;
-
-	word = find_var_in_matrix(str, minishell);
-	return (word);
+	return (find_var_in_matrix(str, minishell));
 }
 
 char	*substr_remove_quotes(char *input, int start, int len, char quote_type)

@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/02 12:35:07 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:48:16 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,12 @@ int	command_dispatcher(t_command *command, t_min *ms)
 		return (execute_pipeline(command, ms));
 	if (is_builtin(cur_command))
 	{
+		int status;
+		
 		builtin_redirs(command, &saved_in, &saved_out);
-		builtin_dispatch(cur_command, ms);
+		status = builtin_dispatch(cur_command, ms);
 		reset_builtin_fds(command, saved_in, saved_out);
-		ms->last_exit_code = 0;
+		ms->last_exit_code = status;
 		return (0);
 	}
 	return (execute_external_command(command, ms->envp, ms));

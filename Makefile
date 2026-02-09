@@ -4,15 +4,15 @@ CC = clang
 
 CFLAGS	:= -Wextra -Wall -Werror -g -Isrc
 
-LDFLAGS = -Wl,--wrap=malloc  \
-		  -Wl,--wrap=free    \
-		  -Wl,--wrap=execve  \
-		  -Wl,--wrap=open    \
-		  -Wl,--wrap=close   \
-		  -Wl,--wrap=dup     \
-		  -Wl,--wrap=dup2    \
-		  -Wl,--wrap=pipe    \
-		  -Wl,--wrap=exit
+# LDFLAGS = -Wl,--wrap=malloc  \
+# 		  -Wl,--wrap=free    \
+# 		  -Wl,--wrap=execve  \
+# 		  -Wl,--wrap=open    \
+# 		  -Wl,--wrap=close   \
+# 		  -Wl,--wrap=dup     \
+# 		  -Wl,--wrap=dup2    \
+# 		  -Wl,--wrap=pipe    \
+# 		  -Wl,--wrap=exit
 
 
 LIBFT := ./libs/libft
@@ -60,10 +60,10 @@ SRC :=	src/main.c \
 	src/builtings/unset.c \
 	src/signals/Ctrl_Sig.c \
 	src/signals/signal.c \
-	src/safe_mem.c \
-	src/safe_fd.c \
-	src/safe_exit.c \
-	src/safe_execve.c
+# 	src/safe_mem.c \
+# 	src/safe_fd.c \
+# 	src/safe_exit.c \
+# 	src/safe_execve.c
 
 OBJ	:= $(patsubst src%, obj%, $(SRC:.c=.o))
 
@@ -75,7 +75,7 @@ libft:
 $(NAME): $(OBJ)
 	@echo "compiling ${NAME}"
 	# Generar el ejecutable en el mismo directorio que este Makefile
-	@$(CC) $(CFLAGS) $(OBJ) $(HEADERS) $(LDFLAGS) -o $(CURDIR)/$(NAME) $(LIBS) -lreadline -lncurses
+	@$(CC) $(CFLAGS) $(OBJ) $(HEADERS) -o $(CURDIR)/$(NAME) $(LIBS) -lreadline -lncurses
 
 obj/%.o: src/%.c
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ && printf "Compiling: $(notdir $<)\n"

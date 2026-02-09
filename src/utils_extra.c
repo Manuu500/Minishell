@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:10:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/02 12:03:04 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/09 12:57:53 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,4 @@ void	exit_program(t_min *ms, int err_snipet)
 {
 	ms->last_exit_code = err_snipet;
 	ms->run = 0;
-	exit(err_snipet);
 }

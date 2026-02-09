@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/03 10:50:05 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/09 16:09:46 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct minishell
 	char	**envp;
 	int		run;
 	int		last_exit_code;
+	char	*del_word;
 }			t_min;
 
 typedef enum token_type
