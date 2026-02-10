@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:45:18 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,20 @@ static void	exec_child(t_command *cmd, char **envp, t_min *ms)
 	{
 		execve(argv[0], argv, envp);
 		write(2, "execve: error\n", 14);
-		exit_program(ms, 127);
+		exit(127);
 	}
 	exec_from_path(argv, envp, ms);
+	if (cmd->redirs)
+		free_com_redirs(cmd);
+	if (cmd->argv)
+		free_com_argv(cmd);
+	if (ms->envp)
+		free_matrix(ms->envp);
+	if (ms->user_input)
+		free(ms->user_input);
+	if (cmd->tokens)
+		free_token(cmd->tokens);
+	exit(127);
 }
 
 static int	wait_child(pid_t pid)

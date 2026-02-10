@@ -129,7 +129,11 @@ void	save_filename_redirs(t_command *command, t_token *head)
 			new_redir->next = NULL;
 			new_redir->type = current->type;
 			new_redir->filename = ft_strdup(current->next->value);
-			redir->next = new_redir;
+			new_redir->fd = -1;
+			if (!redir)
+				command->redirs = new_redir;
+			else
+				redir->next = new_redir;
 			redir = new_redir;
 		}
 		current = current->next;

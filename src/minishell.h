@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/09 16:09:46 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:45:38 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_optimize_data
 
 typedef struct s_command
 {
+	t_token				*tokens;
 	struct s_command	*next;
 	t_redir				*redirs;
 	char				**argv;
@@ -136,5 +137,6 @@ int		is_redir(t_token *current);
 void	err_token(t_command *com, t_min *min);
 int		char_is_valid(char *input, int i);
 void	join_word(t_opt_data *opt, int i, int start);
+void	free_token(t_token *token);
 
 #endif

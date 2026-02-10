@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/09 16:28:46 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:45:32 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	free_opt(t_opt_data *opt)
 	}
 }
 
-static void	free_token(t_token *token)
+void	free_token(t_token *token)
 {
 	t_token	*t;
 	t_token	*tn;
