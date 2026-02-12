@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_dispatcher.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/09 12:48:16 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/12 09:45:03 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	command_dispatcher(t_command *command, t_min *ms)
 	char	**cur_command;
 	int		saved_in;
 	int		saved_out;
+	int		status;	
 
 	cur_command = command->argv;
 	if (command->redirs)
@@ -75,8 +76,6 @@ int	command_dispatcher(t_command *command, t_min *ms)
 		return (execute_pipeline(command, ms));
 	if (is_builtin(cur_command))
 	{
-		int status;
-		
 		builtin_redirs(command, &saved_in, &saved_out);
 		status = builtin_dispatch(cur_command, ms);
 		reset_builtin_fds(command, saved_in, saved_out);

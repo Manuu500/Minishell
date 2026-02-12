@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/10 15:51:27 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/12 10:22:11 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@ int	main(int argc, char **argv, char **envp)
 		init_data(&minishell, envp);
 		while (minishell.run)
 		{
+			tokens = NULL;
 			init_vars(&minishell, &command, &optimize_data);
 			minishell.user_input = readline("Prompt: ");
+			if (g_in_child == 2)
+			{
+				minishell.last_exit_code = 130;
+				g_in_child = 0;
+			}
 			if (minishell.user_input && *minishell.user_input)
 				add_history(minishell.user_input);
 			handle_ctrl_d(minishell.user_input, &minishell);

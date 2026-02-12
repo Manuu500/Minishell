@@ -3,6 +3,7 @@ NAME	:= minishell
 CC = clang
 
 CFLAGS	:= -Wextra -Wall -Werror -g -Isrc
+DEPFLAGS := -MMD -MP
 
 # LDFLAGS = -Wl,--wrap=malloc  \
 # 		  -Wl,--wrap=free    \
@@ -66,6 +67,7 @@ SRC :=	src/main.c \
 # 	src/safe_execve.c
 
 OBJ	:= $(patsubst src%, obj%, $(SRC:.c=.o))
+DEPS := $(OBJ:.o=.d)
 
 all: libft obj $(NAME)
 
@@ -74,11 +76,10 @@ libft:
 
 $(NAME): $(OBJ)
 	@echo "compiling ${NAME}"
-	# Generar el ejecutable en el mismo directorio que este Makefile
 	@$(CC) $(CFLAGS) $(OBJ) $(HEADERS) -o $(CURDIR)/$(NAME) $(LIBS) -lreadline -lncurses
 
 obj/%.o: src/%.c
-	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ && printf "Compiling: $(notdir $<)\n"
+	@$(CC) $(CFLAGS) $(DEPFLAGS) $(HEADERS) -c $< -o $@ && printf "Compiling: $(notdir $<)\n"
 
 obj:
 	@mkdir -p obj
@@ -96,6 +97,8 @@ fclean: clean
 	@make -C libs/libft fclean
 	@rm -f $(CURDIR)/$(NAME)
 
-re: clean all
+re: fclean all
+
+-include $(DEPS)
 
 .PHONY: all clean fclean re libft obj

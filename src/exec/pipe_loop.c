@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:50:18 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/10 15:27:41 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/12 09:33:32 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	safe_pipe(int next[2])
 
 int	handle_redirs_in_parent(t_command *cmd, t_min *ms)
 {
+	if (!cmd)
+		return (1);
 	if (cmd->redirs)
 		redir_dispatcher(cmd, ms);
 	if (cmd->redir_error == 1)
