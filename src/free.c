@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 18:05:20 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/10 15:45:32 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/16 11:48:04 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,31 @@ static void	free_minishell(t_min *ms)
 }
 	DELETED (sustituido en main por free_matrix)*/
 
-static void	free_command(t_command *command)
+static void	free_command_node(t_command *command, int free_self)
 {
 	if (command->redirs)
 		free_com_redirs(command);
 	if (command->argv)
 		free_com_argv(command);
+	if (free_self)
+		free(command);
+}
+
+static void	free_command_list(t_command *command)
+{
+	t_command	*cur;
+	t_command	*next;
+
+	cur = command;
+	while (cur)
+	{
+		next = cur->next;
+		if (cur == command)
+			free_command_node(cur, 0);
+		else
+			free_command_node(cur, 1);
+		cur = next;
+	}
 }
 
 static void	free_opt(t_opt_data *opt)
@@ -81,7 +100,7 @@ void	safe_free(t_min *min, t_command *com, t_opt_data *opt, t_token *token)
 		min->user_input = NULL;
 	}
 	if (com)
-		free_command(com);
+		free_command_list(com);
 	if (opt)
 		free_opt(opt);
 	if (token)

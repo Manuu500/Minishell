@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 17:46:36 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/02 12:26:49 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/16 10:43:51 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,14 @@
 // 	}
 // }
 
+static void	init_newredir(t_redir *new_redir, t_token *current)
+{
+	new_redir->next = NULL;
+	new_redir->type = current->type;
+	new_redir->filename = ft_strdup(current->next->value);
+	new_redir->fd = -1;
+}
+
 void	save_filename_redirs(t_command *command, t_token *head)
 {
 	t_redir	*redir;
@@ -126,10 +134,7 @@ void	save_filename_redirs(t_command *command, t_token *head)
 			new_redir = malloc(sizeof(t_redir));
 			if (!new_redir)
 				return ;
-			new_redir->next = NULL;
-			new_redir->type = current->type;
-			new_redir->filename = ft_strdup(current->next->value);
-			new_redir->fd = -1;
+			init_newredir(new_redir, current);
 			if (!redir)
 				command->redirs = new_redir;
 			else

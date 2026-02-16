@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/10 15:45:38 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/16 11:39:22 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libs/libft/libft.h"
-
-typedef struct minishell
-{
-	char	*user_input;
-	char	**envp;
-	int		run;
-	int		last_exit_code;
-	char	*del_word;
-}			t_min;
 
 typedef enum token_type
 {
@@ -43,14 +34,6 @@ typedef enum token_type
 	TOKEN_VAR
 }			t_token_type;
 
-typedef struct s_redirect
-{
-	char				*filename;
-	int					fd;
-	struct s_redirect	*next;
-	t_token_type		type;
-}			t_redir;
-
 typedef struct s_token
 {
 	t_token_type	type;
@@ -60,17 +43,13 @@ typedef struct s_token
 	struct s_token	*prev;
 }			t_token;
 
-typedef struct s_optimize_data
+typedef struct s_redirect
 {
-	t_token		*head;
-	t_redir		*head_red;
-	t_token		*current;
-	char		*word;
-	char		*var_value;
-	char		*input;
-	char		quote;
-	int			in_quote;
-}				t_opt_data;
+	char				*filename;
+	int					fd;
+	struct s_redirect	*next;
+	t_token_type		type;
+}			t_redir;
 
 typedef struct s_command
 {
@@ -83,6 +62,28 @@ typedef struct s_command
 	int					redir_error;
 	int					is_builtin;
 }					t_command;
+
+typedef struct minishell
+{
+	char		*user_input;
+	char		**envp;
+	int			run;
+	int			last_exit_code;
+	char		*del_word;
+	t_command	*com;
+}			t_min;
+
+typedef struct s_optimize_data
+{
+	t_token		*head;
+	t_redir		*head_red;
+	t_token		*current;
+	char		*word;
+	char		*var_value;
+	char		*input;
+	char		quote;
+	int			in_quote;
+}				t_opt_data;
 
 //---------------MATRIX_FUNCTIONS---------------//
 

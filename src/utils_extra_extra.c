@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 12:36:49 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/02 12:23:26 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/16 11:49:47 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static t_token	*check_if_pipe(t_token *split)
 	return (split);
 }
 
+//	printf("Error: invalid syntax\n"); Esto puede que tengamos que quitarlo
 void	err_token(t_command *com, t_min *min)
 {
 	printf("Error: invalid syntax\n");
@@ -46,30 +47,26 @@ void	err_token(t_command *com, t_min *min)
 void	pipe_tokens_to_command(t_token *token, t_command *com, t_min *min)
 {
 	t_token	*split;
-	t_token	*next_split;
+	t_token	*next;
 
-	split = token;
-	next_split = NULL;
 	if (!token || !com || !min)
 		return ;
 	if (token->type == TOKEN_PIPE)
 		return (err_token(com, min));
-	split = check_if_pipe(split);
+	split = check_if_pipe(token);
 	if (!split)
-	{
-		move_tokens_to_command(token, com, min);
-		return ;
-	}
-	next_split = split->next;
+		return (move_tokens_to_command(token, com, min));
+	next = split->next;
+	if (!next || next->type == TOKEN_PIPE)
+		return (err_token(com, min));
 	split->next = NULL;
-	if (next_split)
-		next_split->prev = NULL;
+	next->prev = NULL;
 	move_tokens_to_command(token, com, min);
-	if (!next_split)
-		return ;
+	split->next = next;
+	next->prev = split;
 	if (!com->next)
 		init_com(com);
-	pipe_tokens_to_command(next_split, com->next, min);
+	pipe_tokens_to_command(next, com->next, min);
 }
 
 int	is_redir(t_token *current)
