@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:38 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 11:00:01 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:58:27 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/libft/libft.h"
 #include "builtings.h"
 
+/* Ignore "-n" in echo built-in */
 static int	ignore_n(char **argv)
 {
 	int	i;
@@ -33,6 +34,7 @@ static int	ignore_n(char **argv)
 	return (i);
 }
 
+/* Case "echo -n" where there is no \n */
 static void	no_nl_echo(char **argv)
 {
 	int	i;
@@ -47,6 +49,7 @@ static void	no_nl_echo(char **argv)
 	}
 }
 
+/* Main echo built-in funcionality */
 int	builtin_echo(char **argv)
 {
 	int	i;

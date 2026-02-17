@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 19:07:51 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/02 11:47:33 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:38:14 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <stdio.h>
 
+/* Pipes struct */
 typedef struct s_pipe_ctx
 {
 	int			n;
@@ -33,7 +34,6 @@ typedef struct s_pipe_ctx
 
 /* Commands */
 int		command_dispatcher(t_command *command, t_min *ms);
-// int		execute_external_command(char **argv, char **envp);
 int		execute_external_command(t_command *cmd, char **envp, t_min *ms);
 void	exec_from_path(char **argv, char **envp, t_min *ms);
 int		execute_pipeline(t_command *head, t_min *ms);

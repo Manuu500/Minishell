@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:28:03 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/02 11:47:49 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/17 10:27:17 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../minishell.h"
-/* Etapas para la gestión de señales alrededor de la ejecución de un child */
 
+/* Etapas para la gestión de señales alrededor de la ejecución de un child */
 typedef enum e_sigstage
 {
 	SIGST_BEFORE_FORK = 0,

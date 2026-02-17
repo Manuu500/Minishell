@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:26:42 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 11:07:29 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:13:42 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+/* Create var in envp if there is no var with same name*/
 char	**add_var_if_not_exists(char **envp, const char *key, const char *val)
 {
 	int		i;
@@ -33,6 +34,7 @@ char	**add_var_if_not_exists(char **envp, const char *key, const char *val)
 	return (add_env_var(envp, key, val));
 }
 
+/* Give value to any var in envp */
 char	*join_key_value(const char *key, const char *value)
 {
 	char	*tmp;
@@ -51,7 +53,7 @@ char	*join_key_value(const char *key, const char *value)
 	free(tmp);
 	return (res);
 }
-
+/*  */
 static int	update_env_var(char **envp, const char *key, const char *new_var)
 {
 	int	i;
@@ -91,6 +93,7 @@ static char	**append_env_var(char **envp, const char *new_var, int count)
 	return (new_env);
 }
 
+/* Handle different env cases */
 char	**add_env_var(char **envp, const char *key, const char *value)
 {
 	int		i;
