@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:50:18 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/17 12:13:41 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:53:51 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,28 @@
 #include <stdlib.h>
 #include "../signals/signals.h"
 #include "../builtings/builtings.h"
+
+static void	child_cleanup_and_exit(t_pipe_ctx *ctx, t_min *ms,
+		t_command *com, int status)
+{
+	t_token	*tokens;
+
+	if (ctx && ctx->pids)
+	{
+		free(ctx->pids);
+		ctx->pids = NULL;
+	}
+	if (ms && ms->envp)
+	{
+		free_matrix(ms->envp);
+		ms->envp = NULL;
+	}
+	tokens = NULL;
+	if (com)
+		tokens = com->tokens;
+	safe_free(ms, com, NULL, tokens);
+	exit(status);
+}
 
 static int	safe_pipe(int next[2])
 {
@@ -53,12 +75,10 @@ void	exec_child_process(t_pipe_ctx *ctx, t_min *ms, t_command *com)
 	if (is_builtin(ctx->cmd->argv))
 	{
 		status = builtin_dispatch(ctx->cmd->argv, ms);
-		exit_program(ms, status, com);
-		exit(status);
+		child_cleanup_and_exit(ctx, ms, com, status);
 	}
 	exec_from_path(ctx->cmd->argv, ms->envp, ms);
-	exit_program(ms, 127, com);
-	exit(127);
+	child_cleanup_and_exit(ctx, ms, com, 127);
 }
 
 int	run_pipeline_loop(t_pipe_ctx *ctx, t_min *ms, t_command *com)

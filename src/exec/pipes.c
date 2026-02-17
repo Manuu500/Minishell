@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:54:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/17 12:07:13 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:25:42 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	abort_pipeline(t_pipe_ctx *ctx, int err)
 {
 	close_pair(ctx->prev);
 	close_pair(ctx->next);
+	close_command_redir_fds(ctx->cmd);
 	if (ctx->pids)
 		free(ctx->pids);
 	return (err);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_runner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/17 12:09:57 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:51:31 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	exec_child(t_command *cmd, char **envp, t_min *ms)
 		execve(argv[0], argv, envp);
 		write(2, "execve: error\n", 14);
 		exit_program(ms, 127, cmd);
+		exit(127);
 	}
 	exec_from_path(argv, envp, ms);
 	if (cmd->redirs)

@@ -6,7 +6,7 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:26:42 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/17 12:13:42 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:54:19 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*join_key_value(const char *key, const char *value)
 	free(tmp);
 	return (res);
 }
+
 /*  */
 static int	update_env_var(char **envp, const char *key, const char *new_var)
 {
