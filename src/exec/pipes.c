@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:54:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:07:13 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ int	execute_pipeline(t_command *command, t_min *ms)
 		return (1);
 	init_state(&ctx, command);
 	ctx.n = n;
-	return (run_pipeline_loop(&ctx, ms));
+	return (run_pipeline_loop(&ctx, ms, command));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 19:07:51 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/17 11:38:14 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:15:49 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		execute_pipeline(t_command *head, t_min *ms);
 int		count_cmds(t_command *head);
 void	close_pair(int p[2]);
 int		wait_children(pid_t *pids, int n, int status);
-int		run_pipeline_loop(t_pipe_ctx *ctx, t_min *ms);
+int		run_pipeline_loop(t_pipe_ctx *ctx, t_min *ms, t_command *com);
 void	init_state(t_pipe_ctx *ctx, t_command *head);
 void	connect_child(t_pipe_ctx *ctx);
 void	close_command_redir_fds(t_command *cmd);
@@ -49,7 +49,7 @@ void	parent_after_fork(t_pipe_ctx *ctx);
 void	apply_child_redirs_if_any(t_command *cmd);
 int		abort_pipeline(t_pipe_ctx *ctx, int err);
 int		handle_redirs_in_parent(t_command *cmd, t_min *ms);
-void	exec_child_process(t_pipe_ctx *ctx, t_min *ms);
+void	exec_child_process(t_pipe_ctx *ctx, t_min *ms, t_command *com);
 
 /* Redirs */
 void	redir_dispatcher(t_command *command, t_min *ms);

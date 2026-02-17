@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:50:18 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/12 09:33:32 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:13:41 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	handle_redirs_in_parent(t_command *cmd, t_min *ms)
 	return (0);
 }
 
-void	exec_child_process(t_pipe_ctx *ctx, t_min *ms)
+void	exec_child_process(t_pipe_ctx *ctx, t_min *ms, t_command *com)
 {
 	int	status;
 
@@ -53,13 +53,15 @@ void	exec_child_process(t_pipe_ctx *ctx, t_min *ms)
 	if (is_builtin(ctx->cmd->argv))
 	{
 		status = builtin_dispatch(ctx->cmd->argv, ms);
-		exit_program(ms, status);
+		exit_program(ms, status, com);
+		exit(status);
 	}
 	exec_from_path(ctx->cmd->argv, ms->envp, ms);
-	exit_program(ms, 127);
+	exit_program(ms, 127, com);
+	exit(127);
 }
 
-int	run_pipeline_loop(t_pipe_ctx *ctx, t_min *ms)
+int	run_pipeline_loop(t_pipe_ctx *ctx, t_min *ms, t_command *com)
 {
 	int	status;
 
@@ -75,7 +77,7 @@ int	run_pipeline_loop(t_pipe_ctx *ctx, t_min *ms)
 		if (ctx->pid < 0)
 			return (abort_pipeline(ctx, 1));
 		if (ctx->pid == 0)
-			exec_child_process(ctx, ms);
+			exec_child_process(ctx, ms, com);
 		parent_after_fork(ctx);
 		ctx->cmd = ctx->cmd->next;
 		ctx->i++;

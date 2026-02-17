@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/16 11:27:18 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:09:57 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	exec_child(t_command *cmd, char **envp, t_min *ms)
 	{
 		execve(argv[0], argv, envp);
 		write(2, "execve: error\n", 14);
-		exit_program(ms, 127);
+		exit_program(ms, 127, cmd);
 	}
 	exec_from_path(argv, envp, ms);
 	if (cmd->redirs)

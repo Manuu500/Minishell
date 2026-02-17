@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:10:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/16 11:20:28 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:07:45 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,18 @@ void	tokens_to_command(t_token *tokens, t_command *com, t_min *min)
 		move_tokens_to_command(tokens, com, min);
 }
 
-void	exit_program(t_min *ms, int err_snipet)
+void	exit_program(t_min *ms, int err_snipet, t_command *com)
 {
 	ms->last_exit_code = err_snipet;
-	if (ms->com->redirs)
-		free_com_redirs(ms->com);
-	if (ms->com->argv)
-		free_com_argv(ms->com);
+	ms->run = 0;
+	if (com->redirs)
+		free_com_redirs(com);
+	if (com->argv)
+		free_com_argv(com);
 	if (ms->envp)
 		free_matrix(ms->envp);
 	if (ms->user_input)
 		free(ms->user_input);
-	if (ms->com->tokens)
-		free_token(ms->com->tokens);
-	ms->run = 0;
+	if (com->tokens)
+		free_token(com->tokens);
 }

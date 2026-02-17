@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:56 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/16 11:39:22 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:05:57 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int		manage_dollar_case(t_opt_data *opt, t_min *min, int i, int start);
 void	join_strings(t_opt_data *opt, int i, int start);
 int		is_word(t_opt_data *opt, int i);
 int		print_variable_content(t_opt_data *opt, t_min *min, int i, int start);
-void	exit_program(t_min *ms, int err_snipet);
+void	exit_program(t_min *ms, int err_snipet, t_command *com);
 void	free_com_redirs(t_command *com);
 void	free_com_argv(t_command *com);
 int		next_is_word(t_token *current);
