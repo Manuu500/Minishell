@@ -20,3 +20,4 @@
 /snap/code/.../v8_context_snapshot.bin
 ptmx
 Ambos aparecen como <inherited from parent>, o sea: no los abre minishell y no es responsabilidad del shell cerrarlos (son FDs heredados del proceso padre/entorno VS Code/terminal). A nivel del proyecto, no hay fuga propia detectable en esos escenarios.
+- Liberar CTX.
