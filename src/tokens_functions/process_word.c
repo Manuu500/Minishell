@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 11:21:00 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/03 10:49:21 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/18 13:33:27 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static int	manage_dollar_quote_case(t_opt_data *opt, t_min *min,
 		*start = i;
 	}
 	else
+		i++;
+	if (opt->input[i] == '?')
 		i++;
 	return (i);
 }

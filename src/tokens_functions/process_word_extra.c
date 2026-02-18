@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 11:53:24 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/09 16:20:41 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/18 13:38:44 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	print_variable_content(t_opt_data *opt, t_min *min, int i, int start)
 		opt->word = ft_strjoin_free(opt->word, opt->var_value);
 	opt->var_value = NULL;
 	i++;
+	if (opt->input[i] == '?')
+		return (i + 1);
 	while (opt->input[i] && opt->input[i] != opt->quote
 		&& (ft_isalnum(opt->input[i]) || opt->input[i] == '_'))
 		i++;
