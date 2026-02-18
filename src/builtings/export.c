@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:37:26 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:40:26 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtings.h"
 #include <stdio.h>
 
+/* Check if the character is valid to create a var */
 static int	is_valid_key(const char *key)
 {
 	int	i;
@@ -42,6 +43,7 @@ static int	is_valid_key(const char *key)
 	return (1);
 }
 
+/* Print env when it is sorted */
 static void	print_sorted_env(char **envp)
 {
 	char	**sorted;
@@ -57,6 +59,7 @@ static void	print_sorted_env(char **envp)
 	free_matrix(sorted);
 }
 
+/* Split key and value */
 static char	*dup_key_part(const char *arg)
 {
 	int		len;
@@ -69,6 +72,7 @@ static char	*dup_key_part(const char *arg)
 	return (key);
 }
 
+/* Main built-in export funcionality */
 static void	apply_export_arg(char *arg, t_min *ms)
 {
 	char	*eq;
@@ -92,6 +96,7 @@ static void	apply_export_arg(char *arg, t_min *ms)
 	free(key);
 }
 
+/* Diferent export argv cases */
 int	builtin_export(char **argv, t_min *ms)
 {
 	int	i;

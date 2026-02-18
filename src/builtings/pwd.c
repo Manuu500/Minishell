@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:07 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/09 12:52:18 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:38:29 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+/* Main pwd built-in functionality */
 int	builtin_pwd(char **argv)
 {
 	char	*cwd;

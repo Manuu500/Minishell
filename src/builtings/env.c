@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:25:32 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:40:57 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/libft/libft.h"
 #include "builtings.h"
 
+/* Env built-in funcionality */
 int	builtin_env(char **argv, t_min *ms)
 {
 	int	i;

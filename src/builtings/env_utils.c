@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:26:39 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/01/27 11:01:42 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/02/18 13:19:07 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
+/* Create a dup for env to be sorted */
 static char	**dup_env(char **envp, int count)
 {
 	char	**sorted;
@@ -32,6 +33,7 @@ static char	**dup_env(char **envp, int count)
 	return (sorted);
 }
 
+/* Bubble sort for env */
 static void	sort_env_bubble(char **sorted, int count)
 {
 	int		i;
@@ -56,6 +58,7 @@ static void	sort_env_bubble(char **sorted, int count)
 	}
 }
 
+/* Main sort for export when no args */
 char	**sort_env(char **envp)
 {
 	int		count;
@@ -69,16 +72,18 @@ char	**sort_env(char **envp)
 	return (sorted);
 }
 
+/* Export funcionality when no args */
 void	print_export_format(const char *env)
 {
 	int	i;
 
+	if (!env)
+		return ;
 	i = 0;
-	printf("declare -x ");
 	while (env[i] && env[i] != '=')
-		ft_putchar_fd(env[i++], 1);
+		i++;
 	if (env[i] == '=')
-		printf("=\"%s\"\n", env + i + 1);
+		printf("declare -x %.*s=\"%s\"\n", i, env, env + i + 1);
 	else
-		printf("\n");
+		printf("declare -x %s\n", env);
 }
