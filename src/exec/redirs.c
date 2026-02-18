@@ -15,6 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+/* Opens an input file and assigns it as the command's stdin redirection. */
 void	redir_infile(t_redir *redirs, t_command *command)
 {
 	int	fd;
@@ -33,6 +34,7 @@ void	redir_infile(t_redir *redirs, t_command *command)
 	command->in_fd = fd;
 }
 
+/* Opens/truncates an output file and assigns it as the command's stdout. */
 void	redir_outfile(t_redir *redirs, t_command *command)
 {
 	int	fd;
@@ -51,6 +53,7 @@ void	redir_outfile(t_redir *redirs, t_command *command)
 	command->out_fd = fd;
 }
 
+/* Opens an output file in append mode and assigns it as the command's stdout. */
 void	redir_append(t_redir *redirs, t_command *command)
 {
 	int	fd;

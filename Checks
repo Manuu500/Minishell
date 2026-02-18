@@ -21,3 +21,6 @@
 ptmx
 Ambos aparecen como <inherited from parent>, o sea: no los abre minishell y no es responsabilidad del shell cerrarlos (son FDs heredados del proceso padre/entorno VS Code/terminal). A nivel del proyecto, no hay fuga propia detectable en esos escenarios.
 - Liberar CTX.
+- Unset da leaks
+- Triple tipo de variable en export sin =, con = y con valor
+- Señales en heredoc

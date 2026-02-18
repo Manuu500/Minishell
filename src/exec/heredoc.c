@@ -15,6 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+/* Reads heredoc lines until delim, expands variables, and returns a read fd. */
 static int	create_heredoc(const char *delim, int *out_fd, t_min *ms)
 {
 	int		fd[2];
@@ -44,6 +45,7 @@ static int	create_heredoc(const char *delim, int *out_fd, t_min *ms)
 	return (0);
 }
 
+/* Creates a heredoc and attaches its read end to the command's stdin fd. */
 void	redir_heredoc(t_redir *redirs, t_command *command, t_min *ms)
 {
 	int	read_fd;

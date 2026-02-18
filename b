@@ -1,0 +1,15 @@
+a
+adios
+b
+Checks
+leaks
+libs
+Makefile
+minishell
+obj
+paco
+README.md
+src
+test
+tests
+vincent.supp

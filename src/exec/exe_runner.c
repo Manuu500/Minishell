@@ -16,6 +16,7 @@
 #include <sys/wait.h>
 #include "../signals/signals.h"
 
+/* Closes any non-stdio redirection fds stored in a command. */
 void	close_command_redir_fds(t_command *cmd)
 {
 	if (!cmd)
@@ -32,6 +33,7 @@ void	close_command_redir_fds(t_command *cmd)
 	}
 }
 
+/* Applies a command's redirections to the current process (child side). */
 static void	apply_child_redirs(t_command *cmd)
 {
 	if (cmd->in_fd >= 0 && cmd->in_fd != STDIN_FILENO)
@@ -48,6 +50,7 @@ static void	apply_child_redirs(t_command *cmd)
 	}
 }
 
+/* Executes the command in the forked child and exits on failure. */
 static void	exec_child(t_command *cmd, char **envp, t_min *ms)
 {
 	char	**argv;
@@ -75,6 +78,7 @@ static void	exec_child(t_command *cmd, char **envp, t_min *ms)
 	exit(127);
 }
 
+/* Waits for a child pid and converts its status to a shell exit code. */
 static int	wait_child(pid_t pid)
 {
 	int	status;
@@ -88,6 +92,7 @@ static int	wait_child(pid_t pid)
 	return (1);
 }
 
+/* Forks and runs an external command, returning its exit status. */
 int	execute_external_command(t_command *cmd, char **envp, t_min *ms)
 {
 	pid_t	pid;

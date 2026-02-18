@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+/* Initializes the pipeline context and resets all pipe fds/state. */
 void	init_state(t_pipe_ctx *ctx, t_command *head)
 {
 	ctx->prev[0] = -1;
@@ -26,6 +27,7 @@ void	init_state(t_pipe_ctx *ctx, t_command *head)
 	ctx->cmd = head;
 }
 
+/* Counts the number of commands in a linked list pipeline. */
 int	count_cmds(t_command *c)
 {
 	int	n;
@@ -39,6 +41,7 @@ int	count_cmds(t_command *c)
 	return (n);
 }
 
+/* Closes both ends of a pipe pair if they are open. */
 void	close_pair(int p[2])
 {
 	if (p[0] != -1)
@@ -47,6 +50,7 @@ void	close_pair(int p[2])
 		close(p[1]);
 }
 
+/* Connects previous/next pipes to stdio in the child, then closes pipe fds. */
 void	connect_child(t_pipe_ctx *ctx)
 {
 	if (ctx->i > 0 && ctx->prev[0] != -1
@@ -59,6 +63,7 @@ void	connect_child(t_pipe_ctx *ctx)
 	close_pair(ctx->next);
 }
 
+/* Waits all children in the pipeline and returns the last command exit code. */
 int	wait_children(pid_t *pids, int n, int status)
 {
 	int	i;

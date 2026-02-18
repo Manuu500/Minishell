@@ -14,6 +14,7 @@
 #include "exe.h"
 #include <unistd.h>
 
+/* Returns the value for a given environment key (KEY=VALUE) from envp. */
 static char	*get_env_value(char **envp, const char *key)
 {
 	size_t	key_len;
@@ -32,6 +33,7 @@ static char	*get_env_value(char **envp, const char *key)
 	return (NULL);
 }
 
+/* Joins a directory and command name into a newly allocated path string. */
 static char	*join_path_cmd(const char *dir, const char *cmd)
 {
 	size_t	len;
@@ -50,6 +52,7 @@ static char	*join_path_cmd(const char *dir, const char *cmd)
 	return (full_path);
 }
 
+/* Frees a NULL-terminated array of strings. */
 static void	free_strv(char **parts)
 {
 	int	i;
@@ -63,6 +66,7 @@ static void	free_strv(char **parts)
 	free(parts);
 }
 
+/* Builds a full path for argv[0] under dir and attempts execve. */
 static void	try_exec_dir(const char *dir, char **argv, char **envp)
 {
 	char	*full_path;
@@ -75,6 +79,7 @@ static void	try_exec_dir(const char *dir, char **argv, char **envp)
 	}
 }
 
+/* Searches PATH and attempts to exec argv[0], printing errors if not found. */
 void	exec_from_path(char **argv, char **envp, t_min *ms)
 {
 	char	*path;

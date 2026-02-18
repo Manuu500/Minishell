@@ -18,6 +18,7 @@
 #include "../signals/signals.h"
 #include "../builtings/builtings.h"
 
+/* Frees pipeline/command resources in a child and exits with status. */
 static void	child_cleanup_and_exit(t_pipe_ctx *ctx, t_min *ms,
 		t_command *com, int status)
 {
@@ -40,6 +41,7 @@ static void	child_cleanup_and_exit(t_pipe_ctx *ctx, t_min *ms,
 	exit(status);
 }
 
+/* Wraps pipe(2) and returns non-zero on failure. */
 static int	safe_pipe(int next[2])
 {
 	if (pipe(next) == -1)
@@ -47,6 +49,7 @@ static int	safe_pipe(int next[2])
 	return (0);
 }
 
+/* Applies redirections in the parent for a pipeline command and validates fds. */
 int	handle_redirs_in_parent(t_command *cmd, t_min *ms)
 {
 	if (!cmd)
@@ -65,6 +68,7 @@ int	handle_redirs_in_parent(t_command *cmd, t_min *ms)
 	return (0);
 }
 
+/* Executes the current pipeline command in the forked child process. */
 void	exec_child_process(t_pipe_ctx *ctx, t_min *ms, t_command *com)
 {
 	int	status;
@@ -81,6 +85,7 @@ void	exec_child_process(t_pipe_ctx *ctx, t_min *ms, t_command *com)
 	child_cleanup_and_exit(ctx, ms, com, 127);
 }
 
+/* Main fork/pipe loop that builds the pipeline and waits for children. */
 int	run_pipeline_loop(t_pipe_ctx *ctx, t_min *ms, t_command *com)
 {
 	int	status;

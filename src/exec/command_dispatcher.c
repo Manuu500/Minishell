@@ -14,6 +14,7 @@
 #include "exe.h"
 #include "../builtings/builtings.h"
 
+/* Applies all redirections for a command and updates its fds. */
 void	redir_dispatcher(t_command *command, t_min *ms)
 {
 	t_redir	*redirs;
@@ -35,6 +36,7 @@ void	redir_dispatcher(t_command *command, t_min *ms)
 	}
 }
 
+/* Saves and temporarily redirects stdio for running a builtin. */
 static void	builtin_redirs(t_command *command, int *saved_in, int *saved_out)
 {
 	*saved_in = dup(STDIN_FILENO);
@@ -45,6 +47,7 @@ static void	builtin_redirs(t_command *command, int *saved_in, int *saved_out)
 		dup2(command->out_fd, STDOUT_FILENO);
 }
 
+/* Restores stdio after builtin execution and closes redirection fds. */
 static void	reset_builtin_fds(t_command *command, int saved_in, int saved_out)
 {
 	dup2(saved_in, STDIN_FILENO);
@@ -57,6 +60,7 @@ static void	reset_builtin_fds(t_command *command, int saved_in, int saved_out)
 		close(command->out_fd);
 }
 
+/* Dispatches a command to builtin, external exec, or pipeline execution. */
 int	command_dispatcher(t_command *command, t_min *ms)
 {
 	char	**cur_command;

@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+/* Advances over a valid variable name (alnum or underscore) after '$'. */
 static int	check_if_alpha(char *line, int i)
 {
 	while (line[i] && (ft_isalnum(line[i]) || line[i] == '_'))
@@ -19,6 +20,7 @@ static int	check_if_alpha(char *line, int i)
 	return (i);
 }
 
+/* Extracts the variable name at line[*i] and returns its value as a string. */
 static char	*get_var_value(char *line, int *i, t_min *ms)
 {
 	char	*var_name;
@@ -40,6 +42,7 @@ static char	*get_var_value(char *line, int *i, t_min *ms)
 	return (var_value);
 }
 
+/* Appends to_add to result, freeing both inputs and returning the new string. */
 static char	*append_str(char *result, char *to_add)
 {
 	char	*temp;
@@ -50,6 +53,7 @@ static char	*append_str(char *result, char *to_add)
 	return (temp);
 }
 
+/* Expands $VARS and $? in a line and returns a newly allocated result. */
 char	*expand_variables(char *line, t_min *ms)
 {
 	char	*result;
