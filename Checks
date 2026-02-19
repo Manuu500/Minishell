@@ -14,13 +14,13 @@
 - En caso de no haber nada despues de $ no se expande nada. $ es un caracter como cualquier otro
 - manejar caso especial de $? ✅
 - Variables en env con el mismo nombre ✅
-- salto de linea randomly cuando se hace echo $VAR que no existe
-- Mensaje de error erroneo en builtins
+- salto de linea randomly cuando se hace echo $VAR que no existe ✅
+- Mensaje de error erroneo en builtins ✅
 - En todos los casos Valgrind reporta “5 open (3 std) at exit” y los 2 extra son:
 /snap/code/.../v8_context_snapshot.bin
 ptmx
 Ambos aparecen como <inherited from parent>, o sea: no los abre minishell y no es responsabilidad del shell cerrarlos (son FDs heredados del proceso padre/entorno VS Code/terminal). A nivel del proyecto, no hay fuga propia detectable en esos escenarios.
-- Liberar CTX.
+- Liberar CTX. ✅
 - Unset da leaks
-- Triple tipo de variable en export sin =, con = y con valor
-- Señales en heredoc
+- Triple tipo de variable en export sin =, con = y con valor ✅
+- Señales en heredoc ✅

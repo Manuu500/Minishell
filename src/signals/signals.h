@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:28:03 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/17 10:27:17 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:36:05 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,23 @@ typedef enum e_sigstage
 	SIGST_IN_CHILD = 1,
 	SIGST_AFTER_WAIT = 2
 }	t_sigstage;
+
+/*
+ * g_in_child is used as signal context with these values:
+ * - SIGCTX_IDLE: normal prompt.
+ * - SIGCTX_CHILD: we are fork or in child.
+ * - SIGCTX_PROMPT_INT: receive SIGINT in prompt.
+ * - SIGCTX_HEREDOC: while reading heredoc.
+ * - SIGCTX_HEREDOC_INT: receive SIGINT while heredoc.
+ */
+typedef enum e_sigctx
+{
+	SIGCTX_IDLE = 0,
+	SIGCTX_CHILD = 1,
+	SIGCTX_PROMPT_INT = 2,
+	SIGCTX_HEREDOC = 3,
+	SIGCTX_HEREDOC_INT = 4
+}	t_sigctx;
 
 /* Global VAR */
 extern volatile sig_atomic_t	g_in_child;

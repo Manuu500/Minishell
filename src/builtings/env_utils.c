@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:26:39 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/18 13:19:07 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:09:25 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ void	print_export_format(const char *env)
 	while (env[i] && env[i] != '=')
 		i++;
 	if (env[i] == '=')
+	{
 		printf("declare -x %.*s=\"%s\"\n", i, env, env + i + 1);
+	}
 	else
 		printf("declare -x %s\n", env);
 }

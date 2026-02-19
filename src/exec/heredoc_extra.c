@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_extra.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 12:37:37 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/18 14:51:42 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:37:11 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*get_var_value(char *line, int *i, t_min *ms)
 	return (var_value);
 }
 
-/* Appends to_add to result, freeing both inputs and returning the new string. */
+/* Appends to_add to result freeing both and returning the new string */
 static char	*append_str(char *result, char *to_add)
 {
 	char	*temp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:54:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/18 14:51:42 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:38:14 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/* Updates parent state after forking a pipeline child (close/shift pipe fds). */
+/* Updates parent state after forking a pipeline child (close pipe fds) */
 void	parent_after_fork(t_pipe_ctx *ctx)
 {
 	ctx->pids[ctx->i] = ctx->pid;
@@ -61,7 +61,7 @@ int	abort_pipeline(t_pipe_ctx *ctx, int err)
 	return (err);
 }
 
-/* Initializes pipeline context and runs the pipeline loop for a command list. */
+/* Initializes pipeline context and runs the pipeline loop for command list */
 int	execute_pipeline(t_command *command, t_min *ms)
 {
 	int			n;

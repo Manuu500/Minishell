@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 11:50:18 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/18 14:51:42 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:37:30 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	safe_pipe(int next[2])
 	return (0);
 }
 
-/* Applies redirections in the parent for a pipeline command and validates fds. */
+/* Applies redirections in the parent for pipeline command and validates fds */
 int	handle_redirs_in_parent(t_command *cmd, t_min *ms)
 {
 	if (!cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 15:36:39 by mruiz-ur          #+#    #+#             */
-/*   Updated: 2026/02/16 11:35:20 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:41:20 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,19 @@ int	main(int argc, char **argv, char **envp)
 	t_min		minishell;
 	t_token		*tokens;
 	t_opt_data	optimize_data;
+	int			exit_status;
 
 	(void) argv;
 	tokens = NULL;
+	exit_status = 1;
 	if (argc == 1)
 	{
 		ft_bzero(&minishell, sizeof(t_min));
 		init_data(&minishell, envp);
 		run_s(&minishell, &command, &optimize_data, tokens);
+		exit_status = minishell.last_exit_code;
 		clean_envp(&minishell);
 		rl_clear_history();
 	}
-	return (1);
+	return (exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 10:26:42 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/17 12:54:19 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:09:47 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	**add_var_if_not_exists(char **envp, const char *key, const char *val)
 	key_len = ft_strlen(key);
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], key, key_len) == 0 && envp[i][key_len] == '=')
+		if (ft_strncmp(envp[i], key, key_len) == 0
+			&& (envp[i][key_len] == '=' || envp[i][key_len] == '\0'))
 		{
 			return (envp);
 		}
@@ -40,16 +41,10 @@ char	*join_key_value(const char *key, const char *value)
 	char	*tmp;
 	char	*res;
 
-	tmp = ft_strjoin(key, "=");
-	res = NULL;
-	if (value)
-	{
-		res = ft_strjoin(tmp, value);
-	}
 	if (!value)
-	{
-		res = ft_strdup(tmp);
-	}
+		return (ft_strdup(key));
+	tmp = ft_strjoin(key, "=");
+	res = ft_strjoin(tmp, value);
 	free(tmp);
 	return (res);
 }
@@ -65,7 +60,8 @@ static int	update_env_var(char **envp, const char *key, const char *new_var)
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], key, ft_strlen(key)) == 0
-			&& envp[i][ft_strlen(key)] == '=')
+			&& (envp[i][ft_strlen(key)] == '='
+			|| envp[i][ft_strlen(key)] == '\0'))
 		{
 			free(envp[i]);
 			envp[i] = ft_strdup(new_var);

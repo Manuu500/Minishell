@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Ctrl_Sig.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:00:00 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/12 10:09:56 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:33:06 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,17 @@
 void	on_sigint(int signum)
 {
 	(void)signum;
-	if (g_in_child == 1)
+	if (g_in_child == SIGCTX_CHILD)
 		return ;
-	g_in_child = 2;
+	if (g_in_child == SIGCTX_HEREDOC)
+	{
+		g_in_child = SIGCTX_HEREDOC_INT;
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_done = 1;
+		return ;
+	}
+	g_in_child = SIGCTX_PROMPT_INT;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -27,7 +35,7 @@ void	on_sigint(int signum)
 void	on_sigquit(int signum)
 {
 	(void)signum;
-	if (g_in_child == 1)
+	if (g_in_child == SIGCTX_CHILD)
 		return ;
 	rl_on_new_line();
 	rl_redisplay();

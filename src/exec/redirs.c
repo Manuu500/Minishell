@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:42:01 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/18 14:51:42 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:39:41 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	redir_outfile(t_redir *redirs, t_command *command)
 	command->out_fd = fd;
 }
 
-/* Opens an output file in append mode and assigns it as the command's stdout. */
+/* Opens an output file in append mode and assigns it as command's stdout */
 void	redir_append(t_redir *redirs, t_command *command)
 {
 	int	fd;
