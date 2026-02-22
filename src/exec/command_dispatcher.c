@@ -6,13 +6,15 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 10:29:08 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/18 14:51:42 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/22 19:31:31 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "exe.h"
 #include "../builtings/builtings.h"
+#include <sys/wait.h>
+#include "../signals/signals.h"
 
 /* Applies all redirections for a command and updates its fds. */
 void	redir_dispatcher(t_command *command, t_min *ms)
@@ -58,6 +60,22 @@ static void	reset_builtin_fds(t_command *command, int saved_in, int saved_out)
 		close(command->in_fd);
 	if (command->out_fd != STDOUT_FILENO)
 		close(command->out_fd);
+}
+
+int	pid_dispatcher(pid_t pid, t_command *cmd, char **envp, t_min *ms)
+{
+	if (pid < 0)
+	{
+		write(2, "fork: error\n", 12);
+		set_in_child(0);
+		return (1);
+	}
+	if (pid == 0)
+	{
+		execute_signals(SIGST_IN_CHILD, 0, ms);
+		exec_child(cmd, envp, ms);
+	}
+	return (0);
 }
 
 /* Dispatches a command to builtin, external exec, or pipeline execution. */

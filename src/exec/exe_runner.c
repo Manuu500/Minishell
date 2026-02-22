@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_runner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/22 17:45:45 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/22 19:24:00 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	apply_child_redirs(t_command *cmd)
 }
 
 /* Executes the command in the forked child and exits on failure. */
-static void	exec_child(t_command *cmd, char **envp, t_min *ms)
+void	exec_child(t_command *cmd, char **envp, t_min *ms)
 {
 	char	**argv;
 
@@ -96,8 +96,9 @@ static int	wait_child(pid_t pid)
 int	execute_external_command(t_command *cmd, char **envp, t_min *ms)
 {
 	pid_t	pid;
-	char *path;
+	char	*path;
 	int		ret;
+	int		r;
 
 	if (!cmd || !cmd->argv || !cmd->argv[0])
 		return (1);
@@ -109,17 +110,9 @@ int	execute_external_command(t_command *cmd, char **envp, t_min *ms)
 		return (1);
 	}
 	pid = fork();
-	if (pid < 0)
-	{
-		write(2, "fork: error\n", 12);
-		set_in_child(0);
+	r = pid_dispatcher(pid, cmd, envp, ms);
+	if (r == 1)
 		return (1);
-	}
-	if (pid == 0)
-	{
-		execute_signals(SIGST_IN_CHILD, 0, ms);
-		exec_child(cmd, envp, ms);
-	}
 	close_command_redir_fds(cmd);
 	ret = wait_child(pid);
 	execute_signals(SIGST_AFTER_WAIT, ret, ms);

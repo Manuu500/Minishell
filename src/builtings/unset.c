@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 00:00:00 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/22 18:00:16 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/22 20:37:08 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,52 +24,74 @@ static int	key_match(const char *env, const char *key)
 	return (0);
 }
 
-char	**remove_env_var(char **envp, const char *key)
+static int	get_env_len_and_idx(char **envp, char *key, int *idx)
+{
+	int	len;
+
+	len = 0;
+	*idx = -1;
+	while (envp[len])
+	{
+		if (*idx < 0 && key_match(envp[len], key))
+			*idx = len;
+		len++;
+	}
+	return (len);
+}
+
+static char	**build_new_envp(char **envp, int len, int idx)
 {
 	int		i;
 	int		j;
-	int		count;
-	char	**new_env;
+	char		**new_envp;
 
+	new_envp = ft_calloc(len, sizeof(char *));
+	if (!new_envp)
+		return (NULL);
 	i = 0;
 	j = 0;
-	count = 0;
-	if (!envp || !key || !*key || !*envp)
-		return (envp);
-	while (envp[count])
-		count++;
-	if (!count)
-		return (envp);
-	new_env = ft_calloc(count + 1, sizeof(char *));
-	if (!new_env)
-		return (envp);
-	while (envp[i])
+	while (i < len)
 	{
-		if (!key_match(envp[i], key))
-		{
-			new_env[j] = ft_strdup(envp[i]);
-			if (!new_env[j])
-			{
-				free_matrix(new_env);
-				return (envp);
-			}
-			j++;
-		}
+		if (i != idx)
+			new_envp[j++] = envp[i];
 		i++;
 	}
-	new_env[j] = NULL;
-	free_matrix(envp);
-	return (new_env);
+	new_envp[j] = NULL;
+	free(envp[idx]);
+	free(envp);
+	return (new_envp);
+}
+
+int	remove_env_var(char ***envp, char *key)
+{
+	int		len;
+	int		idx;
+	char		**new_envp;
+
+	if (!envp || !*envp || !key || !*key)
+		return (0);
+	len = get_env_len_and_idx(*envp, key, &idx);
+	if (idx < 0)
+		return (0);
+	new_envp = build_new_envp(*envp, len, idx);
+	if (!new_envp)
+		return (126);
+	*envp = new_envp;
+	return (0);
 }
 
 int	builtin_unset(char **argv, t_min *ms)
 {
 	int	i;
+	int	ret;
 
 	i = 1;
+	ret = 0;
 	while (argv[i])
 	{
-		ms->envp = remove_env_var(ms->envp, argv[i]);
+		ret = remove_env_var(&ms->envp, argv[i]);
+		if (ret != 0)
+			return (ret);
 		i++;
 	}
 	return (0);
