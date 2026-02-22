@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/18 14:51:42 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/22 17:50:23 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #include <unistd.h>
 
 /* Returns the value for a given environment key (KEY=VALUE) from envp. */
-static char	*get_env_value(char **envp, const char *key)
+char	*get_env_value(char **envp, const char *key)
 {
 	size_t	key_len;
 	int		i;
 
-	if (!envp || !key)
+	if (!envp || !key || !*envp || !*key)
 		return (NULL);
 	key_len = ft_strlen(key);
 	i = 0;

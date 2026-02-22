@@ -6,7 +6,7 @@
 /*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 19:07:51 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/17 12:15:49 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/22 17:45:30 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	apply_child_redirs_if_any(t_command *cmd);
 int		abort_pipeline(t_pipe_ctx *ctx, int err);
 int		handle_redirs_in_parent(t_command *cmd, t_min *ms);
 void	exec_child_process(t_pipe_ctx *ctx, t_min *ms, t_command *com);
+char	*get_env_value(char **envp, const char *key);
 
 /* Redirs */
 void	redir_dispatcher(t_command *command, t_min *ms);

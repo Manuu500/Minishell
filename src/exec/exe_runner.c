@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_runner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:25:12 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/18 14:51:42 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/22 17:45:45 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,18 @@ static int	wait_child(pid_t pid)
 int	execute_external_command(t_command *cmd, char **envp, t_min *ms)
 {
 	pid_t	pid;
+	char *path;
 	int		ret;
 
 	if (!cmd || !cmd->argv || !cmd->argv[0])
 		return (1);
 	execute_signals(SIGST_BEFORE_FORK, 0, ms);
+	path = get_env_value(envp, "PATH");
+	if (!path)
+	{
+		write(2, "minishell: PATH not set\n", 24);
+		return (1);
+	}
 	pid = fork();
 	if (pid < 0)
 	{

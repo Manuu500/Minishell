@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 00:00:00 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/17 11:35:23 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/22 18:00:16 by mruiz-ur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,27 @@ char	**remove_env_var(char **envp, const char *key)
 	i = 0;
 	j = 0;
 	count = 0;
+	if (!envp || !key || !*key || !*envp)
+		return (envp);
 	while (envp[count])
 		count++;
-	new_env = malloc(sizeof(char *) * count);
-	i = 0;
-	j = 0;
+	if (!count)
+		return (envp);
+	new_env = ft_calloc(count + 1, sizeof(char *));
+	if (!new_env)
+		return (envp);
 	while (envp[i])
 	{
 		if (!key_match(envp[i], key))
-			new_env[j++] = ft_strdup(envp[i]);
+		{
+			new_env[j] = ft_strdup(envp[i]);
+			if (!new_env[j])
+			{
+				free_matrix(new_env);
+				return (envp);
+			}
+			j++;
+		}
 		i++;
 	}
 	new_env[j] = NULL;
