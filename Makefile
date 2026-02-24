@@ -59,7 +59,7 @@ SRC :=	src/main.c \
 	src/builtings/export.c \
 	src/builtings/pwd.c \
 	src/builtings/unset.c \
-	src/builting/unset_extra.c \
+	src/builtings/unset_extra.c \
 	src/signals/Ctrl_Sig.c \
 	src/signals/signal.c \
 # 	src/safe_mem.c \

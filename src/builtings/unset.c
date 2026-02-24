@@ -6,13 +6,13 @@
 /*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 00:00:00 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/22 20:37:08 by arivas-q         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:19:33 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtings.h"
 
-static int	key_match(const char *env, const char *key)
+int	key_match(const char *env, const char *key)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ static char	**build_new_envp(char **envp, int len, int idx)
 {
 	int		i;
 	int		j;
-	char		**new_envp;
+	char	**new_envp;
 
 	new_envp = ft_calloc(len, sizeof(char *));
 	if (!new_envp)
@@ -66,7 +66,7 @@ int	remove_env_var(char ***envp, char *key)
 {
 	int		len;
 	int		idx;
-	char		**new_envp;
+	char	**new_envp;
 
 	if (!envp || !*envp || !key || !*key)
 		return (0);

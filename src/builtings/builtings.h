@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtings.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruiz-ur <mruiz-ur@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: arivas-q <arivas-q@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:08:15 by arivas-q          #+#    #+#             */
-/*   Updated: 2026/02/02 11:54:55 by mruiz-ur         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:18:41 by arivas-q         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		builtin_unset(char **argv, t_min *ms);
 char	**sort_env(char **envp);
 void	print_export_format(const char *env);
 char	*join_key_value(const char *key, const char *value);
+int		key_match(const char *env, const char *key);
 
 char	**add_env_var(char **envp, const char *key, const char *value);
 char	**add_var_if_not_exists(char **envp, const char *key, const char *val);
